@@ -2,7 +2,7 @@
   "name": "@buildautomaton/product-director",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Product director: work queue, artifact plugins, tools, and dashboard UI plugins",
+  "description": "Product director: work queue, artifact plugins, tools, and sidebar widget",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",

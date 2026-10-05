@@ -1,28 +1,31 @@
 # @buildautomaton/ui
 
-The **UI** is the other ready-to-run app (alongside the [Local CLI](../local-cli/)).
+The **UI** is the app host. The main screen is always the **app**. [Product director](../product-director/) sits in the sidebar as a widget — not as tabs, and not as its own home screen.
 
-It is a thin Vite host: it starts [`createUi`](../ui-runtime/) with [product-director UI plugins](../product-director/ui.md) and talks to the CLI over HTTP.
+It is a thin Vite host: [`createUi`](../ui-runtime/) with a sidebar layout, the app surface in `main`, and director UI plugins in `sidebar`. It talks to the [runtime](../runtime/) over HTTP (local CLI or a cloud host).
 
 ```text
-ui  (runnable app)
-  ├── ui-runtime           framework: layout, design system, shells
-  └── product-director     UI plugins: work columns
+ui  (app host)
+  ├── ui-runtime           kernel: sidebar shell
+  ├── app surface          main: the running app
+  └── product-director     sidebar: director widget
          ↓
       createUi → Vite app
 ```
 
 ```ts
-import { createUi } from '@buildautomaton/ui-runtime';
-import { productDirectorUiSet } from '@buildautomaton/product-director/ui';
+import { createAppUi } from '@buildautomaton/product-director/ui';
 
-const { App } = createUi({ plugins: productDirectorUiSet() });
+const { App } = createAppUi();
 ```
 
-The work UI uses columns: finished artifacts on the left, drafts and a prompt on the right. It calls `/api/work` and `/api/artifacts` on the same server as `/mcp`.
+The first prompt transforms the app (`/api/app`). After that, `main` stays the app. The widget calls `/api/work` and `/api/artifacts` on the same server as `/mcp`.
 
-Start the CLI first (port 3333), then:
+Start the runtime first (port 3333), then:
 
 ```bash
+npx @buildautomaton/local-cli app --cwd /path/to/repo
 pnpm --filter @buildautomaton/ui dev
 ```
+
+`local-cli app` can also open the app the runtime serves at `/`.

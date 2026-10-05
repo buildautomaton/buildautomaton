@@ -1,6 +1,6 @@
 # Custom plugins
 
-You can add your own plugins beside the built-in ones. The runtime only needs to know the kind; your plugin owns the behavior.
+The kernel only needs to know the kind. Your plugin owns the behavior. A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both** (see [product director](../product-director/)).
 
 A tiny tools plugin that answers `ping`:
 
@@ -23,6 +23,6 @@ You can also wrap a built-in and add hooks:
 cursorHarnessPlugin({ hooks: { onSessionUpdate: console.error } })
 ```
 
-Packages can introduce new kinds (for example `work` and `artifact` in product-director). The runtime still indexes them; only the plugin that uses the kind needs to know its shape.
+Packages can introduce new kinds (for example `work`, `artifact`, and `app`). The runtime still indexes them; only the plugin that uses the kind needs to know its shape.
 
 The handle gives you `start`, `stop`, and `engine`. `start` opens the connection; it does not send prompts by itself.

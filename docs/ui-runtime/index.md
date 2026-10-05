@@ -1,20 +1,20 @@
 # @buildautomaton/ui-runtime
 
-The UI runtime is a **framework**, like [`@buildautomaton/runtime`](../runtime/) but for dashboards. It does not ship as a finished app. You pass in UI plugins and get a composed React app.
+The UI runtime is the other **small kernel**, for the app screen. It does not ship as a finished app. You pass in UI plugins and get a composed React app.
 
-The ready-made [UI](../ui/) package is the out-of-the-box host built on this.
+The ready-made [UI](../ui/) host uses this. Apps always use the **sidebar** shell: the app in `main`, widgets in `sidebar`.
 
 ```text
-Your host (Vite app)
+Your host (Vite app, or pages the runtime serves)
   → createUi({ plugins })
-  → layout (sidebar | master-detail | columns)
-  → surfaces in those panels
+  → sidebar layout
+  → app in main, widgets in sidebar
 ```
 
 ```ts
 import { createUi, layoutPlugin } from '@buildautomaton/ui-runtime';
 
-const { App } = createUi({ plugins: [layoutPlugin('columns')] });
+const { App } = createUi({ plugins: [layoutPlugin('sidebar')] });
 ```
 
 | Kind | Role |
@@ -24,12 +24,12 @@ const { App } = createUi({ plugins: [layoutPlugin('columns')] });
 | `layout` | Which shell to use; the last one wins |
 | `theme` | Optional; tokens live in `src/design/tokens.css` |
 
-| Layout | Panels |
-| --- | --- |
-| `sidebar` | `nav`, `sidebar`, `main` |
-| `master-detail` | `nav`, `master`, `detail` |
-| `columns` | `nav`, `column`, `header` |
+| Layout | Panels | When to use |
+| --- | --- | --- |
+| `sidebar` | `nav`, `sidebar`, `main` | **Apps.** Main is the app; sidebar is the widget. |
+| `master-detail` | `nav`, `master`, `detail` | Custom two-pane tools |
+| `columns` | `nav`, `column`, `header` | Custom boards — not the product director |
 
 Shared pieces like `Column`, `PromptComposer`, and `NumberedQuestion` live in `@buildautomaton/ui-runtime/design`.
 
-Work surfaces for the product director queue live in [product-director UI plugins](../product-director/ui.md).
+A package can ship UI plugins only, or pair them with [runtime plugins](../runtime/). [Product director](../product-director/ui.md) is the sidebar widget.

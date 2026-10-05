@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { WorkProvider } from '@plugins/ui/work/context.js';
-import { titleFromPrompt } from '@plugins/ui/work/draft-title.js';
-import { createHttpWorkClient } from '@plugins/ui/work/http-client.js';
-import { WidgetShell } from '@plugins/ui/widget/widget-shell.js';
-import { loadApp, transformApp, type AppState } from './load-app.js';
-import { PromptGate } from './prompt-gate.js';
+import { titleFromPrompt } from '../work/draft-title.js';
+import { createHttpWorkClient } from '../work/http-client.js';
+import { loadApp, transformApp, type AppState } from '../../../app/load-app.js';
+import { PromptGate } from '../../../app/prompt-gate.js';
+import { AppCanvas } from './canvas.js';
 
-export function AppShell() {
+export function AppScreen() {
   const [state, setState] = useState<AppState | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,9 +29,5 @@ export function AppShell() {
     );
   }
   if (state.phase === 'prompt') return <PromptGate onSubmit={onSubmit} />;
-  return (
-    <WorkProvider>
-      <WidgetShell />
-    </WorkProvider>
-  );
+  return <AppCanvas prompt={state.prompt ?? ''} />;
 }

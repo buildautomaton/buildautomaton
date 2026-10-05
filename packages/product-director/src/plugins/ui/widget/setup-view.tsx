@@ -1,6 +1,6 @@
 import { Sparkles } from 'lucide-react';
 import { ColumnHeader } from '@buildautomaton/ui-runtime';
-import type { DirectorSetup } from '@plugins/runtime/work/http/setup-status.js';
+import type { DirectorSetup } from '../../runtime/work/http/setup-status.js';
 import { AgentRow } from './agent-row.js';
 import { CwdBlock } from './cwd-block.js';
 import { WidgetClose } from './widget-close.js';

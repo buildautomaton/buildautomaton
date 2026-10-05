@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input } from '@buildautomaton/ui-runtime';
-import type { SetupAgent } from '@plugins/runtime/work/http/setup-status.js';
+import type { SetupAgent } from '../../runtime/work/http/setup-status.js';
 import { installAgent } from './load-setup.js';
 
 export function AgentRow({ agent, onChanged }: { agent: SetupAgent; onChanged: () => Promise<void> }) {

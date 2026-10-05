@@ -8,6 +8,10 @@ export default defineConfig({
   root,
   plugins: [react()],
   resolve: {
+    alias: {
+      '@plugins': path.resolve(root, '../product-director/src/plugins'),
+      '@/types': path.resolve(root, '../product-director/src/types'),
+    },
     dedupe: ['react', 'react-dom'],
   },
   server: {

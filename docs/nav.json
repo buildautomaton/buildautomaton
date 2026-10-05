@@ -1,7 +1,7 @@
 {
   "title": "meta-harness",
   "items": [
-    { "slug": "", "title": "Overview" },
+    { "slug": "", "title": "Architecture" },
     { "slug": "local-cli", "title": "Local CLI" },
     { "slug": "ui", "title": "UI" },
     {
@@ -17,15 +17,15 @@
         { "slug": "runtime/custom", "title": "Custom plugins" }
       ]
     },
+    { "slug": "ui-runtime", "title": "UI runtime" },
     {
       "slug": "product-director",
       "title": "Product director",
       "children": [
         { "slug": "product-director/runtime", "title": "Runtime plugins" },
-        { "slug": "product-director/ui", "title": "UI plugins" }
+        { "slug": "product-director/ui", "title": "Widget" }
       ]
     },
-    { "slug": "ui-runtime", "title": "UI runtime" },
     { "slug": "license", "title": "License" }
   ]
 }

@@ -1,34 +1,41 @@
 # @buildautomaton/local-cli
 
-The **Local CLI** is one of the two ready-to-run apps in this repo (the other is the [UI](../ui/)).
+The **Local CLI** is the local host for the [runtime](../runtime/) kernel. A cloud host would call the same `createRuntime` with a different mix of store and HTTP plugins.
 
-You point it at a repo folder. It starts the [runtime](../runtime/) with `coreSet()` plus [product-director](../product-director/) runtime plugins, then listens for tools and HTTP.
+You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/) runtime plugins. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
 
 ```text
-local-cli  (runnable app)
-  ├── runtime              framework: stores, agents, sessions, tools, HTTP
-  └── product-director     plugins: work queue, artifacts, director tools
+local-cli  (local host)
+  ├── runtime              kernel
+  ├── core + director      plugins
+  └── appPlugin            optional: serve the app
          ↓
       createRuntime → listen
 ```
 
 ```bash
+npx @buildautomaton/local-cli app --cwd /path/to/repo
 npx @buildautomaton/local-cli --cwd /path/to/repo
 ```
+
+`app` serves the app and opens it. Without `app` it is tools and HTTP only (agents still talk to the director queue).
 
 By default it serves HTTP at `http://127.0.0.1:3333`:
 
 ```text
+/                    app (app mode)
 /mcp                 tools
+/api/app             app state
 /api/work            queue
 /api/artifacts       reviews
 /api/sessions        sessions
 /api/work/events     websocket
+/director            sidebar widget
 ```
 
 ```bash
-local-cli --cwd /path/to/repo --port 3333
-local-cli --transport stdio --cwd /path/to/repo
+local-cli app --cwd /path/to/repo --port 3333
+local-cli --cwd /path/to/repo --transport stdio
 local-cli --transport remote --remote-url https://control.example
 ```
 
@@ -43,6 +50,6 @@ local-cli --transport remote --remote-url https://control.example
 | `--remote-url <url>` | Required for `--transport remote` |
 | `--verbose` | Log to stderr |
 
-On disk: sessions under `.harness/sessions`, SQLite at `.harness/work.sqlite`.
+On disk: sessions under `.harness/sessions`, SQLite at `.harness/work.sqlite`, app state at `.harness/app.json`.
 
-Want a different mix of plugins? Skip this binary and call `createRuntime` yourself from the [runtime](../runtime/) package.
+Want a different mix, or a cloud host? Call `createRuntime` yourself from the [runtime](../runtime/) package.

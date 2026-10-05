@@ -1,5 +1,6 @@
-import type { UiPlugin } from '@buildautomaton/ui-runtime';
-import { workUiPlugin } from './plugins/ui/work/plugin.js';
+import { createUi, layoutPlugin, type UiPlugin } from '@buildautomaton/ui-runtime';
+import { appUiPlugin } from './plugins/ui/app/plugin.js';
+import { widgetUiPlugin } from './plugins/ui/widget/plugin.js';
 import type { WorkClient } from './plugins/ui/work/types.js';
 
 export type ProductDirectorUiOptions = {
@@ -7,5 +8,11 @@ export type ProductDirectorUiOptions = {
 };
 
 export function productDirectorUiSet(options: ProductDirectorUiOptions = {}): UiPlugin[] {
-  return [workUiPlugin(options.client)];
+  return [widgetUiPlugin(options.client)];
+}
+
+export function createAppUi(options: ProductDirectorUiOptions = {}) {
+  return createUi({
+    plugins: [layoutPlugin('sidebar'), appUiPlugin(), ...productDirectorUiSet(options)],
+  });
 }

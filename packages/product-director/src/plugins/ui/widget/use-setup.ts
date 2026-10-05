@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { DirectorSetup } from '@plugins/runtime/work/http/setup-status.js';
+import type { DirectorSetup } from '../../runtime/work/http/setup-status.js';
 import { loadSetup } from './load-setup.js';
 
 export function useSetup() {

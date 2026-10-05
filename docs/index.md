@@ -1,57 +1,62 @@
-# meta-harness
+# Architecture
 
-Swap out agents at will.
+meta-harness is two small kernels plus plugins. You compose them into an **app**.
 
-meta-harness is a small open-source stack for running AI coding agents on machines you already own. Use Cursor today, Codex tomorrow, Claude Code when it fits. Built on the [Agent Client Protocol](https://agentclientprotocol.com/).
+| Kernel | Package | What it does |
+| --- | --- | --- |
+| [Runtime](./runtime/) | `@buildautomaton/runtime` | Starts and stops. Wires server plugins. |
+| [UI runtime](./ui-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into an app shell. |
 
-## What you can run today
+The kernels stay tiny and fast. Almost everything you see — agents, stores, tools, the work queue, the director widget — is a plugin.
 
-Two packages are ready to run out of the box:
+## Where the runtime runs
 
-| Package | What it is |
-| --- | --- |
-| [Local CLI](./local-cli/) | A command you start on a repo. It listens for tools, serves a work queue, and drives local agents. |
-| [UI](./ui/) | A dashboard app. Point it at the CLI and review what agents built. |
+The same runtime runs **locally** or **in the cloud**. The host changes; the kernel and plugin contracts do not.
 
-```bash
-npx @buildautomaton/local-cli --cwd /path/to/repo
-```
-
-Then, in another terminal from this repo:
-
-```bash
-pnpm --filter @buildautomaton/ui dev
-```
-
-## Everything else is a framework
-
-The other packages are building blocks. You compose them into your own runnable apps (or use the CLI and UI, which already do that for you).
-
-| Package | Role |
-| --- | --- |
-| [Runtime](./runtime/) | Composes server plugins: stores, sessions, agents, tools, HTTP |
-| [UI runtime](./ui-runtime/) | Composes UI plugins into a dashboard shell |
-| [Product director](./product-director/) | Plugin packs for a work queue, review artifacts, and the matching UI |
+| Host | Package | Role |
+| --- | --- | --- |
+| Local | [Local CLI](./local-cli/) | `createRuntime` on your machine. Serves the app and tools. |
+| Cloud | your cloud host | Same `createRuntime` call. Swap stores, HTTP, and auth plugins. |
 
 ```mermaid
 flowchart LR
-  cli("local-cli — runnable")
-  ui("ui — runnable")
-  runtime("runtime — framework")
-  uiRuntime("ui-runtime — framework")
-  director("product-director — plugins")
-  cli --> runtime
-  cli --> director
-  ui --> uiRuntime
-  ui --> director
+  local("local-cli")
+  cloud("cloud host")
+  runtime("runtime kernel")
+  uiRuntime("ui-runtime kernel")
+  plugins("plugins")
+  local --> runtime
+  cloud --> runtime
+  runtime --> plugins
+  uiRuntime --> plugins
 ```
 
-## Try it from this repo
+## Plugins
+
+A package can ship **runtime** plugins, **UI** plugins, or **both**. The kernel only indexes them. The plugin owns the behavior.
+
+[Product director](./product-director/) is the dual example: queue and tools on the runtime, a sidebar widget on the UI runtime.
+
+## What an app looks like
+
+The main screen is always the **app**. Product director is not a dashboard of its own. It is a **sidebar widget** on that app.
+
+```text
+┌────────────────────────────────────────────┐
+│  nav                                       │
+├─────────────────────────────┬──────────────┤
+│  main                       │  sidebar     │
+│  the app                    │  director    │
+│                             │  widget      │
+└─────────────────────────────┴──────────────┘
+```
+
+[UI](./ui/) is the ready-made host for that shell.
+
+## Try it
 
 ```bash
-pnpm install
-pnpm build
-pnpm test
+npx @buildautomaton/local-cli app --cwd /path/to/repo
 ```
 
-Public packages publish under `@buildautomaton`. Bump versions, then `pnpm publish:packages`.
+From this repo: `pnpm install && pnpm build && pnpm test`. Public packages publish under `@buildautomaton`.

@@ -1,4 +1,4 @@
-import type { DirectorSetup } from '@plugins/runtime/work/http/setup-status.js';
+import type { DirectorSetup } from '../../runtime/work/http/setup-status.js';
 
 export async function loadSetup(): Promise<DirectorSetup> {
   const res = await fetch('/api/director');

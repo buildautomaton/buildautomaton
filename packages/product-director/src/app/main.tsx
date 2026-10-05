@@ -1,10 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppShell } from './shell.js';
+import { createAppUi } from '../ui-set.js';
 import '@buildautomaton/ui-runtime/design/tokens.css';
+
+const { App } = createAppUi();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppShell />
+    <App />
   </StrictMode>,
 );
