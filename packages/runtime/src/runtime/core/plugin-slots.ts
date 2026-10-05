@@ -31,6 +31,7 @@ export type PluginSlots = {
   toolsHooks?: ToolsHooks;
   fileStore?: FileStore;
   sqlStore?: SqlStore;
+  sqlStores: Record<string, SqlStore>;
   http?: HttpRegistry;
   httpEndpoints: TransportEndpoint[];
 };
@@ -45,5 +46,6 @@ export function createPluginSlots(): PluginSlots {
     backendWraps: [],
     sessionPlugins: [],
     httpEndpoints: [],
+    sqlStores: {},
   };
 }

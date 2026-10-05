@@ -8,6 +8,7 @@ import type { AgentHarness } from '@runtime/harnesses/types.js';
 export type StoreContext = {
   fileStore?: FileStore;
   sqlStore?: SqlStore;
+  sqlStores?: Record<string, SqlStore>;
   extras: Record<string, unknown>;
   byKind: Map<string, RuntimePlugin[]>;
 };

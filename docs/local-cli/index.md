@@ -2,12 +2,12 @@
 
 The **Local CLI** is the local host for the [runtime](../runtime/) kernel. A cloud host would call the same `createRuntime` with a different mix of store and HTTP plugins.
 
-You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/) and the [email](../apps/email.md) app plugins. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
+You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/) and the [marketplace](../apps/marketplace.md). [Email](../apps/email.md) is a sample on the marketplace, not in this host. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
 
 ```text
 local-cli  (local host)
   ├── runtime              kernel
-  ├── core + director + email plugins
+  ├── core + director + marketplace plugins
   └── appPlugin            optional: serve the app
          ↓
       createRuntime → listen
@@ -18,7 +18,7 @@ npx @buildautomaton/local-cli app --cwd /path/to/repo
 npx @buildautomaton/local-cli --cwd /path/to/repo
 ```
 
-`app` starts the runtime and the UI. **Dev is the default**: Vite serves the UI with live HMR (no rebuild). `--prod` (or `NODE_ENV=production`) serves the built UI from the HTTP server — use that on servers.
+`app` starts the runtime and the UI. **Dev is the default**: Vite serves the UI with live HMR (no rebuild). `--prod` (or `NODE_ENV=production`) serves the built UI from the HTTP server. Use that on servers.
 
 Without `app` it is tools and HTTP only (agents still talk to the director queue).
 
@@ -28,7 +28,7 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 /                    app (app mode)
 /mcp                 tools
 /api/app             app state
-/api/emails          mail
+/api/marketplace     plugins and apps
 /api/director        setup + start session
 /api/work            queue
 /api/artifacts       reviews

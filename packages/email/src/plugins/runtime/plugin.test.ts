@@ -5,7 +5,7 @@ import { emailPlugin } from './plugin.js';
 
 describe('emailPlugin', () => {
   it('requires a sql-store', () => {
-    expect(() => emailPlugin().createFromStores?.({} as never)).toThrow(/sql-store/);
+    expect(() => emailPlugin().createFromStores?.({} as never)).toThrow(/email sql-store/);
   });
 
   it('migrates and stores mail on the shared SQL store', () => {

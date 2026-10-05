@@ -73,6 +73,9 @@ describe('runtimeOptionsFromCli', () => {
       mcpPath: '/mcp',
       verbose: false,
     });
-    expect(options.plugins?.some((plugin) => plugin.name === 'email-sql')).toBe(true);
+    expect(options.plugins?.some((plugin) => plugin.name === 'email-sql')).toBe(false);
+    expect(options.plugins?.some((plugin) => plugin.name === 'store-sql-marketplace')).toBe(true);
+    expect(options.plugins?.some((plugin) => plugin.name === 'marketplace-sql')).toBe(true);
+    expect(options.plugins?.some((plugin) => plugin.name === 'marketplace-tools')).toBe(true);
   });
 });

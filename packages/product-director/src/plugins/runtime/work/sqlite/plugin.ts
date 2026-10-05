@@ -1,6 +1,7 @@
 import type { WorkPlugin, WorkPluginInit } from '@/types/work/plugin.js';
 import type { ArtifactKind, ArtifactPlugin } from '@/types/artifact/index.js';
 import type { StoreContext } from '@buildautomaton/runtime';
+import { DEFAULT_SQL_SCHEMA, requireSqlStore } from '@buildautomaton/runtime';
 import { createSqliteWorkBackend } from './backend.js';
 import { contributeWorkHttp } from '@plugins/runtime/work/http/contribute.js';
 import { WORK_MIGRATIONS } from './migrations.js';
@@ -12,14 +13,15 @@ export function sqliteWorkPlugin(init: WorkPluginInit = {}): WorkPlugin {
     options: { id: init.options?.id ?? 'sqlite', file: init.options?.file },
     hooks: init.hooks,
     supports: { stores: ['sql-store'], transports: ['http'] },
+    sqlSchema: DEFAULT_SQL_SCHEMA,
     sqlMigrations: WORK_MIGRATIONS,
     createFromStores: (stores) => {
-      if (!stores.sqlStore) throw new Error('work plugin requires a sql-store plugin');
+      const sql = requireSqlStore(stores, DEFAULT_SQL_SCHEMA, 'work plugin');
       const kinds = artifactKindsFrom(stores);
       stores.extras.artifacts = kinds;
       return {
         id: init.options?.id ?? 'sqlite',
-        ...createSqliteWorkBackend(stores.sqlStore, kinds),
+        ...createSqliteWorkBackend(sql, kinds),
         ...init.implementation,
       };
     },

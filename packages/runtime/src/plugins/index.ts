@@ -16,10 +16,13 @@ export { BUILTIN_HARNESSES } from './harnesses/builtins.js';
 // stores
 export { fileStorePlugin } from './stores/file/plugin.js';
 export { sqlStorePlugin, defaultSqlFile } from './stores/sql/plugin.js';
+export { sqlStorePlugins } from './stores/sql/sql-store-plugins.js';
+export { doSqlStorePlugins } from './stores/sql/do-sql-store-plugins.js';
 export { createNodeFileStore } from './stores/file/store.js';
 export { createSqlStore } from './stores/sql/store.js';
 export { runSqliteMigrations } from './stores/sql/migrate.js';
 export { doSqlStorePlugin } from './stores/sql/do-plugin.js';
+export { pickSqlStore, requireSqlStore } from '../runtime/core/pick-sql-store.js';
 export { createDoSqlStore } from './stores/sql/do-store.js';
 export type { DoSqlBackend, DoSqlCursor, DoSqlExec } from './stores/sql/do-storage.js';
 export type { DoSqlStoreOptions, DoSqlStorePluginInit } from './stores/sql/do-plugin.js';

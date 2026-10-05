@@ -38,6 +38,8 @@ export type RuntimePlugin = {
   implementation?: object;
   runtime?: PluginRuntimeContext;
   sqlMigrations?: readonly SqlMigration[];
+  /** Schema (Durable Object) that owns this plugin's migrations. Default: `work`. */
+  sqlSchema?: string;
   createFromStores?: (stores: StoreContext) => unknown;
   contributeHttp?: (http: HttpRegistry, ctx: HttpContributeContext) => void;
 };

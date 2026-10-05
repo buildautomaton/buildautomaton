@@ -5,6 +5,7 @@ export function storeContext(slots: PluginSlots): StoreContext {
   return {
     fileStore: slots.fileStore,
     sqlStore: slots.sqlStore,
+    sqlStores: slots.sqlStores,
     extras: slots.extras,
     byKind: slots.byKind,
   };

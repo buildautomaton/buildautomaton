@@ -2,7 +2,7 @@
   "name": "@buildautomaton/local-cli",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Thin CLI that starts a meta-harness HTTP, stdio, or remote server via runtime and product-director plugins",
+  "description": "Thin CLI that starts a meta-harness HTTP, stdio, or remote server via runtime, marketplace, and product-director plugins",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
   "dependencies": {
     "@buildautomaton/runtime": "workspace:*",
     "@buildautomaton/product-director": "workspace:*",
-    "@buildautomaton/email": "workspace:*",
+    "@buildautomaton/marketplace": "workspace:*",
     "@buildautomaton/ui": "workspace:*"
   },
   "devDependencies": {

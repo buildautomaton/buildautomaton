@@ -7,7 +7,7 @@ meta-harness is two small kernels plus plugins. You compose them into an **app**
 | [Runtime](./runtime/) | `@buildautomaton/runtime` | Starts and stops. Wires server plugins. |
 | [UI runtime](./ui-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into an app shell. |
 
-The kernels stay tiny and fast. Almost everything you see — agents, stores, tools, the work queue, the director widget — is a plugin.
+The kernels stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the director widget) is a plugin.
 
 ## Where the runtime runs
 
@@ -51,7 +51,7 @@ The main screen is always the **app**. Product director is not a dashboard of it
 └─────────────────────────────┴──────────────┘
 ```
 
-[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions; [email](./apps/email.md) is the first one.
+[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions. The [marketplace](./apps/marketplace.md) catalogs plugins and those compositions. [Email](./apps/email.md) is a sample domain app.
 
 ## Try it
 
