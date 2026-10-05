@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { titleFromPrompt } from '../work/draft-title.js';
 import { createHttpWorkClient } from '../work/http-client.js';
 import { loadApp, transformApp, type AppState } from '../../../app/load-app.js';
 import { PromptGate } from '../../../app/prompt-gate.js';
@@ -16,11 +15,8 @@ export function AppScreen() {
   }, []);
 
   async function onSubmit(prompt: string) {
-    const next = await transformApp(prompt);
-    await createHttpWorkClient()
-      .addWork({ title: titleFromPrompt(prompt), content: prompt })
-      .catch(() => undefined);
-    setState(next);
+    await createHttpWorkClient().startSession({ prompt });
+    setState(await transformApp(prompt));
   }
 
   if (!state) {

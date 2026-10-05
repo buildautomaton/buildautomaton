@@ -28,4 +28,14 @@ Migrations use a `__migrations` table. Names are scoped per plugin. Order is gua
   work.sqlite   sql-store
 ```
 
-`coreSet()` installs both stores for you.
+## Cloudflare Durable Objects
+
+`doSqlStorePlugin` (`kind: 'sql-store'`) is the same contract, backed by `ctx.storage.sql` on a Durable Object. Other plugins keep their migrations. Use this on a cloud host instead of the file store.
+
+```ts
+import { doSqlStorePlugin } from '@buildautomaton/runtime';
+
+doSqlStorePlugin({ options: { storage: ctx.storage } })
+```
+
+`coreSet()` installs the file SQL store. A cloud host skips that and passes `doSqlStorePlugin` instead.

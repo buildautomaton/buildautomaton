@@ -2,7 +2,7 @@
 
 The **UI** is the app host. The main screen is always the **app**. [Product director](../product-director/) sits in the sidebar as a widget — not as tabs, and not as its own home screen.
 
-It is a thin Vite host: [`createUi`](../ui-runtime/) with a sidebar layout, the app surface in `main`, and director UI plugins in `sidebar`. It talks to the [runtime](../runtime/) over HTTP (local CLI or a cloud host).
+It is a thin Vite host: [`createUi`](../ui-runtime/) with a sidebar layout. The first [app](../apps/) in this repo is [email](../apps/email.md) in `main`, with director UI plugins in `sidebar`. It talks to the [runtime](../runtime/) over HTTP (local CLI or a cloud host).
 
 ```text
 ui  (app host)
@@ -14,18 +14,16 @@ ui  (app host)
 ```
 
 ```ts
-import { createAppUi } from '@buildautomaton/product-director/ui';
+import { createEmailUi } from '@buildautomaton/email/ui';
 
-const { App } = createAppUi();
+const { App } = createEmailUi();
 ```
 
-The first prompt transforms the app (`/api/app`). After that, `main` stays the app. The widget calls `/api/work` and `/api/artifacts` on the same server as `/mcp`.
+`createAppUi()` is the generic host (prompt until the first `/api/app` transform). [Email](../apps/email.md) puts the inbox in `main` instead. The widget calls `/api/work` and `/api/artifacts` on the same server as `/mcp`.
 
-Start the runtime first (port 3333), then:
+`local-cli app` starts both. **Dev (default)** is Vite HMR at `http://127.0.0.1:5173` so UI source changes apply live. **Prod** (`--prod` or `NODE_ENV=production`) serves `packages/ui/dist` from the runtime HTTP server.
 
 ```bash
 npx @buildautomaton/local-cli app --cwd /path/to/repo
-pnpm --filter @buildautomaton/ui dev
+npx @buildautomaton/local-cli app --prod --cwd /path/to/repo
 ```
-
-`local-cli app` can also open the app the runtime serves at `/`.

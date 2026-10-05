@@ -24,7 +24,7 @@ export function contributeWorkHttp(http: HttpRegistry, ctx: HttpContributeContex
     subscribe: (broadcast) => work.subscribe((event) => broadcast(event)),
   });
   contributeWidgetRoutes(http);
-  contributeSetupRoutes(http, ctx.cwd, ctx.harnesses ?? []);
+  contributeSetupRoutes(http, ctx.cwd, ctx.harnesses ?? [], ctx.extras);
 }
 
 function addDispatch(http: HttpRegistry, path: string, work: WorkImplementation, surface?: string): void {

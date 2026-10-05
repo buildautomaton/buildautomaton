@@ -13,7 +13,7 @@ export function insertWork(db: SqlStore, input: AddWorkInput): WorkItem {
   const priority = input.priority ?? 'medium';
   const queued = input.queued === true;
   const paused = input.paused === true;
-  const status = queued ? 'queued' : 'draft';
+  const status = input.started ? 'in_progress' : queued ? 'queued' : 'draft';
   const rank = queued ? bottomRank(db) : queueRank(priority, false);
   try {
     run(

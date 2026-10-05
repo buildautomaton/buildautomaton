@@ -15,9 +15,17 @@ export function bindHandle(opts: {
   transportHooks?: TransportHooks;
   notifier?: NotifierHub;
   http?: HttpRegistry;
+  onListening?: CommandHost['onListening'];
 }): RuntimeHandle {
-  const { cwd, engine, transport, tools, transportHooks, notifier, http } = opts;
-  const host: CommandHost = { cwd, listTools: tools.listTools, callTool: tools.callTool, notifier, http };
+  const { cwd, engine, transport, tools, transportHooks, notifier, http, onListening } = opts;
+  const host: CommandHost = {
+    cwd,
+    listTools: tools.listTools,
+    callTool: tools.callTool,
+    notifier,
+    http,
+    onListening,
+  };
   return {
     cwd,
     engine,

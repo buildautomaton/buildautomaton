@@ -3,12 +3,17 @@ import type { HttpRegistry } from '@/types/http/registry.js';
 import { MCP_CORS } from '@plugins/transport/http/cors.js';
 import { readRequestBody } from '@plugins/transport/http/http-read-body.js';
 import { commitAppPrompt, readAppState, type AppState } from './state.js';
+import { serveStatic } from './serve-static.js';
 
 export const APP_HOME = '/director/app.html';
 
-export function contributeAppRoutes(http: HttpRegistry, cwd: string): void {
+export function contributeAppRoutes(http: HttpRegistry, cwd: string, staticRoot?: string): void {
   http.addRoute({ path: '/api/app', handler: (req, res) => handleApp(req, res, cwd) });
-  http.addRoute({ path: '/', handler: (req, res) => handleHome(req, res) });
+  http.addRoute({
+    path: '/',
+    handler: (req, res, hit) =>
+      staticRoot ? serveStatic(req, res, staticRoot, hit.pathname) : handleHome(req, res),
+  });
 }
 
 async function handleApp(req: IncomingMessage, res: ServerResponse, cwd: string): Promise<void> {

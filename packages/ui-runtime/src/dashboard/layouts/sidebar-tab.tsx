@@ -1,17 +1,19 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, type LucideIcon } from 'lucide-react';
 import { cn } from '../../design/cn.js';
 import { sidebarTabClass } from '../chrome.js';
 
 export function SidebarTab({
   open,
   label,
+  icon: Brand = Sparkles,
   onToggle,
 }: {
   open: boolean;
   label: string;
+  icon?: LucideIcon;
   onToggle: () => void;
 }) {
-  const Icon = open ? ChevronRight : ChevronLeft;
+  const Arrow = open ? ChevronRight : ChevronLeft;
   return (
     <button
       type="button"
@@ -25,7 +27,8 @@ export function SidebarTab({
       <span className="pointer-events-none absolute right-full mr-2 hidden whitespace-nowrap rounded-md bg-zinc-950 px-2 py-1 text-xs text-white group-hover:block">
         {label}
       </span>
-      <Icon className="h-4 w-4" />
+      <Brand className="h-5 w-5 shrink-0" aria-hidden />
+      <Arrow className="h-5 w-5 shrink-0" aria-hidden />
     </button>
   );
 }

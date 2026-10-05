@@ -4,12 +4,17 @@ import type { WorkArtifact, WorkItem } from '../work/types.js';
 
 export type MixedEntry =
   | { kind: 'draft'; id: string; at: string; item: WorkItem }
+  | { kind: 'progress'; id: string; at: string; item: WorkItem }
   | { kind: 'completed'; id: string; at: string; thread: SessionThread };
 
 export function mixedFeed(items: WorkItem[], artifacts: WorkArtifact[], project: string): MixedEntry[] {
-  const drafts = items
-    .filter((item) => item.status === 'draft' && sameProject(item.project, project))
+  const scoped = items.filter((item) => sameProject(item.project, project));
+  const drafts = scoped
+    .filter((item) => item.status === 'draft')
     .map((item) => ({ kind: 'draft' as const, id: item.id, at: item.updatedAt || item.createdAt, item }));
+  const progress = scoped
+    .filter((item) => item.status === 'in_progress')
+    .map((item) => ({ kind: 'progress' as const, id: item.id, at: item.updatedAt || item.createdAt, item }));
   const completed = sessionThreads(artifacts.filter((artifact) => sameProject(artifact.project, project))).map(
     (thread) => ({
       kind: 'completed' as const,
@@ -18,5 +23,5 @@ export function mixedFeed(items: WorkItem[], artifacts: WorkArtifact[], project:
       thread,
     }),
   );
-  return [...drafts, ...completed].sort((a, b) => b.at.localeCompare(a.at) || a.id.localeCompare(b.id));
+  return [...drafts, ...progress, ...completed].sort((a, b) => b.at.localeCompare(a.at) || a.id.localeCompare(b.id));
 }

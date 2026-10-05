@@ -30,6 +30,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "dev": "tsx src/cli.ts app",
+    "start": "node dist/cli.js app --prod",
     "build": "tsup",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
@@ -37,11 +39,14 @@
   },
   "dependencies": {
     "@buildautomaton/runtime": "workspace:*",
-    "@buildautomaton/product-director": "workspace:*"
+    "@buildautomaton/product-director": "workspace:*",
+    "@buildautomaton/email": "workspace:*",
+    "@buildautomaton/ui": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsup": "^8.5.1",
+    "tsx": "^4.20.0",
     "typescript": "^5.9.3",
     "vitest": "^2.0.0"
   },

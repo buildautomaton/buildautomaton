@@ -9,15 +9,20 @@ import { printHelp } from './help.js';
 import { CLI_VERSION } from './version.js';
 
 export type CliMode = 'harness' | 'app';
+export type AppEnv = 'dev' | 'prod';
+
+export const UI_DEFAULT_PORT = 5173;
 
 export type ParsedCli = {
   mode: CliMode;
+  env: AppEnv;
   cwd: string;
   sessionsDir?: string;
   backend: SessionBackendKind;
   transport: TransportKind;
   remoteUrl?: string;
   mcpPort: number;
+  uiPort: number;
   mcpPath: string;
   verbose: boolean;
 };
@@ -38,15 +43,23 @@ export function parseCli(argv: string[]): ParsedCli {
   const backend = flags.backend === 'stream' ? 'stream' : 'disk';
   return {
     mode,
+    env: parseEnv(flags),
     cwd: strFlag(flags.cwd) ?? process.cwd(),
     sessionsDir: strFlag(flags['sessions-dir']),
     backend,
     transport: parseTransport(flags.transport),
     remoteUrl: strFlag(flags['remote-url']),
     mcpPort: parsePort(flags.port),
+    uiPort: parsePort(flags['ui-port'], UI_DEFAULT_PORT),
     mcpPath: normalizeHttpPath(strFlag(flags['mcp-path']) ?? MCP_DEFAULT_PATH),
     verbose: flags.verbose === true,
   };
+}
+
+function parseEnv(flags: Record<string, string | true>): AppEnv {
+  if (flags.dev === true) return 'dev';
+  if (flags.prod === true || process.env.NODE_ENV === 'production') return 'prod';
+  return 'dev';
 }
 
 function parseTransport(value: string | true | undefined): TransportKind {
@@ -55,8 +68,8 @@ function parseTransport(value: string | true | undefined): TransportKind {
   return 'http';
 }
 
-function parsePort(value: string | true | undefined): number {
-  if (value === undefined) return HTTP_DEFAULT_PORT;
+function parsePort(value: string | true | undefined, fallback = HTTP_DEFAULT_PORT): number {
+  if (value === undefined) return fallback;
   const n = typeof value === 'string' ? Number(value) : NaN;
   if (!Number.isInteger(n) || n < 1 || n > 65535) {
     console.error('Invalid --port (expected an integer 1-65535).');

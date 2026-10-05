@@ -1,3 +1,6 @@
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { formatCliStartup } from './run-cli.js';
 import { createLog, writeInfo } from './log.js';
@@ -8,15 +11,17 @@ describe('formatCliStartup', () => {
     expect(
       formatCliStartup({
         mode: 'harness',
+        env: 'dev',
         cwd: '/work',
         backend: 'disk',
         transport: 'http',
         mcpPort: 3333,
+        uiPort: 5173,
         mcpPath: '/mcp',
         verbose: false,
       }),
     ).toBe(
-      `[CLI] Starting local-cli ${CLI_VERSION} mode=harness transport=http cwd=/work backend=disk url=http://127.0.0.1:3333/mcp`,
+      `[CLI] Starting local-cli ${CLI_VERSION} mode=harness env=dev transport=http cwd=/work backend=disk url=http://127.0.0.1:3333/mcp`,
     );
   });
 
@@ -24,11 +29,13 @@ describe('formatCliStartup', () => {
     expect(
       formatCliStartup({
         mode: 'harness',
+        env: 'dev',
         cwd: '/work',
         backend: 'stream',
         transport: 'remote',
         remoteUrl: 'https://example.test',
         mcpPort: 3333,
+        uiPort: 5173,
         mcpPath: '/mcp',
         verbose: true,
       }),
@@ -51,18 +58,21 @@ describe('createLog', () => {
   });
 });
 
-describe('formatCliStartup app mode', () => {
-  it('includes the UI url', () => {
-    const line = formatCliStartup({
+describe('runtimeOptionsFromCli', () => {
+  it('composes the email app plugins', async () => {
+    const { runtimeOptionsFromCli } = await import('./run-cli.js');
+    const cwd = mkdtempSync(path.join(tmpdir(), 'cli-email-'));
+    const options = runtimeOptionsFromCli({
       mode: 'app',
-      cwd: '/work',
+      env: 'dev',
+      cwd,
       backend: 'disk',
       transport: 'http',
       mcpPort: 3333,
+      uiPort: 5173,
       mcpPath: '/mcp',
       verbose: false,
     });
-    expect(line).toContain('mode=app');
-    expect(line).toContain('ui=http://127.0.0.1:3333/');
+    expect(options.plugins?.some((plugin) => plugin.name === 'email-sql')).toBe(true);
   });
 });

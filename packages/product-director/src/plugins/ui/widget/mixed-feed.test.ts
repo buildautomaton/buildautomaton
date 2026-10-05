@@ -53,4 +53,13 @@ describe('mixedFeed', () => {
     );
     expect(entries.map((entry) => entry.kind)).toEqual(['draft', 'completed']);
   });
+
+  it('shows in-progress tasks above older completed work', () => {
+    const entries = mixedFeed(
+      [item('building', 'in_progress', '2026-04-01T00:00:00.000Z')],
+      [artifact('built', '2026-02-01T00:00:00.000Z')],
+      '',
+    );
+    expect(entries.map((entry) => entry.kind)).toEqual(['progress', 'completed']);
+  });
 });

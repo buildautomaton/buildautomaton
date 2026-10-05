@@ -1,6 +1,8 @@
 export * from './types/index.js';
 export { productDirectorSet, directorHttpEndpoints } from './director-set.js';
 export type { ProductDirectorOptions } from './director-set.js';
+export { coordinatorPlugin } from './plugins/runtime/coordinator/plugin.js';
+export type { CoordinatorImplementation, CoordinatorStatus } from './plugins/runtime/coordinator/types.js';
 export { sqliteWorkPlugin, memoryWorkPlugin } from './plugins/runtime/work/sqlite/plugin.js';
 export { createSqliteWorkBackend, memorySqlStore } from './plugins/runtime/work/sqlite/backend.js';
 export { createWorkHttpHandler } from './plugins/runtime/work/http/handler.js';

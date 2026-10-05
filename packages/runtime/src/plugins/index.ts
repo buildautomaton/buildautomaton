@@ -19,6 +19,10 @@ export { sqlStorePlugin, defaultSqlFile } from './stores/sql/plugin.js';
 export { createNodeFileStore } from './stores/file/store.js';
 export { createSqlStore } from './stores/sql/store.js';
 export { runSqliteMigrations } from './stores/sql/migrate.js';
+export { doSqlStorePlugin } from './stores/sql/do-plugin.js';
+export { createDoSqlStore } from './stores/sql/do-store.js';
+export type { DoSqlBackend, DoSqlCursor, DoSqlExec } from './stores/sql/do-storage.js';
+export type { DoSqlStoreOptions, DoSqlStorePluginInit } from './stores/sql/do-plugin.js';
 
 // session
 export { diskSessionPlugin } from './session/disk/plugin.js';
@@ -68,4 +72,4 @@ export { launchSession } from './tools/minion/launch-session.js';
 export { getSessionStatus } from './tools/minion/session-status.js';
 
 export { appPlugin } from './app/plugin.js';
-export type { AppPhase, AppState } from './app/plugin.js';
+export type { AppPhase, AppState, AppPluginOptions } from './app/plugin.js';

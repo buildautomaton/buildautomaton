@@ -1,12 +1,16 @@
 import { appPlugin, coreSet, HTTP_DEFAULT_HOST, runRuntime, type RuntimeOptions } from '@buildautomaton/runtime';
 import { directorHttpEndpoints, productDirectorSet } from '@buildautomaton/product-director';
+import { emailHttpEndpoints, emailSet } from '@buildautomaton/email';
+import { uiDistDir } from '@buildautomaton/ui';
 import type { ParsedCli } from './parse-cli.js';
 import { createLog, writeInfo } from './log.js';
 import { openUi } from './open-ui.js';
+import { startDevUi } from './start-dev-ui.js';
 import { CLI_VERSION } from './version.js';
 
 export function appUiUrl(parsed: ParsedCli): string {
-  return `http://${HTTP_DEFAULT_HOST}:${parsed.mcpPort}/`;
+  const port = parsed.mode === 'app' && parsed.env !== 'prod' ? parsed.uiPort : parsed.mcpPort;
+  return `http://${HTTP_DEFAULT_HOST}:${port}/`;
 }
 
 export function formatCliStartup(parsed: ParsedCli): string {
@@ -16,7 +20,7 @@ export function formatCliStartup(parsed: ParsedCli): string {
       ? ` url=http://${HTTP_DEFAULT_HOST}:${parsed.mcpPort}${parsed.mcpPath}`
       : '';
   const ui = parsed.mode === 'app' ? ` ui=${appUiUrl(parsed)}` : '';
-  return `[CLI] Starting local-cli ${CLI_VERSION} mode=${parsed.mode} transport=${parsed.transport} cwd=${parsed.cwd} backend=${parsed.backend}${http}${ui}${remote}`;
+  return `[CLI] Starting local-cli ${CLI_VERSION} mode=${parsed.mode} env=${parsed.env} transport=${parsed.transport} cwd=${parsed.cwd} backend=${parsed.backend}${http}${ui}${remote}`;
 }
 
 export function runtimeOptionsFromCli(parsed: ParsedCli): RuntimeOptions {
@@ -35,12 +39,15 @@ export function runtimeOptionsFromCli(parsed: ParsedCli): RuntimeOptions {
           remoteUrl: parsed.remoteUrl,
           mcpPort: parsed.mcpPort,
           mcpPath: parsed.mcpPath,
-          httpEndpoints: directorHttpEndpoints(),
+          httpEndpoints: [...directorHttpEndpoints(), ...emailHttpEndpoints()],
         },
         runtime,
       }),
       ...productDirectorSet({ runtime }),
-      ...(parsed.mode === 'app' ? [appPlugin({ runtime })] : []),
+      ...emailSet({ runtime }),
+      ...(parsed.mode === 'app'
+        ? [appPlugin({ runtime, options: parsed.env === 'prod' ? { staticRoot: uiDistDir() } : {} })]
+        : []),
     ],
   };
 }
@@ -55,6 +62,11 @@ export async function runCli(parsed: ParsedCli): Promise<void> {
     process.exit(1);
   }
   writeInfo(formatCliStartup(parsed));
-  if (parsed.mode === 'app') openUi(appUiUrl(parsed));
-  await runRuntime(runtimeOptionsFromCli(parsed));
+  const ui = await startDevUi(parsed);
+  if (parsed.mode === 'app') openUi(ui?.url ?? appUiUrl(parsed));
+  try {
+    await runRuntime(runtimeOptionsFromCli(parsed));
+  } finally {
+    await ui?.close();
+  }
 }

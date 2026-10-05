@@ -51,7 +51,7 @@ The main screen is always the **app**. Product director is not a dashboard of it
 └─────────────────────────────┴──────────────┘
 ```
 
-[UI](./ui/) is the ready-made host for that shell.
+[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions; [email](./apps/email.md) is the first one.
 
 ## Try it
 
@@ -59,4 +59,4 @@ The main screen is always the **app**. Product director is not a dashboard of it
 npx @buildautomaton/local-cli app --cwd /path/to/repo
 ```
 
-From this repo: `pnpm install && pnpm build && pnpm test`. Public packages publish under `@buildautomaton`.
+That is **dev** (Vite HMR). On a server: `local-cli app --prod`. From this repo: `pnpm install && pnpm dev`. Public packages publish under `@buildautomaton`.

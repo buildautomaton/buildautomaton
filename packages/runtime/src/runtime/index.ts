@@ -6,6 +6,7 @@ export type { RuntimeOptions, RuntimeHandle } from './core/runtime-types.js';
 export { applyPlugins } from './core/plugin-apply.js';
 export { createPluginSlots } from './core/plugin-slots.js';
 export type { PluginSlots } from './core/plugin-slots.js';
+export { localMcpServers } from './core/local-mcp.js';
 export { mergeToolRegistries } from './tools/merge-registries.js';
 
 // ACP engine + wire

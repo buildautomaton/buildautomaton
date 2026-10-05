@@ -2,12 +2,12 @@
 
 The **Local CLI** is the local host for the [runtime](../runtime/) kernel. A cloud host would call the same `createRuntime` with a different mix of store and HTTP plugins.
 
-You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/) runtime plugins. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
+You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/) and the [email](../apps/email.md) app plugins. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
 
 ```text
 local-cli  (local host)
   ├── runtime              kernel
-  ├── core + director      plugins
+  ├── core + director + email plugins
   └── appPlugin            optional: serve the app
          ↓
       createRuntime → listen
@@ -18,7 +18,9 @@ npx @buildautomaton/local-cli app --cwd /path/to/repo
 npx @buildautomaton/local-cli --cwd /path/to/repo
 ```
 
-`app` serves the app and opens it. Without `app` it is tools and HTTP only (agents still talk to the director queue).
+`app` starts the runtime and the UI. **Dev is the default**: Vite serves the UI with live HMR (no rebuild). `--prod` (or `NODE_ENV=production`) serves the built UI from the HTTP server — use that on servers.
+
+Without `app` it is tools and HTTP only (agents still talk to the director queue).
 
 By default it serves HTTP at `http://127.0.0.1:3333`:
 
@@ -26,6 +28,8 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 /                    app (app mode)
 /mcp                 tools
 /api/app             app state
+/api/emails          mail
+/api/director        setup + start session
 /api/work            queue
 /api/artifacts       reviews
 /api/sessions        sessions
@@ -35,6 +39,7 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 
 ```bash
 local-cli app --cwd /path/to/repo --port 3333
+local-cli app --prod --cwd /path/to/repo
 local-cli --cwd /path/to/repo --transport stdio
 local-cli --transport remote --remote-url https://control.example
 ```
@@ -46,6 +51,9 @@ local-cli --transport remote --remote-url https://control.example
 | `--backend disk\|stream` | Disk (default) or in-memory stream wrap |
 | `--transport http\|stdio\|remote` | How clients connect (HTTP by default) |
 | `--port <n>` | HTTP port (`3333`) |
+| `--ui-port <n>` | Vite port in app dev (`5173`) |
+| `--dev` | Force Vite HMR |
+| `--prod` | Serve the built UI (servers) |
 | `--mcp-path <path>` | Tools path (`/mcp`) |
 | `--remote-url <url>` | Required for `--transport remote` |
 | `--verbose` | Log to stderr |

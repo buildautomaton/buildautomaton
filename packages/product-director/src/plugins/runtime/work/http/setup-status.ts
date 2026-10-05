@@ -8,11 +8,19 @@ export type SetupAgent = {
   authEnvVar: string | null;
 };
 
+export type CoordinatorSetup = {
+  status: 'idle' | 'waiting' | 'running' | 'failed';
+  sessionId?: string;
+  harness?: string;
+  error?: string;
+};
+
 export type DirectorSetup = {
   cwd: string;
   ready: boolean;
   appNote: string;
   agents: SetupAgent[];
+  coordinator?: CoordinatorSetup;
 };
 
 export const APP_NOTE =

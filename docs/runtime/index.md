@@ -35,7 +35,7 @@ Needs Node 18+. Built-in plugins also export from `@buildautomaton/runtime/plugi
 
 The kernel stays small. These plugins (and yours) add the behavior:
 
-- [Stores](./stores.md) — files on disk and shared SQLite
+- [Stores](./stores.md) — files on disk, shared SQLite, or Cloudflare Durable Objects
 - [Sessions](./sessions.md) — where agent runs are recorded
 - [Harnesses](./harnesses.md) — Cursor, Codex, Claude Code, and friends
 - [Tools](./tools.md) — minion tools agents can call

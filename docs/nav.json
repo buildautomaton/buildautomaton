@@ -2,6 +2,11 @@
   "title": "meta-harness",
   "items": [
     { "slug": "", "title": "Architecture" },
+    {
+      "slug": "apps",
+      "title": "Apps",
+      "children": [{ "slug": "apps/email", "title": "Email" }]
+    },
     { "slug": "local-cli", "title": "Local CLI" },
     { "slug": "ui", "title": "UI" },
     {

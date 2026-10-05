@@ -10,5 +10,5 @@ export function WidgetShell() {
     );
   }
   if (!setup.ready) return <SetupView setup={setup} onChanged={reload} />;
-  return <WorkColumn cwd={setup.cwd} />;
+  return <WorkColumn cwd={setup.cwd} coordinator={setup.coordinator} />;
 }

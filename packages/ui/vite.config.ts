@@ -17,7 +17,8 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/api': { target: 'http://127.0.0.1:3333' },
+      '/api': { target: process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333' },
+      '/director': { target: process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333' },
     },
     fs: { allow: [path.resolve(root, '..')] },
   },

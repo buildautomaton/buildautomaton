@@ -55,8 +55,14 @@ describe('parseCli', () => {
   it('parses the app command before flags', () => {
     const parsed = parseCli(['node', 'local-cli', 'app', '--cwd', '/work', '--port', '4000']);
     expect(parsed.mode).toBe('app');
+    expect(parsed.env).toBe('dev');
     expect(parsed.cwd).toBe('/work');
     expect(parsed.mcpPort).toBe(4000);
+    expect(parsed.uiPort).toBe(5173);
     expect(parsed.transport).toBe('http');
+  });
+
+  it('selects prod for servers', () => {
+    expect(parseCli(['node', 'local-cli', 'app', '--prod']).env).toBe('prod');
   });
 });

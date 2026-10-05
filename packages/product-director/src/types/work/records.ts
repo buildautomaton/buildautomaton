@@ -48,6 +48,7 @@ export type AddWorkInput = {
   decisions?: string[];
   sourceKey?: string;
   project?: string;
+  started?: boolean;
 };
 
 export type WorkPatch = {

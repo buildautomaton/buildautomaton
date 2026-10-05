@@ -3,6 +3,7 @@ import { HTTP_DEFAULT_WORK_ROOT, type TransportEndpoint } from '@buildautomaton/
 import { sqliteWorkPlugin } from './plugins/runtime/work/sqlite/plugin.js';
 import { workToolsPlugin } from './plugins/runtime/work-tools/plugin.js';
 import { artifactPlugins } from './plugins/runtime/artifacts/builtins.js';
+import { coordinatorPlugin } from './plugins/runtime/coordinator/plugin.js';
 
 export type ProductDirectorOptions = {
   work?: boolean;
@@ -25,5 +26,6 @@ export function productDirectorSet(
     ...artifactPlugins(),
     sqliteWorkPlugin({ runtime }),
     workToolsPlugin({ runtime }),
+    coordinatorPlugin({ runtime }),
   ];
 }

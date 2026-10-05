@@ -11,5 +11,7 @@ describe('matchEndpoint', () => {
     expect(matchEndpoint(endpoints, '/api/work/abc')?.path).toBe('/api/work');
     expect(matchEndpoint(endpoints, '/mcp')?.kind).toBe('tools');
     expect(matchEndpoint(endpoints, '/nope')).toBeUndefined();
+    expect(matchEndpoint([...endpoints, { path: '/', kind: 'ui' }], '/assets/app.js')?.kind).toBe('ui');
+    expect(matchEndpoint([...endpoints, { path: '/', kind: 'ui' }], '/api/work')?.path).toBe('/api/work');
   });
 });

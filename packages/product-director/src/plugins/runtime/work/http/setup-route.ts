@@ -4,15 +4,17 @@ import { readJson, writeJson } from './io.js';
 import { installDirectorAgent } from './setup-install.js';
 import { allowsDirectorOrigin } from './setup-origin.js';
 import { describeSetup } from './setup-status.js';
+import { coordinatorSetup, postSession } from './setup-coordinate.js';
 
 export function contributeSetupRoutes(
   http: HttpRegistry,
   cwd: string,
   harnesses: readonly AgentHarness[],
+  extras: Record<string, unknown> = {},
 ): void {
   http.addRoute({
     path: '/api/director',
-    handler: (req, res, hit) => handleSetup(req, res, hit.pathname, cwd, harnesses),
+    handler: (req, res, hit) => handleSetup(req, res, hit.pathname, cwd, harnesses, extras),
   });
 }
 
@@ -22,6 +24,7 @@ async function handleSetup(
   pathname: string,
   cwd: string,
   harnesses: readonly AgentHarness[],
+  extras: Record<string, unknown>,
 ): Promise<void> {
   if (!allowsDirectorOrigin(header(req, 'origin'), header(req, 'host'))) {
     writeJson(res, 403, { error: 'Cross-origin request blocked' });
@@ -29,11 +32,15 @@ async function handleSetup(
   }
   const tail = pathname === '/api/director' ? '' : pathname.slice('/api/director/'.length);
   if (!tail && req.method === 'GET') {
-    writeJson(res, 200, await describeSetup(cwd, harnesses));
+    writeJson(res, 200, { ...(await describeSetup(cwd, harnesses)), coordinator: coordinatorSetup(extras) });
     return;
   }
   if (tail === 'install' && req.method === 'POST') {
     await postInstall(req, res, harnesses);
+    return;
+  }
+  if (tail === 'session' && req.method === 'POST') {
+    await postSession(req, res, extras);
     return;
   }
   writeJson(res, 404, { error: 'Not found' });
