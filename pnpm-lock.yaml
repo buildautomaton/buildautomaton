@@ -55,21 +55,36 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.1
         version: 19.3.0(@types/react@19.3.0)
+      '@vitejs/plugin-react':
+        specifier: ^5.0.0
+        version: 5.2.0(vite@7.3.6(@types/node@22.20.1)(jiti@1.21.7))
+      autoprefixer:
+        specifier: ^10.4.17
+        version: 10.6.1(postcss@8.5.28)
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@19.3.0)
+      postcss:
+        specifier: ^8.4.35
+        version: 8.5.28
       react:
         specifier: ^19.2.1
         version: 19.3.0
       react-dom:
         specifier: ^19.2.1
         version: 19.3.0(react@19.3.0)
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.19
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(jiti@1.21.7)(postcss@8.5.28)(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+      vite:
+        specifier: ^7.0.0
+        version: 7.3.6(@types/node@22.20.1)(jiti@1.21.7)
       vitest:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.20.1)

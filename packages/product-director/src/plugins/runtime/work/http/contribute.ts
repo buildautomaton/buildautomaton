@@ -6,6 +6,8 @@ import {
 } from '@buildautomaton/runtime';
 import type { WorkImplementation } from '@/types/work/implementation.js';
 import { dispatchWorkHttp } from './dispatch.js';
+import { contributeSetupRoutes } from './setup-route.js';
+import { contributeWidgetRoutes } from './widget-routes.js';
 
 export function contributeWorkHttp(http: HttpRegistry, ctx: HttpContributeContext): void {
   const work = ctx.extras[ctx.pluginName] as WorkImplementation | undefined;
@@ -21,6 +23,8 @@ export function contributeWorkHttp(http: HttpRegistry, ctx: HttpContributeContex
     path: joinHttpPath(workPath, 'events'),
     subscribe: (broadcast) => work.subscribe((event) => broadcast(event)),
   });
+  contributeWidgetRoutes(http);
+  contributeSetupRoutes(http, ctx.cwd, ctx.harnesses ?? []);
 }
 
 function addDispatch(http: HttpRegistry, path: string, work: WorkImplementation, surface?: string): void {

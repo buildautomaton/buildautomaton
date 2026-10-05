@@ -5,9 +5,13 @@ import {
   type SessionBackendKind,
   type TransportKind,
 } from '@buildautomaton/runtime';
+import { printHelp } from './help.js';
 import { CLI_VERSION } from './version.js';
 
+export type CliMode = 'harness' | 'app';
+
 export type ParsedCli = {
+  mode: CliMode;
   cwd: string;
   sessionsDir?: string;
   backend: SessionBackendKind;
@@ -19,7 +23,9 @@ export type ParsedCli = {
 };
 
 export function parseCli(argv: string[]): ParsedCli {
-  const args = argv.slice(2);
+  const raw = argv.slice(2);
+  const mode: CliMode = raw[0] === 'app' ? 'app' : 'harness';
+  const args = mode === 'app' ? raw.slice(1) : raw;
   if (args.includes('--help') || args.includes('-h')) {
     printHelp();
     process.exit(0);
@@ -31,6 +37,7 @@ export function parseCli(argv: string[]): ParsedCli {
   const flags = readFlags(args);
   const backend = flags.backend === 'stream' ? 'stream' : 'disk';
   return {
+    mode,
     cwd: strFlag(flags.cwd) ?? process.cwd(),
     sessionsDir: strFlag(flags['sessions-dir']),
     backend,
@@ -46,21 +53,6 @@ function parseTransport(value: string | true | undefined): TransportKind {
   if (value === 'remote') return 'remote';
   if (value === 'stdio') return 'stdio';
   return 'http';
-}
-
-function printHelp(): void {
-  process.stdout.write(`local-cli ${CLI_VERSION}
-Launch a local HTTP server (MCP tools + product director API) or MCP over stdio, or register remotely.
-
-  --cwd <path>            Working directory for spawned minions
-  --sessions-dir <path>   Disk session directory
-  --backend <disk|stream> Session store (default: disk)
-  --transport <http|stdio|remote>
-  --port <n>              HTTP port (default: ${HTTP_DEFAULT_PORT})
-  --mcp-path <path>       MCP tools URL path (default: ${MCP_DEFAULT_PATH})
-  --remote-url <url>      Control-plane URL when --transport remote
-  --verbose
-`);
 }
 
 function parsePort(value: string | true | undefined): number {

@@ -42,6 +42,7 @@ export type {
 export { createHarnessRegistry } from './harnesses/create-registry.js';
 export type { AgentHarness, AgentHarnessRegistry, GetAgentHarnessFn } from './harnesses/types.js';
 export type { DiscoveredAgent, AgentDiscovery } from './harnesses/discovery-types.js';
+export { installLocalAgentOnBridge } from './harnesses/install/install-local-agent.js';
 
 // session + host transport helpers
 export type { SessionBackend, SessionBackendWrap } from './session/types.js';

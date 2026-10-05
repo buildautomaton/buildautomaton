@@ -64,7 +64,9 @@ export {
   createCoreToolRegistry,
   launchSession,
   getSessionStatus,
+  appPlugin,
 } from './plugins/index.js';
+export type { AppPhase, AppState } from './plugins/index.js';
 export type {
   CoreSetOptions,
   CoreSetHooks,

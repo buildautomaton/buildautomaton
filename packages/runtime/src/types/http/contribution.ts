@@ -3,6 +3,7 @@ import type { FileStore } from '@/types/file-store/implementation.js';
 import type { SqlStore } from '@/types/sql-store/implementation.js';
 import type { RuntimePlugin } from '@/types/plugin.js';
 import type { SessionImplementation } from '@/types/session/implementation.js';
+import type { AgentHarness } from '@runtime/harnesses/types.js';
 
 export type StoreContext = {
   fileStore?: FileStore;
@@ -19,4 +20,5 @@ export type HttpContributeContext = {
   backend?: SessionImplementation;
   mount?: string;
   routes?: Record<string, string>;
+  harnesses?: readonly AgentHarness[];
 };
