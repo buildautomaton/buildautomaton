@@ -16,5 +16,6 @@ export type {
 export type { AcpSessionTransport, AcpImagePromptPart } from './harnesses/acp/acp-session-transport.js';
 export type { AcpSessionContext, AfterAcpSessionEstablished } from './harnesses/acp/session-context.js';
 export type { AgentHarness } from './harnesses/acp/host/types.js';
+export { installLocalAgentOnBridge } from './harnesses/acp/host/install/install-local-agent.js';
 export * from './harnesses/acp/plugin-host.js';
 export * from './harnesses/acp/plugin-host-acp.js';

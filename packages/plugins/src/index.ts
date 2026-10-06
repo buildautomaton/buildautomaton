@@ -16,6 +16,8 @@ export {
 } from './stores/sql-store/pick.js';
 export { requireFileStore } from './stores/file-store/pick.js';
 export { storeContext } from './apply/store-context.js';
+export { asHost } from './host-slots.js';
+export type { HostSlots } from './host-slots.js';
 export { DEFAULT_SQL_SCHEMA, sqlStorePluginName } from './stores/sql-store/schema.js';
 export { sqlAll, sqlExec, sqlGet, sqlRun, isSqlStore, isSqlStoreOpener } from './stores/sql-store/index.js';
 export { isFileStore, fileExists, fileList, fileRead, fileRemove, fileWrite } from './stores/file-store/index.js';

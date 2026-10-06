@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   applyPlugins,
+  asHost,
   diskSessionPlugin,
   httpTransportPlugin,
   fileStorePlugin,
@@ -35,7 +36,7 @@ describe('work plugin compose', () => {
       expect((slots.extras['work-memory'] as { id?: string })?.id).toBe('memory');
       expect(slots.byKind.get('artifact')).toHaveLength(6);
       expect(slots.extras.artifacts).toHaveLength(6);
-      expect(slots.tools).toHaveLength(1);
+      expect(asHost(slots).tools).toHaveLength(1);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
