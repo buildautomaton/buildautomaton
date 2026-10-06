@@ -176,16 +176,6 @@ importers:
         version: 2.1.9(@types/node@22.20.1)
 
   packages/runtime:
-    dependencies:
-      '@agentclientprotocol/codex-acp':
-        specifier: ^1.1.4
-        version: 1.10.0
-      '@agentclientprotocol/sdk':
-        specifier: ^0.14.0
-        version: 0.14.1(zod@4.5.4)
-      tree-kill:
-        specifier: ^1.2.2
-        version: 1.2.2
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
