@@ -17,15 +17,14 @@ A **schema** is one Durable Object (or one local SQLite file) plus the migration
 | Schema | Default file | Who uses it |
 | --- | --- | --- |
 | `work` (default) | `<cwd>/.harness/work.sqlite` | Sessions, product director |
-| `marketplace` | `<cwd>/.harness/sql/marketplace.sqlite` | Marketplace catalog |
 | `email` | `<cwd>/.harness/sql/email.sqlite` | Sample email app |
 
 ```ts
-sqlStorePlugin({ options: { schema: 'marketplace' } })
-sqlStorePlugins({ cwd, schemas: ['work', 'marketplace'] })
+sqlStorePlugin({ options: { schema: 'email' } })
+sqlStorePlugins({ cwd, schemas: ['work', 'email'] })
 ```
 
-`coreSet()` installs the `work` schema. [Marketplace](../apps/marketplace.md) adds the `marketplace` schema. Sample apps add their own.
+`coreSet()` installs the `work` schema. [Email](../apps/email.md) adds the `email` schema. Other apps add their own.
 
 Migrations use a `__migrations` table. Names are scoped per plugin. Order is guaranteed only inside that plugin.
 
@@ -37,7 +36,7 @@ Migrations use a `__migrations` table. Names are scoped per plugin. Order is gua
 import { doSqlStorePlugin, doSqlStorePlugins } from '@buildautomaton/runtime';
 
 doSqlStorePlugin({ options: { schema: 'work', storage: env.WORK } })
-doSqlStorePlugins({ work: env.WORK, marketplace: env.MARKETPLACE })
+doSqlStorePlugins({ work: env.WORK, email: env.EMAIL })
 ```
 
-Skip the file SQL plugins from `coreSet` / `marketplaceSet({ sql: false })` / `emailSet({ sql: false })` and pass the DO plugins instead.
+Skip the file SQL plugins from `coreSet` / `emailSet({ sql: false })` and pass the DO plugins instead.

@@ -7,7 +7,7 @@ describe('applySqlStorePlugin', () => {
     const slots = applyPlugins(
       [
         sqlStorePlugin({
-          options: { schema: 'marketplace', file: ':memory:' },
+          options: { schema: 'email', file: ':memory:' },
           sqlMigrations: [
             {
               name: '001_notes',
@@ -18,7 +18,7 @@ describe('applySqlStorePlugin', () => {
       ],
       { cwd: '/', log: () => {} },
     );
-    const names = slots.sqlStores.marketplace!.all('SELECT name FROM sqlite_master WHERE type = ?', ['table']).map(
+    const names = slots.sqlStores.email!.all('SELECT name FROM sqlite_master WHERE type = ?', ['table']).map(
       (row) => row.name,
     );
     expect(names).toContain('notes');

@@ -1,6 +1,6 @@
 # Email sample
 
-Email is a **sample app**, not part of the host. [Marketplace](./marketplace.md) lists it so you can compose it yourself. Product director and the marketplace stay in the default runtime. Mail does not.
+Email is a **sample app**. Compose it yourself next to product director. The default host does not include it.
 
 Runtime plugins store messages in the **`email` SQL schema**. A UI plugin puts the inbox in `main`. [Product director](../product-director/) can still sit in the sidebar if you add it.
 

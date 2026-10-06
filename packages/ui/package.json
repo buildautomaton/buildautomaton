@@ -2,7 +2,7 @@
   "name": "@buildautomaton/ui",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "App host: marketplace in main, product-director widget in the sidebar",
+  "description": "App host shell: nav and main for composed apps, product-director widget in the sidebar",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@buildautomaton/marketplace": "workspace:*",
     "@buildautomaton/product-director": "workspace:*",
     "@buildautomaton/ui-runtime": "workspace:*",
     "@vitejs/plugin-react": "^5.0.0",

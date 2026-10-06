@@ -24,11 +24,11 @@ function asDo(sql: SqlStore): DoSqlBackend {
 describe('doSqlStorePlugins', () => {
   it('builds one Durable Object store plugin per schema', () => {
     const work = sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
-    const market = sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
-    const plugins = doSqlStorePlugins({ work: asDo(work), marketplace: asDo(market) });
+    const email = sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
+    const plugins = doSqlStorePlugins({ work: asDo(work), email: asDo(email) });
     expect(plugins.map((plugin) => `${plugin.options?.schema}:${plugin.name}`)).toEqual([
       'work:store-sql-do',
-      'marketplace:store-sql-do-marketplace',
+      'email:store-sql-do-email',
     ]);
   });
 });

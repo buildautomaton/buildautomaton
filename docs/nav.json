@@ -6,7 +6,6 @@
       "slug": "apps",
       "title": "Apps",
       "children": [
-        { "slug": "apps/marketplace", "title": "Marketplace" },
         { "slug": "apps/email", "title": "Email" }
       ]
     },

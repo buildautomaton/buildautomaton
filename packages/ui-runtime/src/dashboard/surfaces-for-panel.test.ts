@@ -3,7 +3,7 @@ import type { UiSurface } from '../core/plugin.js';
 import { surfacesForPanel } from './surfaces-for-panel.js';
 
 const surfaces = [
-  { id: 'marketplace-catalog', title: 'Marketplace', panel: 'main', component: () => null },
+  { id: 'home', title: 'Home', panel: 'main', component: () => null },
   { id: 'email-inbox', title: 'Mail', panel: 'main', component: () => null },
 ] as UiSurface[];
 
@@ -13,6 +13,6 @@ describe('surfacesForPanel', () => {
   });
 
   it('defaults to the first surface', () => {
-    expect(surfacesForPanel(surfaces, null).map((s) => s.id)).toEqual(['marketplace-catalog']);
+    expect(surfacesForPanel(surfaces, null).map((s) => s.id)).toEqual(['home']);
   });
 });

@@ -44,5 +44,4 @@ flowchart TB
 
 | App | Package | Main screen |
 | --- | --- | --- |
-| [Marketplace](./marketplace.md) | `@buildautomaton/marketplace` | Catalog of plugins and apps (system) |
-| [Email](./email.md) | `@buildautomaton/email` | Sample inbox. Listed on the marketplace, not in the host. |
+| [Email](./email.md) | `@buildautomaton/email` | Sample inbox. Compose it into a host. It is not in the default local CLI. |

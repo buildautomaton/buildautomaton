@@ -1,6 +1,5 @@
 import { appPlugin, coreSet, HTTP_DEFAULT_HOST, runRuntime, type RuntimeOptions } from '@buildautomaton/runtime';
 import { directorHttpEndpoints, productDirectorSet } from '@buildautomaton/product-director';
-import { marketplaceHttpEndpoints, marketplaceSet } from '@buildautomaton/marketplace';
 import { uiDistDir } from '@buildautomaton/ui';
 import type { ParsedCli } from './parse-cli.js';
 import { createLog, writeInfo } from './log.js';
@@ -39,12 +38,11 @@ export function runtimeOptionsFromCli(parsed: ParsedCli): RuntimeOptions {
           remoteUrl: parsed.remoteUrl,
           mcpPort: parsed.mcpPort,
           mcpPath: parsed.mcpPath,
-          httpEndpoints: [...directorHttpEndpoints(), ...marketplaceHttpEndpoints()],
+          httpEndpoints: directorHttpEndpoints(),
         },
         runtime,
       }),
       ...productDirectorSet({ runtime }),
-      ...marketplaceSet({ runtime }),
       ...(parsed.mode === 'app'
         ? [appPlugin({ runtime, options: parsed.env === 'prod' ? { staticRoot: uiDistDir() } : {} })]
         : []),

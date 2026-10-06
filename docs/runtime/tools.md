@@ -23,6 +23,6 @@ minionToolsPlugin()
 
 Skip them in `coreSet()` with `minionTools: false`.
 
-Other packages add more tools plugins beside this one. [Product director](../product-director/runtime.md) adds ask/tell. The [marketplace](../apps/marketplace.md) adds `search_marketplace` so an agent can find plugins and app compositions by a semantic phrase.
+Other packages add more tools plugins beside this one. [Product director](../product-director/runtime.md) adds ask/tell.
 
 The same `/mcp` list is passed into ACP sessions as `mcpServers`, so prompt sessions and minions share those tools.

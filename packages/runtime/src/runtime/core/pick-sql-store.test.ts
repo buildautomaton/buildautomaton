@@ -7,22 +7,22 @@ import { storeContext } from './store-context.js';
 const ctx = { cwd: '/', log: () => {} };
 
 describe('pickSqlStore', () => {
-  it('keeps work and marketplace schemas isolated', () => {
+  it('keeps work and email schemas isolated', () => {
     const slots = applyPlugins(
       [
         sqlStorePlugin({ options: { schema: 'work', file: ':memory:' } }),
-        sqlStorePlugin({ options: { schema: 'marketplace', file: ':memory:' } }),
+        sqlStorePlugin({ options: { schema: 'email', file: ':memory:' } }),
       ],
       ctx,
     );
     const stores = storeContext(slots);
     stores.sqlStores!.work!.exec('CREATE TABLE work_only (id TEXT)');
-    stores.sqlStores!.marketplace!.exec('CREATE TABLE market_only (id TEXT)');
+    stores.sqlStores!.email!.exec('CREATE TABLE email_only (id TEXT)');
     expect(pickSqlStore(stores, 'work')!.all('SELECT name FROM sqlite_master WHERE type = ?', ['table']).map((r) => r.name)).toContain(
       'work_only',
     );
-    expect(pickSqlStore(stores, 'marketplace')!.all('SELECT name FROM sqlite_master WHERE type = ?', ['table']).map((r) => r.name)).toContain(
-      'market_only',
+    expect(pickSqlStore(stores, 'email')!.all('SELECT name FROM sqlite_master WHERE type = ?', ['table']).map((r) => r.name)).toContain(
+      'email_only',
     );
     expect(slots.sqlStore).toBe(stores.sqlStores!.work);
   });

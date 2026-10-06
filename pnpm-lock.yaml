@@ -54,9 +54,6 @@ importers:
 
   packages/local-cli:
     dependencies:
-      '@buildautomaton/marketplace':
-        specifier: workspace:*
-        version: link:../marketplace
       '@buildautomaton/product-director':
         specifier: workspace:*
         version: link:../product-director
@@ -76,46 +73,6 @@ importers:
       tsx:
         specifier: ^4.20.0
         version: 4.23.15
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-      vitest:
-        specifier: ^2.0.0
-        version: 2.1.9(@types/node@22.20.1)
-
-  packages/marketplace:
-    dependencies:
-      '@buildautomaton/runtime':
-        specifier: workspace:*
-        version: link:../runtime
-    devDependencies:
-      '@buildautomaton/product-director':
-        specifier: workspace:*
-        version: link:../product-director
-      '@buildautomaton/ui-runtime':
-        specifier: workspace:*
-        version: link:../ui-runtime
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.1
-      '@types/react':
-        specifier: ^19.2.1
-        version: 19.3.0
-      '@types/react-dom':
-        specifier: ^19.2.1
-        version: 19.3.0(@types/react@19.3.0)
-      lucide-react:
-        specifier: ^0.344.0
-        version: 0.344.0(react@19.3.0)
-      react:
-        specifier: ^19.2.1
-        version: 19.3.0
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.3.0(react@19.3.0)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@1.21.7)(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -208,9 +165,6 @@ importers:
 
   packages/ui:
     dependencies:
-      '@buildautomaton/marketplace':
-        specifier: workspace:*
-        version: link:../marketplace
       '@buildautomaton/product-director':
         specifier: workspace:*
         version: link:../product-director

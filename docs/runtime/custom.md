@@ -23,6 +23,6 @@ You can also wrap a built-in and add hooks:
 cursorHarnessPlugin({ hooks: { onSessionUpdate: console.error } })
 ```
 
-Packages can introduce new kinds (for example `work`, `artifact`, `email`, and `marketplace`). The runtime still indexes them; only the plugin that uses the kind needs to know its shape.
+Packages can introduce new kinds (for example `work`, `artifact`, and `email`). The runtime still indexes them; only the plugin that uses the kind needs to know its shape.
 
 The handle gives you `start`, `stop`, and `engine`. `start` opens the connection; it does not send prompts by itself.

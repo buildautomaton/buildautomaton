@@ -2,12 +2,12 @@
 
 The **Local CLI** is the local host for the [runtime](../runtime/) kernel. A cloud host would call the same `createRuntime` with a different mix of store and HTTP plugins.
 
-You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/) and the [marketplace](../apps/marketplace.md). [Email](../apps/email.md) is a sample on the marketplace, not in this host. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
+You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/). [Email](../apps/email.md) is a sample you compose yourself, not in this host. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
 
 ```text
 local-cli  (local host)
   ├── runtime              kernel
-  ├── core + director + marketplace plugins
+  ├── core + director plugins
   └── appPlugin            optional: serve the app
          ↓
       createRuntime → listen
@@ -28,7 +28,6 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 /                    app (app mode)
 /mcp                 tools
 /api/app             app state
-/api/marketplace     plugins and apps
 /api/director        setup + start session
 /api/work            queue
 /api/artifacts       reviews

@@ -51,7 +51,7 @@ The main screen is always the **app**. Product director is not a dashboard of it
 └─────────────────────────────┴──────────────┘
 ```
 
-[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions. The [marketplace](./apps/marketplace.md) catalogs plugins and those compositions. [Email](./apps/email.md) is a sample domain app.
+[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions. [Email](./apps/email.md) is a sample domain app.
 
 ## Try it
 
