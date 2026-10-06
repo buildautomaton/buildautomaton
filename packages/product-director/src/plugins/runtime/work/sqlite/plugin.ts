@@ -1,7 +1,7 @@
 import type { WorkPlugin, WorkPluginInit } from '@/types/work/plugin.js';
 import type { ArtifactKind, ArtifactPlugin } from '@/types/artifact/index.js';
-import type { StoreContext } from '@buildautomaton/runtime';
-import { DEFAULT_SQL_SCHEMA, requireSqlStore } from '@buildautomaton/runtime';
+import type { StoreContext } from '@buildautomaton/plugins';
+import { DEFAULT_SQL_SCHEMA, requireSqlStore } from '@buildautomaton/plugins';
 import { createSqliteWorkBackend } from './backend.js';
 import { contributeWorkHttp } from '@plugins/runtime/work/http/contribute.js';
 import { WORK_MIGRATIONS } from './migrations.js';

@@ -11,7 +11,7 @@ Harness plugins teach the runtime how to talk to a specific agent product. You c
 | `opencodeHarnessPlugin` | `opencode` | Installs; prompting comes later |
 
 ```ts
-import { cursorHarnessPlugin, coreHarnessPlugins } from '@buildautomaton/runtime/plugins';
+import { cursorHarnessPlugin, coreHarnessPlugins } from '@buildautomaton/plugins/plugins';
 
 coreHarnessPlugins()
 // or pick one:

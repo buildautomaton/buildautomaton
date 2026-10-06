@@ -1,0 +1,28 @@
+import type { AcpEngine } from '@plugins/harnesses/acp/engine/types.js';
+import type { LaunchAgentParams, SessionRecord } from '@plugins/session/session/records.js';
+import { AGENT_CONFIG_AGENT_MODEL_KEY } from '@plugins/harnesses/acp/util/agent-config.js';
+import { handleAgentRequest } from './handle-agent-request.js';
+import { appendSessionEvent, finishSession, type SessionEventHost } from './session-events.js';
+
+export function wirePrompt(options: SessionEventHost & {
+  engine: AcpEngine;
+  record: SessionRecord;
+  params: LaunchAgentParams;
+}): void {
+  const { engine, record, params } = options;
+  const agentConfig = params.model ? { [AGENT_CONFIG_AGENT_MODEL_KEY]: params.model } : undefined;
+  engine.setPreferredHarnessType(params.harness);
+  engine.prompt({
+    promptText: params.prompt,
+    sessionId: record.id,
+    runId: record.runId,
+    scopeId: record.id,
+    agentType: params.harness,
+    cwd: record.cwd,
+    agentConfig,
+    isNewSession: true,
+    sendResult: (result) => void finishSession(options, record.id, result),
+    sendSessionUpdate: (payload) => void appendSessionEvent(options, record.id, 'update', payload),
+    sendRequest: (payload) => void handleAgentRequest(options, record.id, payload),
+  });
+}

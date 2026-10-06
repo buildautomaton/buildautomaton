@@ -1,4 +1,4 @@
-import type { McpToolDefinition } from '@buildautomaton/runtime';
+import type { McpToolDefinition } from '@buildautomaton/plugins';
 import type { ArtifactKind } from '@/types/artifact/kind.js';
 import { TELL_PRODUCT_DIRECTOR_WHAT_WAS_BUILT } from './names.js';
 import { TELL_PRODUCT_DIRECTOR_WHAT_WAS_BUILT_DESCRIPTION } from './descriptions.js';

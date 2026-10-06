@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { AddEmailInput, EmailFolder, EmailPatch } from '../../types/email.js';
 import type { EmailImplementation } from '../../types/implementation.js';
 import { asFolder, rowToEmail } from './rows.js';

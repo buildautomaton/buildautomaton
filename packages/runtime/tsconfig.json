@@ -15,9 +15,7 @@
     "lib": ["ES2022"],
     "baseUrl": ".",
     "paths": {
-      "@/types/*": ["src/types/*"],
-      "@runtime/*": ["src/runtime/*"],
-      "@plugins/*": ["src/plugins/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src/**/*"],

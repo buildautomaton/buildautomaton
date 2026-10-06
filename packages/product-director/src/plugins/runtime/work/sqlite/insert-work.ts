@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { AddWorkInput, WorkItem } from '@/types/work/records.js';
 import { run } from './sql.js';
 import { isoNow, queueRank } from './rank.js';

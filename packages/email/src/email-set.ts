@@ -1,5 +1,5 @@
-import type { PluginInit, RuntimePlugin, TransportEndpoint } from '@buildautomaton/runtime';
-import { sqlStorePlugin } from '@buildautomaton/runtime';
+import type { PluginInit, RuntimePlugin, TransportEndpoint } from '@buildautomaton/plugins';
+import { sqlStorePlugin } from '@buildautomaton/plugins';
 import { emailPlugin, EMAIL_SQL_SCHEMA } from './plugins/runtime/plugin.js';
 import { EMAIL_MIGRATIONS } from './plugins/runtime/migrations.js';
 

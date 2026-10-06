@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import { all, run } from './sql.js';
 
 export function migrateProject(db: SqlStore): void {

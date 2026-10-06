@@ -1,4 +1,4 @@
-import type { AgentHarness } from '@buildautomaton/runtime';
+import type { AgentHarness } from '@buildautomaton/plugins';
 
 export type SetupAgent = {
   type: string;

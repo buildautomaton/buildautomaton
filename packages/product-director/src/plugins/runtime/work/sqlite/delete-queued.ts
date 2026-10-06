@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import { findBySource, sourceStatus } from './source-key.js';
 import { deleteWorkRow } from './delete-row.js';
 

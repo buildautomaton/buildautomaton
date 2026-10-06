@@ -12,6 +12,14 @@ Default folder: `<cwd>/.harness/sessions`. It uses the file store, can mirror in
 diskSessionPlugin({ options: { dir: '.harness/sessions' } })
 ```
 
+## SQL sessions
+
+`sqlSessionPlugin` stores session records on a named SQL schema (default `work`). Use it on Cloudflare with `doSqlStorePlugin`. It does not touch the filesystem.
+
+```ts
+sqlSessionPlugin({ options: { schema: 'work' } })
+```
+
 ## Stream sessions
 
 `streamSessionPlugin` wraps an existing session so callers can `subscribe()` in memory. It does not replace disk storage. Turn it on in `coreSet()` with `backend: 'stream'`.

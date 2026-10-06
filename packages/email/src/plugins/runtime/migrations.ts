@@ -1,4 +1,4 @@
-import type { SqlMigration } from '@buildautomaton/runtime';
+import type { SqlMigration } from '@buildautomaton/plugins';
 
 export const EMAIL_SCHEMA = `
 CREATE TABLE IF NOT EXISTS emails (

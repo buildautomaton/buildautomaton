@@ -5,7 +5,7 @@ import {
   httpTransportPlugin,
   fileStorePlugin,
   sqlStorePlugin,
-} from '@buildautomaton/runtime';
+} from '@buildautomaton/plugins';
 import { memoryWorkPlugin } from './plugins/runtime/work/sqlite/plugin.js';
 import { workToolsPlugin } from './plugins/runtime/work-tools/plugin.js';
 import { artifactPlugins } from './plugins/runtime/artifacts/builtins.js';

@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { WorkItem } from '@/types/work/records.js';
 import { all, one } from './sql.js';
 import { mapWorkRow, sessionIdsFor } from './map-work.js';

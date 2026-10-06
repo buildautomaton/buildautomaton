@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { WorkItem, WorkPatch } from '@/types/work/records.js';
 import type { WorkHub } from './hub.js';
 import { patchWork } from './patch-work.js';

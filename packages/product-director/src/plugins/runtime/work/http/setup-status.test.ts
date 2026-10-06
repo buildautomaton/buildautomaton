@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { AgentHarness } from '@buildautomaton/runtime';
+import type { AgentHarness } from '@buildautomaton/plugins';
 import { describeSetup } from './setup-status.js';
 
 const harness = (type: string, detected: boolean, install = true): AgentHarness =>

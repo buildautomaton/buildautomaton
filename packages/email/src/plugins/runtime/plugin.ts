@@ -2,9 +2,9 @@ import {
   requireSqlStore,
   type HttpRegistry,
   type PluginInit,
-  type RuntimePlugin,
+  type ExtensionPlugin,
   type StoreContext,
-} from '@buildautomaton/runtime';
+} from '@buildautomaton/plugins';
 import type { EmailImplementation } from '../../types/implementation.js';
 import { createEmailBackend } from './backend.js';
 import { handleEmailHttp } from './http.js';
@@ -12,7 +12,7 @@ import { EMAIL_MIGRATIONS } from './migrations.js';
 
 export const EMAIL_SQL_SCHEMA = 'email';
 
-export function emailPlugin(init: PluginInit = {}): RuntimePlugin {
+export function emailPlugin(init: PluginInit = {}): ExtensionPlugin {
   return {
     name: 'email-sql',
     kind: 'email',

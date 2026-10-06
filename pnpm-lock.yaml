@@ -14,6 +14,9 @@ importers:
 
   packages/email:
     dependencies:
+      '@buildautomaton/plugins':
+        specifier: workspace:*
+        version: link:../plugins
       '@buildautomaton/runtime':
         specifier: workspace:*
         version: link:../runtime
@@ -54,6 +57,9 @@ importers:
 
   packages/local-cli:
     dependencies:
+      '@buildautomaton/plugins':
+        specifier: workspace:*
+        version: link:../plugins
       '@buildautomaton/product-director':
         specifier: workspace:*
         version: link:../product-director
@@ -80,8 +86,42 @@ importers:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.20.1)
 
+  packages/plugins:
+    dependencies:
+      '@agentclientprotocol/codex-acp':
+        specifier: ^1.1.4
+        version: 1.10.0
+      '@agentclientprotocol/sdk':
+        specifier: ^0.14.0
+        version: 0.14.1(zod@4.5.4)
+      '@buildautomaton/runtime':
+        specifier: workspace:*
+        version: link:../runtime
+      node-sqlite3-wasm:
+        specifier: ^0.8.57
+        version: 0.8.60
+      tree-kill:
+        specifier: ^1.2.2
+        version: 1.2.2
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@1.21.7)(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.20.1)
+
   packages/product-director:
     dependencies:
+      '@buildautomaton/plugins':
+        specifier: workspace:*
+        version: link:../plugins
       '@buildautomaton/runtime':
         specifier: workspace:*
         version: link:../runtime
@@ -143,9 +183,6 @@ importers:
       '@agentclientprotocol/sdk':
         specifier: ^0.14.0
         version: 0.14.1(zod@4.5.4)
-      node-sqlite3-wasm:
-        specifier: ^0.8.57
-        version: 0.8.60
       tree-kill:
         specifier: ^1.2.2
         version: 1.2.2

@@ -2,7 +2,7 @@ import { mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { closeServer, listenLocalhost } from '@buildautomaton/runtime';
+import { closeServer, listenLocalhost } from '@buildautomaton/plugins';
 import { createSqliteWorkBackend } from '@plugins/runtime/work/sqlite/backend.js';
 import { serveWork } from '../../../../http/serve-work.js';
 

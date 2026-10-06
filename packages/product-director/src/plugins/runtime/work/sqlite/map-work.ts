@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { WorkItem, WorkPriority, WorkStatus } from '@/types/work/records.js';
 import { all } from './sql.js';
 import { listDecisions, listWorkQuestions } from './decisions.js';

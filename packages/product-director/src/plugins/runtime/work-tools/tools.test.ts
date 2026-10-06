@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { handleAskWhatToWorkOn } from './ask-handle.js';
 import { handleTellWhatWasBuilt } from './tell-handle.js';
 import { createSqliteWorkBackend } from '@plugins/runtime/work/sqlite/backend.js';
-import type { ToolContext } from '@buildautomaton/runtime';
+import type { ToolContext } from '@buildautomaton/plugins';
 import { builtinArtifactKinds } from '../artifacts/builtins.js';
 import { ASK_PRODUCT_DIRECTOR_WHAT_TO_BUILD_NEXT_DEFINITION } from './ask-def.js';
 import { tellWhatWasBuiltDefinition } from './tell-def.js';

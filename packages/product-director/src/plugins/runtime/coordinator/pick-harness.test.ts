@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { AcpEngine, AgentHarness } from '@buildautomaton/runtime';
+import type { AcpEngine, AgentHarness } from '@buildautomaton/plugins';
 import { pickCoordinatorHarness } from './pick-harness.js';
 
 function engine(harnesses: AgentHarness[]): AcpEngine {

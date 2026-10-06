@@ -1,5 +1,5 @@
-import type { ToolsPlugin, ToolsPluginInit } from '@buildautomaton/runtime';
-import type { ToolsImplementation } from '@buildautomaton/runtime';
+import type { ToolsPlugin, ToolsPluginInit } from '@buildautomaton/plugins';
+import type { ToolsImplementation } from '@buildautomaton/plugins';
 import { workToolDefinitions } from './definitions.js';
 import {
   ASK_PRODUCT_DIRECTOR_INTERVIEW_QUESTIONS,

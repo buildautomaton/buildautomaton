@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { WorkArtifact } from '@/types/work/artifact.js';
 import { loadArtifact } from './artifacts.js';
 import { run } from './sql.js';

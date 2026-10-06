@@ -1,4 +1,4 @@
-import { sqlStorePlugin, type SqlStore } from '@buildautomaton/runtime';
+import { sqlStorePlugin, type SqlStore } from '@buildautomaton/plugins';
 import type { ArtifactKind } from '@/types/artifact/kind.js';
 import type { WorkImplementation } from '@/types/work/implementation.js';
 import { createWorkHub } from './hub.js';
@@ -7,7 +7,9 @@ import { WORK_MIGRATIONS } from './migrations.js';
 import { builtinArtifactKinds } from '../../artifacts/builtins.js';
 
 export function memorySqlStore(): SqlStore {
-  return sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
+  const sql = sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
+  if (!sql) throw new Error('sql-store plugin missing implementation');
+  return sql as SqlStore;
 }
 
 export function createSqliteWorkBackend(

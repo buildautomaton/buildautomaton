@@ -8,9 +8,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@/types': path.resolve(__dirname, 'src/types'),
-      '@runtime': path.resolve(__dirname, 'src/runtime'),
-      '@plugins': path.resolve(__dirname, 'src/plugins'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 });

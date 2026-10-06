@@ -6,7 +6,6 @@ const src = path.resolve(__dirname, 'src');
 export default defineConfig({
   entry: {
     index: 'src/index.ts',
-    plugins: 'src/plugins/index.ts',
   },
   format: ['esm'],
   target: 'es2022',
@@ -17,9 +16,7 @@ export default defineConfig({
   tsconfig: './tsconfig.json',
   esbuildOptions(options) {
     options.alias = {
-      '@/types': `${src}/types`,
-      '@runtime': `${src}/runtime`,
-      '@plugins': `${src}/plugins`,
+      '@': src,
     };
   },
 });

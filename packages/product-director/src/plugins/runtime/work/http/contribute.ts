@@ -3,7 +3,7 @@ import {
   joinHttpPath,
   type HttpRegistry,
   type HttpContributeContext,
-} from '@buildautomaton/runtime';
+} from '@buildautomaton/plugins';
 import type { WorkImplementation } from '@/types/work/implementation.js';
 import { dispatchWorkHttp } from './dispatch.js';
 import { contributeSetupRoutes } from './setup-route.js';

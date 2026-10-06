@@ -1,4 +1,4 @@
-import { HTTP_DEFAULT_WORK_ROOT, type TransportEndpoint } from '@buildautomaton/runtime';
+import { HTTP_DEFAULT_WORK_ROOT, type TransportEndpoint } from '@buildautomaton/plugins';
 
 export function workHttpEndpoints(
   plugin: string,

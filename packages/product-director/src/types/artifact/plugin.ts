@@ -1,4 +1,4 @@
-import type { PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginRuntimeContext } from '@buildautomaton/plugins';
 import type { ArtifactKind } from './kind.js';
 
 export type ArtifactPlugin = {

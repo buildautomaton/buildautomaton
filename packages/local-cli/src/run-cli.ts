@@ -1,4 +1,4 @@
-import { appPlugin, coreSet, HTTP_DEFAULT_HOST, runRuntime, type RuntimeOptions } from '@buildautomaton/runtime';
+import { appPlugin, coreSet, HTTP_DEFAULT_HOST, runRuntime, type RuntimeOptions } from '@buildautomaton/plugins';
 import { directorHttpEndpoints, productDirectorSet } from '@buildautomaton/product-director';
 import { uiDistDir } from '@buildautomaton/ui/node';
 import type { ParsedCli } from './parse-cli.js';

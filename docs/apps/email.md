@@ -9,7 +9,7 @@ Runtime plugins store messages in the **`email` SQL schema**. A UI plugin puts t
 `emailSet()` installs a file store for the `email` schema plus `emailPlugin` (`kind: 'email'`). On Cloudflare, pass `emailSet({ options: { sql: false } })` and `doSqlStorePlugin({ options: { schema: 'email', storage } })` so that schema is its own Durable Object.
 
 ```ts
-import { createRuntime, coreSet, appPlugin } from '@buildautomaton/runtime';
+import { createRuntime, coreSet, appPlugin } from '@buildautomaton/plugins';
 import { productDirectorSet, directorHttpEndpoints } from '@buildautomaton/product-director';
 import { emailSet, emailHttpEndpoints } from '@buildautomaton/email';
 
