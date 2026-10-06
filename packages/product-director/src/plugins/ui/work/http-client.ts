@@ -6,21 +6,14 @@ import type {
   WorkItem,
   WorkPatch,
 } from './types.js';
+import { readJsonResponse as json } from './http-json.js';
+import { startDirectorSession } from './start-session-client.js';
 
 export type HttpWorkClientOptions = {
   base?: string;
   workPath?: string;
   artifactsPath?: string;
 };
-
-async function json<T>(res: Promise<Response>): Promise<T> {
-  const resolved = await res;
-  if (!resolved.ok) throw new Error(`${resolved.status} ${resolved.statusText}`);
-  if (resolved.status === 204) return undefined as T;
-  const text = await resolved.text();
-  if (!text.trim()) return undefined as T;
-  return JSON.parse(text) as T;
-}
 
 export function createHttpWorkClient(options: HttpWorkClientOptions | string = ''): WorkClient {
   const opts = typeof options === 'string' ? { base: options } : options;
@@ -37,6 +30,7 @@ export function createHttpWorkClient(options: HttpWorkClientOptions | string = '
           body: JSON.stringify(input),
         }),
       ),
+    startSession: (input) => startDirectorSession(base, input),
     updateWork: (id, patch: WorkPatch) =>
       json<WorkItem | null>(
         fetch(`${base}${workPath}/${id}`, {

@@ -19,6 +19,8 @@ export type SessionPlugin = {
   wrapBackend?: SessionBackendWrap;
   supports?: PluginSupport;
   sqlMigrations?: readonly SqlMigration[];
+  /** Durable Object / SQLite file that owns these migrations. */
+  sqlSchema?: string;
   createFromStores?: (stores: StoreContext) => SessionImplementation;
   contributeHttp?: (
     http: HttpRegistry,

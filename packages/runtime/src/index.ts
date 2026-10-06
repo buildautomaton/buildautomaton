@@ -23,9 +23,15 @@ export {
   fileStorePlugin,
   sqlStorePlugin,
   defaultSqlFile,
+  sqlStorePlugins,
+  doSqlStorePlugins,
+  pickSqlStore,
+  requireSqlStore,
   createNodeFileStore,
   createSqlStore,
   runSqliteMigrations,
+  doSqlStorePlugin,
+  createDoSqlStore,
   diskSessionPlugin,
   streamSessionPlugin,
   createDiskBackend,
@@ -64,10 +70,17 @@ export {
   createCoreToolRegistry,
   launchSession,
   getSessionStatus,
+  appPlugin,
 } from './plugins/index.js';
+export type { AppPhase, AppState, AppPluginOptions } from './plugins/index.js';
 export type {
   CoreSetOptions,
   CoreSetHooks,
   CoreSetImplementation,
   McpSseHub,
+  DoSqlBackend,
+  DoSqlCursor,
+  DoSqlExec,
+  DoSqlStoreOptions,
+  DoSqlStorePluginInit,
 } from './plugins/index.js';

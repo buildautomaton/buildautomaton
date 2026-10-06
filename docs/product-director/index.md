@@ -1,15 +1,15 @@
 # Product director
 
-Product director is how agents and humans share a **work queue**.
+Product director is how agents and humans share a **work queue**. It is a **plugin pack**, not an app and not a main screen.
 
-In plain terms: someone (or some agent) writes down what should be built next. An agent picks up that item, does the work, and comes back with a clear summary of what changed: APIs, screens, data models, and so on. You can review those results in the [UI](../ui/), answer questions, and queue follow-ups.
+Someone writes down what to build next. An agent picks it up, does the work, and comes back with a clear summary. You review that in the **sidebar widget** on the [app](../ui/), answer questions, and queue follow-ups.
 
-It is **not** a runnable app by itself. It is a set of plugins you plug into:
+It plugs into both kernels:
 
-- the [runtime](../runtime/) (so the CLI can serve the queue and tools)
-- the [UI runtime](../ui-runtime/) (so the dashboard can show the queue)
+- [Runtime plugins](./runtime.md) — queue, artifacts, director tools, widget HTTP
+- [UI plugin](./ui.md) — the sidebar widget only
 
-[Local CLI](../local-cli/) and [UI](../ui/) already compose those plugins for you.
+[Local CLI](../local-cli/) (`app` mode) and [UI](../ui/) already compose those plugins.
 
 ```mermaid
 flowchart LR
@@ -17,7 +17,7 @@ flowchart LR
   queue("work queue")
   agent("agent builds")
   tell("tell what was built")
-  review("you review in the UI")
+  review("you review in the widget")
   ask --> queue
   queue --> agent
   agent --> tell
@@ -25,15 +25,12 @@ flowchart LR
   review --> ask
 ```
 
-## Sections
-
-- [Runtime plugins](./runtime.md) — artifacts, the work store, and director tools
-- [UI plugins](./ui.md) — columns dashboard for the queue
+The main screen stays the app. Director has no product tabs and no full-page board.
 
 ## Quick wire-up
 
 ```ts
-import { createRuntime, coreSet } from '@buildautomaton/runtime';
+import { createRuntime, coreSet, appPlugin } from '@buildautomaton/runtime';
 import { productDirectorSet, directorHttpEndpoints } from '@buildautomaton/product-director';
 
 const runtime = { cwd: process.cwd(), log: console.error };
@@ -42,6 +39,7 @@ await createRuntime({
   plugins: [
     ...coreSet({ options: { cwd: process.cwd(), httpEndpoints: directorHttpEndpoints() }, runtime }),
     ...productDirectorSet({ runtime }),
+    appPlugin({ runtime }),
   ],
 });
 ```

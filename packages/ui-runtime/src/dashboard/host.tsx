@@ -6,6 +6,8 @@ export type UiHostValue = {
   slots: UiSlots;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
+  focusedColumnId: string | null;
+  setFocusedColumnId: (id: string | null) => void;
   surfacesIn: (panel: string) => UiSurface[];
 };
 
@@ -13,14 +15,17 @@ const UiHostContext = createContext<UiHostValue | null>(null);
 
 export function UiHostProvider(props: { slots: UiSlots; children: ReactNode }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [focusedColumnId, setFocusedColumnId] = useState<string | null>(null);
   const value = useMemo<UiHostValue>(
     () => ({
       slots: props.slots,
       selectedId,
       setSelectedId,
+      focusedColumnId,
+      setFocusedColumnId,
       surfacesIn: (panel) => props.slots.surfaces.filter((s) => s.panel === panel),
     }),
-    [props.slots, selectedId],
+    [props.slots, selectedId, focusedColumnId],
   );
   return <UiHostContext.Provider value={value}>{props.children}</UiHostContext.Provider>;
 }

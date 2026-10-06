@@ -1,5 +1,5 @@
 export const ASK_PRODUCT_DIRECTOR_WHAT_TO_BUILD_NEXT_DESCRIPTION = [
-  'Ask the product director what to build next. Call this at the start of a session, before planning or building.',
+  'Ask the product director what to build next when you were not already given work in the session prompt.',
   'It returns a sessionId state handle in structuredContent (and as text). Always minting this handle — even when there is no queued work.',
   'Keep that sessionId for the whole build session. Pass the same one on every tell_product_director_what_was_built; do not invent a new id or ask again just to get another.',
   'It also lists draft work that still needs an interview (interviewSessionId in structuredContent when distinct).',
@@ -21,7 +21,7 @@ export const ASK_PRODUCT_DIRECTOR_INTERVIEW_DESCRIPTION = [
 
 export const TELL_PRODUCT_DIRECTOR_WHAT_WAS_BUILT_DESCRIPTION = [
   'Tell the product director what you just built. Call this after the work is done, at the end of the session.',
-  'Always pass the sessionId state handle from ask_product_director_what_to_build_next (structuredContent.sessionId), plus title, description, and project.',
+  'Always pass the sessionId from this session’s prompt (or from ask structuredContent.sessionId), plus title, description, and project.',
   'Reuse that same sessionId on every tell in this agent session. Do not create a new sessionId or call ask again only to obtain another one.',
   'description: at most 2–3 plain-language sentences on what was built. No long changelogs.',
   'Pass every applicable artifact kind. For code changes always include summary and changesOverview.',

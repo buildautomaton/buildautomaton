@@ -9,6 +9,7 @@ import { createSqlSessionBackend } from '@plugins/session/sql/backend.js';
 import { composeSessionStores } from '@plugins/session/compose.js';
 import { contributeSessionHttp } from '@plugins/session/http/contribute.js';
 import { SESSION_MIGRATIONS } from '@plugins/session/sql/migrations.js';
+import { DEFAULT_SQL_SCHEMA } from '@/types/sql-store/schema.js';
 
 export function diskSessionPlugin(
   init: PluginInit<DiskSessionOptions, SessionHooks, Partial<SessionImplementation>> & {
@@ -23,6 +24,7 @@ export function diskSessionPlugin(
     supports: { stores: ['file-store', 'sql-store'], transports: ['http'] },
     createFromStores: (stores) => createSessionFromStores(init.options.dir, stores, init.implementation),
     contributeHttp: contributeSessionHttp,
+    sqlSchema: DEFAULT_SQL_SCHEMA,
     sqlMigrations: SESSION_MIGRATIONS,
     runtime: init.runtime,
   };

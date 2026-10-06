@@ -1,28 +1,29 @@
 # @buildautomaton/ui
 
-The **UI** is the other ready-to-run app (alongside the [Local CLI](../local-cli/)).
+The **UI** is the app host. The main screen is always the **app**. [Product director](../product-director/) sits in the sidebar as a widget, not as tabs, and not as its own home screen.
 
-It is a thin Vite host: it starts [`createUi`](../ui-runtime/) with [product-director UI plugins](../product-director/ui.md) and talks to the CLI over HTTP.
+It is a thin Vite host: [`createUi`](../ui-runtime/) with a sidebar layout. The main panel is whatever app plugins you compose. [Email](../apps/email.md) is a sample you compose yourself. Director UI plugins stay in `sidebar`. It talks to the [runtime](../runtime/) over HTTP (local CLI or a cloud host).
 
 ```text
-ui  (runnable app)
-  ├── ui-runtime           framework: layout, design system, shells
-  └── product-director     UI plugins: work columns
+ui  (app host)
+  ├── ui-runtime           kernel: sidebar shell
+  ├── app surface          main: the running app
+  └── product-director     sidebar: director widget
          ↓
       createUi → Vite app
 ```
 
 ```ts
-import { createUi } from '@buildautomaton/ui-runtime';
-import { productDirectorUiSet } from '@buildautomaton/product-director/ui';
+import { createHostUi } from '@buildautomaton/ui';
 
-const { App } = createUi({ plugins: productDirectorUiSet() });
+const { App } = createHostUi();
 ```
 
-The work UI uses columns: finished artifacts on the left, drafts and a prompt on the right. It calls `/api/work` and `/api/artifacts` on the same server as `/mcp`.
+`createAppUi()` is the generic host (prompt until the first `/api/app` transform). The host UI is the shell: nav, main, and the director sidebar. The widget calls `/api/work` and `/api/artifacts` on the same server as `/mcp`.
 
-Start the CLI first (port 3333), then:
+`local-cli app` starts both. **Dev (default)** is Vite HMR at `http://127.0.0.1:5173` so UI source changes apply live. **Prod** (`--prod` or `NODE_ENV=production`) serves `packages/ui/dist` from the runtime HTTP server.
 
 ```bash
-pnpm --filter @buildautomaton/ui dev
+npx @buildautomaton/local-cli app --cwd /path/to/repo
+npx @buildautomaton/local-cli app --prod --cwd /path/to/repo
 ```

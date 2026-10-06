@@ -17,6 +17,7 @@ export function contributeHttp(
       extras: slots.extras,
       pluginName: plugin.name,
       backend: ctx.backend,
+      harnesses: slots.harnesses,
       ...mount,
     });
   }

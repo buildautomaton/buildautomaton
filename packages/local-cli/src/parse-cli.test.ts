@@ -6,6 +6,7 @@ describe('parseCli', () => {
   it('defaults to disk HTTP in cwd', () => {
     const parsed = parseCli(['node', 'local-cli', '--cwd', '/work']);
     expect(parsed).toMatchObject({
+      mode: 'harness',
       cwd: '/work',
       backend: 'disk',
       transport: 'http',
@@ -49,5 +50,19 @@ describe('parseCli', () => {
     expect(parsed.remoteUrl).toBe('https://example.test');
     expect(parsed.backend).toBe('stream');
     expect(parsed.verbose).toBe(true);
+  });
+
+  it('parses the app command before flags', () => {
+    const parsed = parseCli(['node', 'local-cli', 'app', '--cwd', '/work', '--port', '4000']);
+    expect(parsed.mode).toBe('app');
+    expect(parsed.env).toBe('dev');
+    expect(parsed.cwd).toBe('/work');
+    expect(parsed.mcpPort).toBe(4000);
+    expect(parsed.uiPort).toBe(5173);
+    expect(parsed.transport).toBe('http');
+  });
+
+  it('selects prod for servers', () => {
+    expect(parseCli(['node', 'local-cli', 'app', '--prod']).env).toBe('prod');
   });
 });

@@ -16,9 +16,16 @@ export { BUILTIN_HARNESSES } from './harnesses/builtins.js';
 // stores
 export { fileStorePlugin } from './stores/file/plugin.js';
 export { sqlStorePlugin, defaultSqlFile } from './stores/sql/plugin.js';
+export { sqlStorePlugins } from './stores/sql/sql-store-plugins.js';
+export { doSqlStorePlugins } from './stores/sql/do-sql-store-plugins.js';
 export { createNodeFileStore } from './stores/file/store.js';
 export { createSqlStore } from './stores/sql/store.js';
 export { runSqliteMigrations } from './stores/sql/migrate.js';
+export { doSqlStorePlugin } from './stores/sql/do-plugin.js';
+export { pickSqlStore, requireSqlStore } from '../runtime/core/pick-sql-store.js';
+export { createDoSqlStore } from './stores/sql/do-store.js';
+export type { DoSqlBackend, DoSqlCursor, DoSqlExec } from './stores/sql/do-storage.js';
+export type { DoSqlStoreOptions, DoSqlStorePluginInit } from './stores/sql/do-plugin.js';
 
 // session
 export { diskSessionPlugin } from './session/disk/plugin.js';
@@ -66,3 +73,6 @@ export { jsonToolResult } from './tools/minion/json-result.js';
 export { createCoreToolRegistry } from './tools/minion/core-registry.js';
 export { launchSession } from './tools/minion/launch-session.js';
 export { getSessionStatus } from './tools/minion/session-status.js';
+
+export { appPlugin } from './app/plugin.js';
+export type { AppPhase, AppState, AppPluginOptions } from './app/plugin.js';

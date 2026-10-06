@@ -13,4 +13,7 @@ export type {
 } from './core/plugin.js';
 export type { UiHost, CreateUiOptions } from './core/create-ui.js';
 export { DashboardShell } from './dashboard/shell.js';
+export { ColumnFocusButton } from './dashboard/column-focus-button.js';
+export { useUiHost } from './dashboard/host.js';
+export { surfacesForPanel } from './dashboard/surfaces-for-panel.js';
 export * from './design/index.js';

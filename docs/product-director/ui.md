@@ -1,25 +1,23 @@
-# Product director: UI plugins
+# Product director: widget
 
-These plugins run inside [`@buildautomaton/ui-runtime`](../ui-runtime/). `productDirectorUiSet()` installs them. The ready-made [UI](../ui/) app already does that for you.
+These plugins run inside [`@buildautomaton/ui-runtime`](../ui-runtime/). They fill the **sidebar**. They do not take `main`, and they do not install a tabbed dashboard.
 
-## Work surface
-
-`workUiPlugin` (`kind: 'surface'`) is the main UI pack. It asks for a **columns** layout and fills it with:
+`productDirectorUiSet()` is the pack. The [UI](../ui/) host already installs it next to the [app](../apps/) surface.
 
 | Surface | Panel | What you see |
 | --- | --- | --- |
-| Projects | header | Project tabs / filter |
-| Completed | column | Finished artifacts you can review |
-| Draft work | column | Work still being shaped |
-| Queued work | column | Items waiting for an agent, plus a prompt composer |
+| Director widget | `sidebar` | Prompt field, in-progress tasks, reviews, and setup |
 
-It also installs a React provider so those views can talk to the work API (usually the local CLI on port 3333).
+The widget talks to the work API on the runtime (usually the local CLI on port 3333). The runtime also serves the same widget at `/director` and a page script at `/director.js` so the sidebar can attach to the app.
 
 ```ts
-import { createUi } from '@buildautomaton/ui-runtime';
-import { productDirectorUiSet } from '@buildautomaton/product-director/ui';
+import { createAppUi } from '@buildautomaton/product-director/ui';
 
-const { App } = createUi({ plugins: productDirectorUiSet() });
+const { App } = createAppUi();
 ```
 
 Pass a custom `client` if you need a different HTTP base URL or auth.
+
+The composer starts a session. In-progress work stays in the feed until the agent reports what was built. The app’s first prompt field does the same.
+
+Setup (which agents are installed, working directory) lives in the widget, not on a separate director home screen.

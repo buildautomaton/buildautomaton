@@ -1,6 +1,6 @@
 # Product director: runtime plugins
 
-These plugins run inside [`@buildautomaton/runtime`](../runtime/). `productDirectorSet()` installs all of them. They need the shared SQL store and HTTP server (not the file store).
+These plugins run inside [`@buildautomaton/runtime`](../runtime/). `productDirectorSet()` installs all of them. They need the shared SQL store and HTTP server (not the file store). The same set works on a local host or a cloud host.
 
 ## Artifact plugins
 
@@ -17,9 +17,7 @@ Each artifact plugin teaches agents (and the tell tool) about one kind of review
 
 ## Work plugin
 
-`sqliteWorkPlugin` (`kind: 'work'`) owns the queue itself: drafts, queued items, completed work, answers, and artifacts in SQLite. It also mounts HTTP under `/api` (work, artifacts, assets, and a websocket for live updates).
-
-There is also `memoryWorkPlugin` for in-memory use (tests and light embeds).
+`sqliteWorkPlugin` (`kind: 'work'`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api` and serves the [sidebar widget](./ui.md). `memoryWorkPlugin` is for tests and light embeds.
 
 ## Director tools
 
@@ -33,6 +31,12 @@ There is also `memoryWorkPlugin` for in-memory use (tests and light embeds).
 
 The tell tool’s fields and instructions are built from the artifact plugins you registered.
 
+## Prompt sessions
+
+The sidebar composer and the app’s first prompt start a **new ACP session** per prompt. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_product_director_what_was_built` when the work is done. The dashboard shows an in-progress task, then the recorded artifacts — not the session transcript.
+
+`GET /api/director` includes `coordinator`. `POST /api/director/session` with `{ prompt, project? }` creates in-progress work and starts the session.
+
 ## HTTP paths
 
-Default mounts on the shared server: `/api/work`, `/api/artifacts`, `/api/assets`, `/api/work/events`.
+Default mounts: `/api/work`, `/api/artifacts`, `/api/assets`, `/api/work/events`, `/api/director`, `/director`, `/director.js`.

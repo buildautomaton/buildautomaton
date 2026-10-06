@@ -48,7 +48,9 @@ export function createHttpTransport(init: CreateHttpTransportInit = {}): HostTra
       detachWs = attachHttpWebSockets(server, commandHost.http ?? registry).detach;
       const bound = await listenLocalhost(server, port, host);
       await logListening(commandHost, host, bound, path, log);
-      init.onListening?.({ url: httpListenUrl(host, bound, path), port: bound });
+      const listening = { url: httpListenUrl(host, bound, path), port: bound };
+      init.onListening?.(listening);
+      commandHost.onListening?.(listening);
       await waitForClose(server);
       log('[HTTP] Server closed');
     },

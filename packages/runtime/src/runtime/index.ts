@@ -6,6 +6,7 @@ export type { RuntimeOptions, RuntimeHandle } from './core/runtime-types.js';
 export { applyPlugins } from './core/plugin-apply.js';
 export { createPluginSlots } from './core/plugin-slots.js';
 export type { PluginSlots } from './core/plugin-slots.js';
+export { localMcpServers } from './core/local-mcp.js';
 export { mergeToolRegistries } from './tools/merge-registries.js';
 
 // ACP engine + wire
@@ -42,6 +43,7 @@ export type {
 export { createHarnessRegistry } from './harnesses/create-registry.js';
 export type { AgentHarness, AgentHarnessRegistry, GetAgentHarnessFn } from './harnesses/types.js';
 export type { DiscoveredAgent, AgentDiscovery } from './harnesses/discovery-types.js';
+export { installLocalAgentOnBridge } from './harnesses/install/install-local-agent.js';
 
 // session + host transport helpers
 export type { SessionBackend, SessionBackendWrap } from './session/types.js';

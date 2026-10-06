@@ -23,4 +23,6 @@ minionToolsPlugin()
 
 Skip them in `coreSet()` with `minionTools: false`.
 
-Other packages (for example [product-director](../product-director/runtime.md)) can add more tools plugins beside this one.
+Other packages add more tools plugins beside this one. [Product director](../product-director/runtime.md) adds ask/tell.
+
+The same `/mcp` list is passed into ACP sessions as `mcpServers`, so prompt sessions and minions share those tools.

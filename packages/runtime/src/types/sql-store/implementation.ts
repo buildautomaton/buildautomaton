@@ -4,7 +4,7 @@ export type { SqlMigration };
 
 export type SqlBind = string | number | null;
 
-/** Shared SQL database. Plugins inject scoped migrations via `migrate`. */
+/** One SQL database (a named schema). Plugins inject scoped migrations via `migrate`. */
 export type SqlStore = {
   exec(sql: string): void;
   run(sql: string, params?: SqlBind[]): void;

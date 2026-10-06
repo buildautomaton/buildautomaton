@@ -6,6 +6,7 @@ export type CommandHost = ToolRegistry & {
   cwd: string;
   notifier?: NotifierHub;
   http?: HttpRegistry;
+  onListening?: (info: { url: string; port: number }) => void;
 };
 
 /** Methods a transport plugin may override. */

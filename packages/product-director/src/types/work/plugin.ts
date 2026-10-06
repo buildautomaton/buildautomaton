@@ -21,6 +21,8 @@ export type WorkPlugin = {
   wrapBackend?: WorkBackendWrap;
   supports?: PluginSupport;
   sqlMigrations?: readonly SqlMigration[];
+  /** Durable Object / SQLite file that owns these migrations. */
+  sqlSchema?: string;
   createFromStores?: (stores: StoreContext) => WorkImplementation;
   contributeHttp?: (http: HttpRegistry, ctx: HttpContributeContext) => void;
   runtime?: PluginRuntimeContext;
