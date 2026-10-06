@@ -1,4 +1,4 @@
-import { startUiDev, type UiDevHost } from '@buildautomaton/ui';
+import { startUiDev, type UiDevHost } from '@buildautomaton/ui/node';
 import type { ParsedCli } from './parse-cli.js';
 import { writeInfo } from './log.js';
 

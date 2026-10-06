@@ -12,6 +12,7 @@
   "type": "module",
   "exports": {
     ".": "./src/host.ts",
+    "./node": "./src/node.ts",
     "./package.json": "./package.json"
   },
   "scripts": {

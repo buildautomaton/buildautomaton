@@ -1,6 +1,6 @@
 import { appPlugin, coreSet, HTTP_DEFAULT_HOST, runRuntime, type RuntimeOptions } from '@buildautomaton/runtime';
 import { directorHttpEndpoints, productDirectorSet } from '@buildautomaton/product-director';
-import { uiDistDir } from '@buildautomaton/ui';
+import { uiDistDir } from '@buildautomaton/ui/node';
 import type { ParsedCli } from './parse-cli.js';
 import { createLog, writeInfo } from './log.js';
 import { openUi } from './open-ui.js';
