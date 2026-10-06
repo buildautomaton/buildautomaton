@@ -1,5 +1,5 @@
-import type { ToolContext } from '@buildautomaton/runtime';
-import type { McpToolCallResult } from '@buildautomaton/runtime';
+import type { ToolContext } from '@buildautomaton/plugins';
+import type { McpToolCallResult } from '@buildautomaton/plugins';
 import type { DesignQuestion } from '@/types/work/questions.js';
 import { parseQuestionList } from './parse-parts.js';
 import { NO_WORK_BACKEND } from './format-next.js';

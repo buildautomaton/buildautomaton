@@ -1,5 +1,5 @@
-import type { PluginInit, PluginRuntimeContext, RuntimePlugin } from '@buildautomaton/runtime';
-import { HTTP_DEFAULT_WORK_ROOT, type TransportEndpoint } from '@buildautomaton/runtime';
+import type { PluginInit, PluginRuntimeContext, RuntimePlugin } from '@buildautomaton/plugins';
+import { HTTP_DEFAULT_WORK_ROOT, type TransportEndpoint } from '@buildautomaton/plugins';
 import { sqliteWorkPlugin } from './plugins/runtime/work/sqlite/plugin.js';
 import { workToolsPlugin } from './plugins/runtime/work-tools/plugin.js';
 import { artifactPlugins } from './plugins/runtime/artifacts/builtins.js';

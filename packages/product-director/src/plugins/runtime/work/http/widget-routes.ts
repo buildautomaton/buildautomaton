@@ -1,4 +1,4 @@
-import type { HttpRegistry } from '@buildautomaton/runtime';
+import type { HttpRegistry } from '@buildautomaton/plugins';
 import { sendDirectorScript, sendWidgetAsset } from './serve-widget.js';
 
 export function contributeWidgetRoutes(http: HttpRegistry): void {

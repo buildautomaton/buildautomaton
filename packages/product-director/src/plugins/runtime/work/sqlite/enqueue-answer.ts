@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { DesignChoice, QuestionAnswer } from '@/types/work/questions.js';
 import type { WorkItem } from '@/types/work/records.js';
 import { isStatusQuoChoice } from '@/types/work/questions.js';

@@ -38,6 +38,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@buildautomaton/plugins": "workspace:*",
     "@buildautomaton/runtime": "workspace:*",
     "@buildautomaton/product-director": "workspace:*",
     "@buildautomaton/ui": "workspace:*"

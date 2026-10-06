@@ -1,4 +1,4 @@
-import { HTTP_DEFAULT_PORT, MCP_DEFAULT_PATH } from '@buildautomaton/runtime';
+import { HTTP_DEFAULT_PORT, MCP_DEFAULT_PATH } from '@buildautomaton/plugins';
 import { CLI_VERSION } from './version.js';
 
 export function printHelp(): void {

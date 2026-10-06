@@ -12,7 +12,7 @@ fileStorePlugin({ options: { root: process.cwd() } })
 
 ## SQL schemas
 
-A **schema** is one Durable Object (or one local SQLite file) plus the migrations that run on it. `sqlStorePlugin` opens that file. Plugins set `sqlSchema` so their migrations land on that object.
+A **schema** is one database plus the migrations that run on it. `sqlStorePlugin` opens a local SQLite file. Plugins set `sqlSchema` and `sqlBackend` (`sqlite`, `do`, or `d1`) so the Cloudflare SQL plugin knows whether that schema is D1 or a Durable Object.
 
 | Schema | Default file | Who uses it |
 | --- | --- | --- |
@@ -28,15 +28,20 @@ sqlStorePlugins({ cwd, schemas: ['work', 'email'] })
 
 Migrations use a `__migrations` table. Names are scoped per plugin. Order is guaranteed only inside that plugin.
 
-## Cloudflare Durable Objects
+## Cloudflare
 
-`doSqlStorePlugin` is the same contract, backed by `ctx.storage.sql`. **One Durable Object per schema.** A cloud host passes a storage binding for each name.
+`cloudSqlStorePlugin` reads `options.backend`:
+
+- `d1`: one D1 database (global listings)
+- `do` with `storage`: SQL inside the current Durable Object
+- `do` with `namespace`: one Durable Object per `opener.open(key)` (plugin versions)
 
 ```ts
-import { doSqlStorePlugin, doSqlStorePlugins } from '@buildautomaton/runtime';
+import { cloudSqlStorePlugin, r2FileStorePlugin } from '@buildautomaton/plugins/worker';
 
-doSqlStorePlugin({ options: { schema: 'work', storage: env.WORK } })
-doSqlStorePlugins({ work: env.WORK, email: env.EMAIL })
+cloudSqlStorePlugin({ options: { schema: 'marketplace', backend: 'd1', d1: env.GLOBAL_DB } })
+cloudSqlStorePlugin({ options: { schema: 'marketplace-plugin', backend: 'do', namespace: env.MARKETPLACE_PLUGIN } })
+r2FileStorePlugin({ options: { bucket: env.MARKETPLACE_FILES, prefix: 'marketplace', backend: 'r2' } })
 ```
 
-Skip the file SQL plugins from `coreSet` / `emailSet({ sql: false })` and pass the DO plugins instead.
+`doSqlStorePlugin` remains the in-object `ctx.storage.sql` adapter. Skip file SQL plugins from `coreSet` / app sets (`sql: false`) on Workers.

@@ -1,7 +1,7 @@
-import type { PluginInit, RuntimePlugin } from '@buildautomaton/runtime';
+import type { ExtensionPlugin, PluginInit } from '@buildautomaton/plugins';
 import { createCoordinator } from './backend.js';
 
-export function coordinatorPlugin(init: PluginInit = {}): RuntimePlugin {
+export function coordinatorPlugin(init: PluginInit = {}): ExtensionPlugin {
   return {
     name: 'director-coordinator',
     kind: 'coordinator',

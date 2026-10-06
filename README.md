@@ -2,7 +2,7 @@
 
 Swap out agents at will.
 
-Open-source app framework. Two small kernels ([runtime](./docs/runtime/) and [UI runtime](./docs/ui-runtime/)) plus plugins. [Apps](./docs/apps/) are compositions of those plugins. The same runtime runs locally or in the cloud. [Email](./docs/apps/email.md) is a sample you compose yourself, not in the host. Product director is a sidebar widget.
+Open-source app framework. Two small runtimes ([runtime](./docs/runtime/) and [UI runtime](./docs/ui-runtime/)) plus plugins. [Apps](./docs/apps/) are compositions of those plugins. The same runtime runs locally or in the cloud. [Email](./docs/apps/email.md) is a sample you compose yourself, not in the host. Product director is a sidebar widget.
 
 **Documentation:** [`docs/`](./docs/) (also on the [BuildAutomaton site](https://buildautomaton.com/meta-harness)).
 

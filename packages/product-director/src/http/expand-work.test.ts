@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { joinHttpPath } from '@buildautomaton/runtime';
+import { joinHttpPath } from '@buildautomaton/plugins';
 import { expandWorkMount } from './expand-work.js';
 
 describe('expandWorkMount', () => {

@@ -21,3 +21,5 @@ httpTransportPlugin({
 `directorHttpEndpoints()` in product-director sets up the work and session mounts the CLI uses.
 
 This is the default path in `coreSet()`. Use [transports](./transports.md) when you want stdio or a remote control plane instead.
+
+On [Cloudflare](./cloud.md), use `fetchTransportPlugin` (or `workerHostPlugins`). `createRuntime` then exposes `handle.fetch(request)` instead of binding a port.

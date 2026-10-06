@@ -6,7 +6,7 @@ It is a thin Vite host: [`createUi`](../ui-runtime/) with a sidebar layout. The 
 
 ```text
 ui  (app host)
-  ├── ui-runtime           kernel: sidebar shell
+  ├── ui-runtime           sidebar shell
   ├── app surface          main: the running app
   └── product-director     sidebar: director widget
          ↓

@@ -1,0 +1,9 @@
+import './stores/file-store/register.js';
+import './stores/sql-store/register.js';
+import './session/session/register.js';
+import './harnesses/harness/register.js';
+import './harnesses/acp/register.js';
+import './tools/tools/register.js';
+import './transport/http/register.js';
+import './transport/transport/register.js';
+import './apply/register-extension.js';

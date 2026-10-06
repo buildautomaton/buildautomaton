@@ -35,6 +35,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@buildautomaton/plugins": "workspace:*",
     "@buildautomaton/runtime": "workspace:*",
     "marked": "^18.0.14"
   },

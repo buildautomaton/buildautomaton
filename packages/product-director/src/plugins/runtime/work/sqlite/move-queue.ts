@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import { all } from './sql.js';
 import { run } from './sql.js';
 import { isoNow } from './rank.js';

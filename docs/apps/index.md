@@ -1,6 +1,6 @@
 # Apps
 
-An **app** is a composition of plugins that run on the two kernels.
+An **app** is a composition of plugins that run on the two runtimes.
 
 ```text
 Host (local-cli or cloud)
@@ -8,7 +8,7 @@ Host (local-cli or cloud)
   → createUi({ plugins: [layout, app UI, director widget, …] })
 ```
 
-The kernels do not know what the app is. Plugins do.
+The runtimes do not know what the app is. Plugins do.
 
 | Layer | What you pass |
 | --- | --- |
@@ -22,8 +22,8 @@ The same app runs **locally** or **in the cloud**. Swap the host and the store p
 ```mermaid
 flowchart TB
   host["host"]
-  runtime["runtime kernel"]
-  ui["ui-runtime kernel"]
+  runtime["runtime"]
+  ui["ui-runtime"]
   core["core plugins"]
   app["app plugins"]
   director["product-director plugins"]

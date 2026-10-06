@@ -1,4 +1,4 @@
-import type { McpToolDefinition } from '@buildautomaton/runtime';
+import type { McpToolDefinition } from '@buildautomaton/plugins';
 import { ASK_PRODUCT_DIRECTOR_INTERVIEW_QUESTIONS } from './names.js';
 import { ASK_PRODUCT_DIRECTOR_INTERVIEW_DESCRIPTION } from './descriptions.js';
 import { INTERVIEW_QUESTIONS_SCHEMA } from './questions-schema.js';

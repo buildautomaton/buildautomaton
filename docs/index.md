@@ -1,17 +1,18 @@
 # Architecture
 
-meta-harness is two small kernels plus plugins. You compose them into an **app**.
+meta-harness is two small runtimes plus plugins. You compose them into an **app**.
 
-| Kernel | Package | What it does |
+| Runtime | Package | What it does |
 | --- | --- | --- |
-| [Runtime](./runtime/) | `@buildautomaton/runtime` | Starts and stops. Wires server plugins. |
+| [Runtime](./runtime/) | `@buildautomaton/runtime` | Plugin and service registries, plus lifecycle. |
+| Plugins | `@buildautomaton/plugins` | Stores, sessions, harnesses, HTTP, and `createRuntime`. |
 | [UI runtime](./ui-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into an app shell. |
 
-The kernels stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the director widget) is a plugin.
+The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the director widget) is a plugin.
 
 ## Where the runtime runs
 
-The same runtime runs **locally** or **in the cloud**. The host changes; the kernel and plugin contracts do not.
+The same runtime runs **locally** or **in the cloud**. The host changes; the runtime and plugin contracts do not.
 
 | Host | Package | Role |
 | --- | --- | --- |
@@ -22,8 +23,8 @@ The same runtime runs **locally** or **in the cloud**. The host changes; the ker
 flowchart LR
   local("local-cli")
   cloud("cloud host")
-  runtime("runtime kernel")
-  uiRuntime("ui-runtime kernel")
+  runtime("runtime")
+  uiRuntime("ui-runtime")
   plugins("plugins")
   local --> runtime
   cloud --> runtime
@@ -33,7 +34,7 @@ flowchart LR
 
 ## Plugins
 
-A package can ship **runtime** plugins, **UI** plugins, or **both**. The kernel only indexes them. The plugin owns the behavior.
+A package can ship **runtime** plugins, **UI** plugins, or **both**. The runtime only indexes them. The plugin owns the behavior.
 
 [Product director](./product-director/) is the dual example: queue and tools on the runtime, a sidebar widget on the UI runtime.
 

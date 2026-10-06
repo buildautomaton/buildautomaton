@@ -4,7 +4,7 @@ import {
   normalizeHttpPath,
   type SessionBackendKind,
   type TransportKind,
-} from '@buildautomaton/runtime';
+} from '@buildautomaton/plugins';
 import { printHelp } from './help.js';
 import { CLI_VERSION } from './version.js';
 

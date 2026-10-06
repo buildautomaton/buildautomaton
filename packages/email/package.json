@@ -29,6 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@buildautomaton/plugins": "workspace:*",
     "@buildautomaton/runtime": "workspace:*"
   },
   "peerDependencies": {

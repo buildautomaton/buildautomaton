@@ -1,0 +1,39 @@
+import type { DiscoveredAgent } from '@plugins/harnesses/acp/host/discovery-types.js';
+import type { AgentHarness } from '@plugins/harnesses/acp/host/types.js';
+import { yieldToEventLoop } from '@plugins/harnesses/acp/util/yield-to-event-loop.js';
+import { isShutdownRequested } from '@plugins/harnesses/acp/util/shutdown.js';
+
+/** Discover local agents via harness detectPresence hooks (best-effort). */
+export async function discoverAgents(
+  harnesses: readonly AgentHarness[],
+): Promise<DiscoveredAgent[]> {
+  try {
+    if (isShutdownRequested()) return [];
+    const out: DiscoveredAgent[] = [];
+    for (let i = 0; i < harnesses.length; i++) {
+      if (isShutdownRequested()) return out;
+      if (i > 0) {
+        await yieldToEventLoop();
+        if (isShutdownRequested()) return out;
+      }
+      const harness = harnesses[i]!;
+      try {
+        if (await harness.detectPresence?.()) {
+          out.push({ type: harness.type, displayName: harness.displayName });
+        }
+      } catch {
+        /* skip */
+      }
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
+/** Backend local-agent type strings only (legacy bridge helper). */
+export async function detectLocalAgentTypes(
+  harnesses: readonly AgentHarness[],
+): Promise<string[]> {
+  return (await discoverAgents(harnesses)).map((a) => a.type);
+}

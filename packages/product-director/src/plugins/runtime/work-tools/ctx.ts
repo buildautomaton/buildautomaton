@@ -1,4 +1,4 @@
-import type { ToolContext } from '@buildautomaton/runtime';
+import type { ToolContext } from '@buildautomaton/plugins';
 import type { WorkImplementation } from '@/types/work/implementation.js';
 import type { ArtifactKind } from '@/types/artifact/kind.js';
 

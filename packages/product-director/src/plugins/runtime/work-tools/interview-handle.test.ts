@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { handleAskInterviewQuestions } from './interview-handle.js';
 import { createSqliteWorkBackend } from '@plugins/runtime/work/sqlite/backend.js';
-import type { ToolContext } from '@buildautomaton/runtime';
+import type { ToolContext } from '@buildautomaton/plugins';
 
 const question = {
   id: 'scope',

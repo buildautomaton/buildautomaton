@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { AcpEngine, SessionImplementation, SessionRecord } from '@buildautomaton/runtime';
+import type { AcpEngine, SessionImplementation, SessionRecord } from '@buildautomaton/plugins';
 import { createSqliteWorkBackend } from '../work/sqlite/backend.js';
 import { createCoordinator } from './backend.js';
 import { SESSION_MARK } from './prompt.js';

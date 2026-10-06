@@ -20,6 +20,7 @@
         { "slug": "runtime/harnesses", "title": "Harnesses" },
         { "slug": "runtime/tools", "title": "Tools" },
         { "slug": "runtime/http", "title": "HTTP" },
+        { "slug": "runtime/cloud", "title": "Cloudflare" },
         { "slug": "runtime/transports", "title": "Transports" },
         { "slug": "runtime/custom", "title": "Custom plugins" }
       ]

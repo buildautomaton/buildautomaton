@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import { run } from './sql.js';
 
 export function deleteWorkRow(db: SqlStore, id: string): void {

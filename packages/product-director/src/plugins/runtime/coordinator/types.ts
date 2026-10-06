@@ -1,4 +1,4 @@
-import type { AcpEngine, LogFn, SessionImplementation } from '@buildautomaton/runtime';
+import type { AcpEngine, LogFn, SessionImplementation } from '@buildautomaton/plugins';
 import type { WorkItem } from '@/types/work/records.js';
 
 export type CoordinatorStatus = {

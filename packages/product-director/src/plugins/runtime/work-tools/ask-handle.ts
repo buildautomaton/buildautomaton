@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { ToolContext } from '@buildautomaton/runtime';
-import type { McpToolCallResult } from '@buildautomaton/runtime';
+import type { ToolContext } from '@buildautomaton/plugins';
+import type { McpToolCallResult } from '@buildautomaton/plugins';
 import type { WorkItem } from '@/types/work/records.js';
 import { formatDrafts, formatQueuedWork, formatSessionHandle, NO_WORK_BACKEND } from './format-next.js';
 import { toolText } from './tool-result.js';

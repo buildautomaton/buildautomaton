@@ -1,5 +1,5 @@
-import type { ToolContext } from '@buildautomaton/runtime';
-import type { McpToolCallResult } from '@buildautomaton/runtime';
+import type { ToolContext } from '@buildautomaton/plugins';
+import type { McpToolCallResult } from '@buildautomaton/plugins';
 import { hasArtifacts } from '@plugins/runtime/work/artifacts/kinds.js';
 import { parseSubmitWork } from './parse-submit.js';
 import { NO_ARTIFACTS, NO_WORK_BACKEND } from './format-next.js';

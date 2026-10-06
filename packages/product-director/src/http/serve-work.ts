@@ -3,7 +3,7 @@ import {
   createHttpRegistry,
   createMcpSseHub,
   handleHttpRequest,
-} from '@buildautomaton/runtime';
+} from '@buildautomaton/plugins';
 import type { WorkImplementation } from '@/types/work/implementation.js';
 import { contributeWorkHttp } from '../plugins/runtime/work/http/contribute.js';
 

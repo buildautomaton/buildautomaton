@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import type { AgentHarness, HttpRegistry } from '@buildautomaton/runtime';
+import type { AgentHarness, HttpRegistry } from '@buildautomaton/plugins';
 import { readJson, writeJson } from './io.js';
 import { installDirectorAgent } from './setup-install.js';
 import { allowsDirectorOrigin } from './setup-origin.js';

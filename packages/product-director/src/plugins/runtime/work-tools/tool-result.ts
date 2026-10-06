@@ -1,4 +1,4 @@
-import type { McpToolCallResult } from '@buildautomaton/runtime';
+import type { McpToolCallResult } from '@buildautomaton/plugins';
 
 export function toolText(
   value: string,

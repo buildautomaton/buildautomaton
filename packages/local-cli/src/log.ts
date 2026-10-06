@@ -1,4 +1,4 @@
-import type { LogFn } from '@buildautomaton/runtime';
+import type { LogFn } from '@buildautomaton/plugins';
 
 /** Always-on stderr (MCP stdout is JSON-RPC). */
 export function writeInfo(line: string): void {

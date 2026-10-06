@@ -1,4 +1,4 @@
-import type { AcpEngine, AgentHarness } from '@buildautomaton/runtime';
+import type { AcpEngine, AgentHarness } from '@buildautomaton/plugins';
 
 export async function pickCoordinatorHarness(engine: AcpEngine): Promise<AgentHarness | null> {
   for (const harness of engine.listHarnesses()) {

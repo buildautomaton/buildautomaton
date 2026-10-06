@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
   applyPlugins,
+  asHost,
   diskSessionPlugin,
   httpTransportPlugin,
   fileStorePlugin,
   sqlStorePlugin,
-} from '@buildautomaton/runtime';
+} from '@buildautomaton/plugins';
 import { memoryWorkPlugin } from './plugins/runtime/work/sqlite/plugin.js';
 import { workToolsPlugin } from './plugins/runtime/work-tools/plugin.js';
 import { artifactPlugins } from './plugins/runtime/artifacts/builtins.js';
@@ -35,7 +36,7 @@ describe('work plugin compose', () => {
       expect((slots.extras['work-memory'] as { id?: string })?.id).toBe('memory');
       expect(slots.byKind.get('artifact')).toHaveLength(6);
       expect(slots.extras.artifacts).toHaveLength(6);
-      expect(slots.tools).toHaveLength(1);
+      expect(asHost(slots).tools).toHaveLength(1);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

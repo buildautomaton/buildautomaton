@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyPlugins, sqlStorePlugin } from '@buildautomaton/runtime';
+import { applyPlugins, sqlStorePlugin } from '@buildautomaton/plugins';
 import type { EmailImplementation } from '../../types/implementation.js';
 import { emailPlugin } from './plugin.js';
 

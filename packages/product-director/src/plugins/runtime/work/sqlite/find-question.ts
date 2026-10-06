@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { DesignQuestion } from '@/types/work/questions.js';
 import { QUESTIONS_FILE_PATH, parseQuestionsFile } from '@plugins/runtime/work/artifacts/questions-file.js';
 import { all, one } from './sql.js';

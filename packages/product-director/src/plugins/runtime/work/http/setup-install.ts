@@ -1,4 +1,4 @@
-import { installLocalAgentOnBridge, type AgentHarness } from '@buildautomaton/runtime';
+import { installLocalAgentOnBridge, type AgentHarness } from '@buildautomaton/plugins';
 
 export async function installDirectorAgent(
   harnesses: readonly AgentHarness[],

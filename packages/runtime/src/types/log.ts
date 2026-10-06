@@ -1,2 +1,1 @@
-/** Log line sink (host-injected). */
-export type LogFn = (message: string) => void;
+export type { LogFn } from '../core/registry-types.js';

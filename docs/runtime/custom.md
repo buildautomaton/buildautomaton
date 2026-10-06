@@ -1,6 +1,6 @@
 # Custom plugins
 
-The kernel only needs to know the kind. Your plugin owns the behavior. A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both** (see [product director](../product-director/)).
+The runtime is a plugin registry and a service registry. A plugin publishes a service **interface**, an **implementation**, or both (`options`, `hooks`, and `implementation` stay per service). Former kinds such as `tools` are service ids. A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both** (see [product director](../product-director/)).
 
 A tiny tools plugin that answers `ping`:
 
@@ -8,6 +8,7 @@ A tiny tools plugin that answers `ping`:
 const ping: RuntimePlugin = {
   name: 'my-tools',
   kind: 'tools',
+  services: [{ id: 'tools' }],
   implementation: {
     listTools: () => [{ name: 'ping', description: 'Health check', inputSchema: { type: 'object' } }],
     callTool: async (name) => ({

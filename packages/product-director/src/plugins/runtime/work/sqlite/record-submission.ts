@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import type { SubmitWorkInput } from '@/types/work/submit.js';
 import type { WorkArtifact } from '@/types/work/artifact.js';
 import { run } from './sql.js';

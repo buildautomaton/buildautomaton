@@ -1,86 +1,41 @@
-/**
- * Runtime — plugin kernel plus a catalog of plugins.
- *
- * Map: types/ (plugin contracts) → runtime/core/ (createRuntime) →
- * runtime/acp/ (engine + wire) → runtime/harnesses/ (registry) →
- * plugins/ (coreSet + per-agent adapters). See README glossary.
- */
+export type {
+  ApplierRegistry,
+  Runtime,
+  RuntimeContext,
+  ServiceApplier,
+  LogFn,
+  ServiceId,
+  ServiceContribution,
+  ServiceRecord,
+  PluginRuntimeContext,
+  PluginInit,
+  RuntimePlugin,
+  PluginFactory,
+} from './core/registry-types.js';
+export { initRuntime } from './core/init-runtime.js';
+export type { InitRuntimeOptions } from './core/init-runtime.js';
+export { createApplierRegistry } from './core/applier-registry.js';
+export { pluginServices } from './core/collect-services.js';
 
-// kernel + ACP engine
-export * from './types/index.js';
-export * from './runtime/index.js';
-
-// plugin catalog
+export { createRuntime } from './core/create-runtime.js';
+export type { ComposeRuntime } from './core/create-runtime.js';
+export { runRuntime } from './core/run-runtime.js';
+export { RUNTIME_VERSION, MCP_SERVER_NAME } from './core/version.js';
+export type { RuntimeOptions, RuntimeHandle } from './core/runtime-types.js';
+export { applyPlugins } from './core/plugin-apply.js';
+export { createPluginSlots } from './core/plugin-slots.js';
+export type { PluginSlots } from './core/plugin-slots.js';
+export { registerService } from './core/service-appliers.js';
+export { createPluginRegistry } from './core/plugin-registry.js';
+export { createServiceRegistry } from './core/service-registry.js';
+export type { PluginRegistry } from './core/plugin-registry.js';
+export type { ServiceRegistry } from './core/service-registry.js';
 export {
-  coreSet,
-  coreHarnessPlugins,
-  cursorHarnessPlugin,
-  codexHarnessPlugin,
-  kiroHarnessPlugin,
-  claudeCodeHarnessPlugin,
-  opencodeHarnessPlugin,
-  BUILTIN_HARNESSES,
-  fileStorePlugin,
-  sqlStorePlugin,
-  defaultSqlFile,
-  sqlStorePlugins,
-  doSqlStorePlugins,
-  pickSqlStore,
-  requireSqlStore,
-  createNodeFileStore,
-  createSqlStore,
-  runSqliteMigrations,
-  doSqlStorePlugin,
-  createDoSqlStore,
-  diskSessionPlugin,
-  streamSessionPlugin,
-  createDiskBackend,
-  createStreamBackend,
-  createSqlSessionBackend,
-  createSessionBackend,
-  defaultSessionsDir,
-  transcriptTail,
-  httpTransportPlugin,
-  createHttpTransport,
-  createHttpRegistry,
-  handleHttpRequest,
-  createMcpSseHub,
-  listenLocalhost,
-  closeServer,
   HTTP_DEFAULT_HOST,
   HTTP_DEFAULT_PORT,
   HTTP_DEFAULT_WORK_ROOT,
   MCP_DEFAULT_PATH,
   normalizeHttpPath,
+  httpListenUrl,
   joinHttpPath,
-  stdioTransportPlugin,
-  createStdioTransport,
-  remoteTransportPlugin,
-  createRemoteTransport,
-  createHttpRemoteAdapter,
-  minionToolsPlugin,
-  CORE_TOOL_DEFINITIONS,
-  SPAWN_MINION_TOOL,
-  AWAIT_MINION_TOOL,
-  GET_MINION_TOOL,
-  GET_MINION_TRANSCRIPT_TOOL,
-  GET_MINION_CONTEXT_TOOL,
-  RESOLVE_MINION_REQUEST_TOOL,
-  jsonToolResult,
-  createCoreToolRegistry,
-  launchSession,
-  getSessionStatus,
-  appPlugin,
-} from './plugins/index.js';
-export type { AppPhase, AppState, AppPluginOptions } from './plugins/index.js';
-export type {
-  CoreSetOptions,
-  CoreSetHooks,
-  CoreSetImplementation,
-  McpSseHub,
-  DoSqlBackend,
-  DoSqlCursor,
-  DoSqlExec,
-  DoSqlStoreOptions,
-  DoSqlStorePluginInit,
-} from './plugins/index.js';
+} from './core/http-path.js';

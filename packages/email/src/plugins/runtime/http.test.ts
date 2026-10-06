@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { Readable } from 'node:stream';
 import { describe, expect, it } from 'vitest';
-import { sqlStorePlugin } from '@buildautomaton/runtime';
+import { sqlStorePlugin, type SqlStore } from '@buildautomaton/plugins';
 import { createEmailBackend } from './backend.js';
 import { handleEmailHttp } from './http.js';
 import { EMAIL_MIGRATIONS } from './migrations.js';
@@ -26,7 +26,7 @@ function res() {
 
 describe('email HTTP', () => {
   it('adds and lists messages', async () => {
-    const sql = sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
+    const sql = sqlStorePlugin({ options: { file: ':memory:' } }).implementation as SqlStore;
     sql.migrate('email-sql', EMAIL_MIGRATIONS);
     const mail = createEmailBackend(sql);
     const created = res();

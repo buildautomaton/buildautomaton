@@ -1,4 +1,4 @@
-import type { SqlStore } from '@buildautomaton/runtime';
+import type { SqlStore } from '@buildautomaton/plugins';
 import { DRAFT_ONLY } from '@/types/work/draft-only.js';
 import type { WorkHub } from './hub.js';
 import { getWorkRow } from './read-work.js';

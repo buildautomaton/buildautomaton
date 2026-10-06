@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { sqlStorePlugin } from '@buildautomaton/runtime';
+import { sqlStorePlugin, type SqlStore } from '@buildautomaton/plugins';
 import { createEmailBackend } from './backend.js';
 import { EMAIL_MIGRATIONS } from './migrations.js';
 
 describe('email SQL backend', () => {
   it('stores and lists emails', () => {
-    const sql = sqlStorePlugin({ options: { file: ':memory:' } }).implementation;
+    const sql = sqlStorePlugin({ options: { file: ':memory:' } }).implementation as SqlStore;
     sql.migrate('email-sql', EMAIL_MIGRATIONS);
     const mail = createEmailBackend(sql);
     const saved = mail.addEmail({

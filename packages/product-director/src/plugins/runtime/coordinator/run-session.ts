@@ -1,4 +1,4 @@
-import type { SessionRecord } from '@buildautomaton/runtime';
+import type { SessionRecord } from '@buildautomaton/plugins';
 import type { CoordinatorContext, CoordinatorStatus } from './types.js';
 
 export function runSessionTurn(
