@@ -11,7 +11,7 @@ export type PluginSlots = {
   ready: Promise<void>[];
 };
 
-export function createPluginSlots(): PluginSlots {
+export function emptyPluginSlots(): PluginSlots {
   return {
     pluginRegistry: createPluginRegistry(),
     services: createServiceRegistry(),

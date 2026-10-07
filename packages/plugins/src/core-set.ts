@@ -15,6 +15,7 @@ import { fileStorePlugin } from './stores/disk/plugin.js';
 import { sqlStorePlugin } from './stores/sqlite/plugin.js';
 import { coreSetTransport } from './core-set-transport.js';
 import { acpPlugin } from './harnesses/acp/plugin.js';
+import { buildautomatonSet } from './buildautomaton/set.js';
 
 export type CoreSetOptions = {
   cwd: string;
@@ -29,8 +30,10 @@ export type CoreSetOptions = {
   minionTools?: boolean;
   /** SQLite file for the sql-store plugin. Default: `<cwd>/.harness/work.sqlite`. */
   sqlFile?: string;
-  /** Extra HTTP mounts, e.g. product-director work at `/api`. */
+  /** Extra HTTP mounts beside the buildautomaton work routes. */
   httpEndpoints?: TransportEndpoint[];
+  /** Queue, artifact tools, and coordinator. Default on. */
+  buildautomaton?: boolean;
 };
 
 function defaultLog(line: string): void {
@@ -79,5 +82,6 @@ export function coreSet(
     );
   }
   plugins.push(coreSetTransport(opts, init, shared), acpPlugin());
+  if (opts.buildautomaton !== false) plugins.push(...buildautomatonSet({ runtime: ctx }));
   return plugins;
 }

@@ -57,8 +57,6 @@ export type RuntimeContext = {
   services: ServiceRegistry;
 };
 
-export type ServiceApplier = (ctx: RuntimeContext, plugin: RuntimePlugin, contrib: ServiceContribution) => void;
-
 export type PluginRegistry = {
   register(plugin: RuntimePlugin): void;
   all(): RuntimePlugin[];
@@ -76,13 +74,6 @@ export type ServiceRegistry = {
 };
 
 export type Runtime = RuntimeContext & {
-  appliers: ApplierRegistry;
-  apply(): void;
   start(): Promise<void>;
   stop(): Promise<void>;
-};
-
-export type ApplierRegistry = {
-  register(id: ServiceId, apply: ServiceApplier, order?: number): void;
-  get(id: ServiceId): { order: number; apply: ServiceApplier } | undefined;
 };

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@plugins/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/buildautomaton/plugins/ui",
+    "src/buildautomaton/app",
+    "src/buildautomaton/widget",
+    "src/buildautomaton/ui.ts",
+    "src/buildautomaton/ui-set.ts",
+    "src/buildautomaton/ui-set.test.ts"
+  ]
+}

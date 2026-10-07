@@ -20,6 +20,6 @@ httpTransportPlugin({
 });
 ```
 
-`directorHttpEndpoints()` in product-director sets up the work and session mounts the CLI uses.
+`coreSet()` mounts buildautomaton work and sessions at `/api`.
 
 This is the default path in `coreSet()`. On Cloudflare, use [Fetch](./fetch.md) (or [Worker host](./worker-host.md)). `createRuntime` then exposes `handle.fetch(request)` instead of binding a port.

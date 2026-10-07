@@ -4,16 +4,15 @@
 
 | Schema | Default file | Who uses it |
 | --- | --- | --- |
-| `work` (default) | `<cwd>/.harness/work.sqlite` | Sessions, product director |
-| `email` | `<cwd>/.harness/sql/email.sqlite` | Sample email app |
+| `work` (default) | `<cwd>/.harness/work.sqlite` | Sessions, buildautomaton |
 
 ```ts
 import { sqlStorePlugin, sqlStorePlugins } from '@buildautomaton/plugins';
 
-sqlStorePlugin({ options: { schema: 'email' } })
-sqlStorePlugins({ cwd, schemas: ['work', 'email'] })
+sqlStorePlugin({ options: { schema: 'work' } })
+sqlStorePlugins({ cwd, schemas: ['work'] })
 ```
 
-`coreSet()` installs the `work` schema. [Email](../apps/email.md) adds the `email` schema. Other apps add their own.
+`coreSet()` installs the `work` schema. Apps add their own schemas.
 
 On Cloudflare, skip this plugin and use [Cloudflare SQL](./cloudflare-sql.md) for the same schemas.

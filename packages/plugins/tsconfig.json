@@ -19,5 +19,14 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/buildautomaton/plugins/ui",
+    "src/buildautomaton/app",
+    "src/buildautomaton/widget",
+    "src/buildautomaton/ui.ts",
+    "src/buildautomaton/ui-set.ts",
+    "src/buildautomaton/ui-set.test.ts"
+  ]
 }

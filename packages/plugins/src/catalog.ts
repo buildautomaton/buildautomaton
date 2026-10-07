@@ -64,3 +64,6 @@ export { getSessionStatus } from './tools/minion/session-status.js';
 
 export { appPlugin } from './app/plugin.js';
 export type { AppPhase, AppState, AppPluginOptions } from './app/plugin.js';
+
+export { buildautomatonSet, buildautomatonHttpEndpoints } from './buildautomaton/index.js';
+export type { BuildautomatonOptions } from './buildautomaton/index.js';

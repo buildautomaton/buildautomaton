@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyPlugins } from '@buildautomaton/runtime';
+import { createPluginSlots } from '@buildautomaton/runtime';
 import { asHost } from '@plugins/host-slots.js';
 import '@plugins/register-services.js';
 import { cursorHarnessPlugin } from '@plugins/harnesses/cursor/plugin.js';
@@ -17,7 +17,7 @@ describe('plugin compose', () => {
   it('registers harnesses, wraps disk with stream, and sets HTTP transport', () => {
     const dir = mkdtempSync(join(tmpdir(), 'harness-plug-'));
     try {
-      const slots = applyPlugins(
+      const slots = createPluginSlots(
         [
           fileStorePlugin({ options: { root: dir } }),
           cursorHarnessPlugin(),
@@ -46,7 +46,7 @@ describe('plugin compose', () => {
         writes += 1;
       },
     };
-    const slots = applyPlugins(
+    const slots = createPluginSlots(
       [
         cursorHarnessPlugin({ implementation }),
         codexHarnessPlugin({ implementation }),

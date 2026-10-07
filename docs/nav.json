@@ -2,13 +2,7 @@
   "title": "meta-harness",
   "items": [
     { "slug": "", "title": "Architecture" },
-    {
-      "slug": "apps",
-      "title": "Apps",
-      "children": [
-        { "slug": "apps/email", "title": "Email" }
-      ]
-    },
+    { "slug": "apps", "title": "Apps" },
     { "slug": "local-cli", "title": "Local CLI" },
     { "slug": "ui", "title": "UI" },
     { "slug": "runtime", "title": "Runtime" },
@@ -55,11 +49,11 @@
     },
     { "slug": "ui-runtime", "title": "UI runtime" },
     {
-      "slug": "product-director",
-      "title": "Product director",
+      "slug": "buildautomaton",
+      "title": "Buildautomaton",
       "children": [
-        { "slug": "product-director/runtime", "title": "Runtime plugins" },
-        { "slug": "product-director/ui", "title": "Widget" }
+        { "slug": "buildautomaton/runtime", "title": "Runtime plugins" },
+        { "slug": "buildautomaton/ui", "title": "Widget" }
       ]
     },
     { "slug": "license", "title": "License" }

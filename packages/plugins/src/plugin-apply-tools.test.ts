@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyPlugins } from '@buildautomaton/runtime';
+import { createPluginSlots } from '@buildautomaton/runtime';
 import { asHost } from '@plugins/host-slots.js';
 import '@plugins/register-services.js';
 import { minionToolsPlugin } from '@plugins/tools/minion/plugin.js';
@@ -16,9 +16,9 @@ const ping: ToolsPlugin = {
   implementation: pingTools,
 };
 
-describe('applyPlugins tools', () => {
+describe('createPluginSlots tools', () => {
   it('registers minion tools as one of several tools plugins', () => {
-    const slots = applyPlugins([minionToolsPlugin(), ping], { log: () => {}, cwd: '/tmp' });
+    const slots = createPluginSlots([minionToolsPlugin(), ping], { log: () => {}, cwd: '/tmp' });
     expect(asHost(slots).tools).toHaveLength(2);
   });
 });

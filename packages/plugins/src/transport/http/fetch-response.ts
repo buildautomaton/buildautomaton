@@ -26,7 +26,7 @@ export function collectFetchResponse(): { res: ServerResponse; done: Promise<Res
     },
     end(chunk?: string | Uint8Array) {
       if (chunk) chunks.push(asBytes(chunk));
-      settle(new Response(concat(chunks), { status, headers }));
+      settle(new Response(bufferOf(concat(chunks)), { status, headers }));
     },
   } as ServerResponse;
   return { res, done };
@@ -41,6 +41,12 @@ function applyHeaders(headers: Headers, hdrs?: Record<string, string | string[]>
 
 function asBytes(chunk: string | Uint8Array): Uint8Array {
   return typeof chunk === 'string' ? new TextEncoder().encode(chunk) : chunk;
+}
+
+function bufferOf(bytes: Uint8Array): ArrayBuffer {
+  const copy = new ArrayBuffer(bytes.byteLength);
+  new Uint8Array(copy).set(bytes);
+  return copy;
 }
 
 function concat(chunks: Uint8Array[]): Uint8Array {

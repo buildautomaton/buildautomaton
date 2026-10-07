@@ -11,6 +11,6 @@ export type UiSlots = {
   layout: DashboardLayoutId;
 };
 
-export function createUiSlots(): UiSlots {
+export function emptyUiSlots(): UiSlots {
   return { surfaces: [], providers: [], hooks: [], layout: DEFAULT_LAYOUT };
 }

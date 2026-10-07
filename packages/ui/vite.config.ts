@@ -9,8 +9,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@plugins': path.resolve(root, '../product-director/src/plugins'),
-      '@/types': path.resolve(root, '../product-director/src/types'),
+      '@plugins': path.resolve(root, '../plugins/src'),
     },
     dedupe: ['react', 'react-dom'],
   },
@@ -18,7 +17,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': { target: process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333' },
-      '/director': { target: process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333' },
+      '/buildautomaton': { target: process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333' },
     },
     fs: { allow: [path.resolve(root, '..')] },
   },

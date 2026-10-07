@@ -1,5 +1,5 @@
-import { applyRuntime } from './apply-runtime.js';
 import { createApplierRegistry } from './applier-registry.js';
+import { wireRuntime } from './apply-runtime.js';
 import { startRuntime, stopRuntime } from './lifecycle.js';
 import { createPluginRegistry } from './plugin-registry.js';
 import { createServiceRegistry } from './service-registry.js';
@@ -11,7 +11,7 @@ export type InitRuntimeOptions = {
   plugins?: readonly RuntimePlugin[];
 };
 
-/** Plugin registry, service registry, appliers, and start/stop. */
+/** Register plugins, wire their declared services, and expose start/stop. */
 export function initRuntime(options: InitRuntimeOptions = {}): Runtime {
   const plugins = createPluginRegistry();
   const services = createServiceRegistry();
@@ -23,13 +23,10 @@ export function initRuntime(options: InitRuntimeOptions = {}): Runtime {
     log,
     plugins,
     services,
-    appliers,
-    apply() {
-      applyRuntime(runtime);
-    },
     start: () => startRuntime(runtime),
     stop: () => stopRuntime(runtime),
   };
   for (const plugin of options.plugins ?? []) plugins.register(plugin);
+  wireRuntime(runtime, appliers);
   return runtime;
 }

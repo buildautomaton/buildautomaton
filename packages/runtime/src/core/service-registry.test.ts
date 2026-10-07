@@ -29,7 +29,6 @@ describe('service registry', () => {
         },
       ],
     });
-    runtime.apply();
     expect(runtime.plugins.byService('sql-store').map((plugin) => plugin.name)).toEqual(['listings']);
     expect(runtime.services.implementations('sql-store')).toHaveLength(1);
   });

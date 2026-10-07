@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyPlugins } from '@buildautomaton/runtime';
+import { createPluginSlots } from '@buildautomaton/runtime';
 import { asHost } from '@plugins/host-slots.js';
 import { sqlStorePlugin } from '@plugins/stores/sqlite/plugin.js';
 import { pickSqlStore, requireSqlStore } from '@plugins/stores/sql-store/pick.js';
@@ -10,7 +10,7 @@ const ctx = { cwd: '/', log: () => {} };
 
 describe('pickSqlStore', () => {
   it('keeps work and email schemas isolated', () => {
-    const slots = applyPlugins(
+    const slots = createPluginSlots(
       [
         sqlStorePlugin({ options: { schema: 'work', file: ':memory:' } }),
         sqlStorePlugin({ options: { schema: 'email', file: ':memory:' } }),
@@ -32,7 +32,7 @@ describe('pickSqlStore', () => {
   });
 
   it('falls back to the only store when the named schema is missing', () => {
-    const slots = applyPlugins([sqlStorePlugin({ options: { file: ':memory:' } })], ctx);
+    const slots = createPluginSlots([sqlStorePlugin({ options: { file: ':memory:' } })], ctx);
     expect(requireSqlStore(storeContext(slots), 'email', 'email plugin')).toBe(asHost(slots).sqlStore);
   });
 });

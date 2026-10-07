@@ -1,6 +1,6 @@
 /**
  * Plugin catalog on the @buildautomaton/runtime registry.
- * Category folders: app, harnesses, session, stores, tools, transport.
+ * Category folders: app, buildautomaton, harnesses, session, stores, tools, transport.
  */
 import './register-services.js';
 export * from '@buildautomaton/runtime';

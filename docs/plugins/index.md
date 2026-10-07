@@ -28,4 +28,4 @@ Built-in plugins also export from `@buildautomaton/plugins/plugins`. Cloudflare 
 | Host | [App](./app.md), [Worker host](./worker-host.md) |
 | Your own | [Custom plugins](./custom.md) |
 
-A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both**. [Product director](../product-director/) is the dual example.
+A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both**. [Buildautomaton](../buildautomaton/) is the dual example.

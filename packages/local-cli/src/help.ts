@@ -3,7 +3,7 @@ import { CLI_VERSION } from './version.js';
 
 export function printHelp(): void {
   process.stdout.write(`local-cli ${CLI_VERSION}
-Launch a local HTTP server (MCP tools + product director API) or MCP over stdio, or register remotely.
+Launch a local HTTP server (MCP tools + buildautomaton API) or MCP over stdio, or register remotely.
 
   local-cli app           Start the app. Default is Vite HMR. Use --prod on servers.
 

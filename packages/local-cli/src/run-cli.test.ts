@@ -59,7 +59,7 @@ describe('createLog', () => {
 });
 
 describe('runtimeOptionsFromCli', () => {
-  it('composes core and product-director plugins', async () => {
+  it('composes core and buildautomaton plugins', async () => {
     const { runtimeOptionsFromCli } = await import('./run-cli.js');
     const cwd = mkdtempSync(path.join(tmpdir(), 'cli-host-'));
     const options = runtimeOptionsFromCli({
@@ -74,7 +74,7 @@ describe('runtimeOptionsFromCli', () => {
       verbose: false,
     });
     expect(options.plugins?.some((plugin) => plugin.name === 'work-sqlite')).toBe(true);
-    expect(options.plugins?.some((plugin) => plugin.name === 'product-director-tools')).toBe(true);
+    expect(options.plugins?.some((plugin) => plugin.name === 'buildautomaton-tools')).toBe(true);
     expect(options.plugins?.some((plugin) => plugin.name === 'email-sql')).toBe(false);
     expect(options.plugins?.some((plugin) => plugin.name === 'marketplace-sql')).toBe(false);
   });

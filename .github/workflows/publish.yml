@@ -17,7 +17,7 @@ jobs:
         with:
           version: 9.15.5
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @buildautomaton/runtime --filter @buildautomaton/plugins --filter @buildautomaton/ui-runtime --filter @buildautomaton/product-director --filter @buildautomaton/local-cli build
+      - run: pnpm --filter @buildautomaton/runtime --filter @buildautomaton/plugins --filter @buildautomaton/ui-runtime --filter @buildautomaton/local-cli build
       - run: pnpm publish:packages --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -8,7 +8,7 @@ meta-harness is two small runtimes plus plugins. You compose them into an **app*
 | [Plugins](./plugins/) | `@buildautomaton/plugins` | Stores, sessions, harnesses, HTTP, and `coreSet`. |
 | [UI runtime](./ui-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into an app shell. |
 
-The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the director widget) is a plugin.
+The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the buildautomaton widget) is a plugin.
 
 ## Where the runtime runs
 
@@ -36,23 +36,23 @@ flowchart LR
 
 A package can ship **runtime** plugins, **UI** plugins, or **both**. The runtime only indexes them. The plugin owns the behavior.
 
-[Product director](./product-director/) is the dual example: queue and tools on the runtime, a sidebar widget on the UI runtime.
+[Buildautomaton](./buildautomaton/) is the dual example: queue and tools on the runtime, a prompt screen and a sidebar widget on the UI runtime.
 
 ## What an app looks like
 
-The main screen is always the **app**. Product director is not a dashboard of its own. It is a **sidebar widget** on that app.
+The main screen starts as the buildautomaton prompt. After you submit it, the running app fills the main panel and the widget stays in the sidebar.
 
 ```text
 ┌────────────────────────────────────────────┐
 │  nav                                       │
 ├─────────────────────────────┬──────────────┤
 │  main                       │  sidebar     │
-│  the app                    │  director    │
+│  the app                    │  buildautomaton │
 │                             │  widget      │
 └─────────────────────────────┴──────────────┘
 ```
 
-[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions. [Email](./apps/email.md) is a sample domain app.
+[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions you assemble in a host.
 
 ## Try it
 

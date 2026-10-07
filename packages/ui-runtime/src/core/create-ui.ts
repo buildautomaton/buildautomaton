@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { applyUiPlugins } from './apply.js';
+import { createUiSlots } from './apply.js';
 import type { UiPlugin } from './plugin.js';
 import { DashboardApp } from '../dashboard/app.js';
 import type { UiSlots } from './slots.js';
@@ -14,7 +14,7 @@ export type UiHost = {
 };
 
 export function createUi(options: CreateUiOptions): UiHost {
-  const slots = applyUiPlugins(options.plugins);
+  const slots = createUiSlots(options.plugins);
   for (const hook of slots.hooks) hook.onReady?.();
   return {
     slots,

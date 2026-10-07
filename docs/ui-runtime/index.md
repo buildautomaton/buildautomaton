@@ -28,8 +28,8 @@ const { App } = createUi({ plugins: [layoutPlugin('sidebar')] });
 | --- | --- | --- |
 | `sidebar` | `nav`, `sidebar`, `main` | **Apps.** Main is the app; sidebar is the widget. |
 | `master-detail` | `nav`, `master`, `detail` | Custom two-pane tools |
-| `columns` | `nav`, `column`, `header` | Custom boards — not the product director |
+| `columns` | `nav`, `column`, `header` | Custom boards — not the buildautomaton |
 
 Shared pieces like `Column`, `PromptComposer`, and `NumberedQuestion` live in `@buildautomaton/ui-runtime/design`.
 
-A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [Product director](../product-director/ui.md) is the sidebar widget.
+A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [Buildautomaton](../buildautomaton/ui.md) is the sidebar widget.
