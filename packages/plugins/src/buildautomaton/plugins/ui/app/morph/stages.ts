@@ -1,10 +1,10 @@
-export const MORPH_MS = 8400;
+export const MORPH_MS = 8200;
 
-export const MORPH_STAGES = ['grid', 'schematic', 'engine', 'orbit', 'rematerialize', 'fill'] as const;
+export const MORPH_STAGES = ['grid', 'assemble', 'rotate', 'unfurl', 'fill'] as const;
 
 export type MorphStage = (typeof MORPH_STAGES)[number];
 
-const ENDS = [0.16, 0.32, 0.5, 0.72, 0.86, 1];
+const ENDS = [0.0507, 0.2537, 0.6956, 0.8605, 1];
 
 export function morphStage(t: number): { stage: MorphStage; local: number } {
   const clamped = Math.min(1, Math.max(0, t));
@@ -21,5 +21,5 @@ export function morphStage(t: number): { stage: MorphStage; local: number } {
 
 export function ease(t: number): number {
   const x = Math.min(1, Math.max(0, t));
-  return x * x * (3 - 2 * x);
+  return 1 - (1 - x) ** 3;
 }

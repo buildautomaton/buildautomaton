@@ -18,6 +18,7 @@ export function MorphOverlay({ prompt, onDone }: { prompt: string; onDone: () =>
       return;
     }
     const paper = getComputedStyle(document.body).backgroundColor || '#ffffff';
+    const dark = document.documentElement.classList.contains('dark');
     const started = performance.now();
     let frame = 0;
     let hold = 0;
@@ -28,12 +29,12 @@ export function MorphOverlay({ prompt, onDone }: { prompt: string; onDone: () =>
       const view = fitCanvas(canvas);
       const ctx = canvas.getContext('2d');
       const t = Math.min(1, (now - started) / MORPH_MS);
-      if (ctx && !revealed && drawMorph(ctx, view.w, view.h, t, paper)) {
+      if (ctx && !revealed && drawMorph(ctx, view.w, view.h, t, paper, dark)) {
         revealed = true;
         setReveal(true);
-      } else if (ctx) drawMorph(ctx, view.w, view.h, t, paper);
+      } else if (ctx) drawMorph(ctx, view.w, view.h, t, paper, dark);
       if (t < 1) frame = requestAnimationFrame(tick);
-      else hold = window.setTimeout(() => doneRef.current(), 450);
+      else hold = window.setTimeout(() => doneRef.current(), 80);
     };
     frame = requestAnimationFrame(tick);
     return () => {
@@ -52,10 +53,9 @@ export function MorphOverlay({ prompt, onDone }: { prompt: string; onDone: () =>
 }
 
 function fitCanvas(canvas: HTMLCanvasElement): { w: number; h: number } {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = Math.min(2, window.devicePixelRatio || 1);
-  const w = Math.max(1, Math.floor(rect.width));
-  const h = Math.max(1, Math.floor(rect.height));
+  const dpr = Math.min(1.25, window.devicePixelRatio || 1);
+  const w = Math.max(1, Math.floor(canvas.clientWidth));
+  const h = Math.max(1, Math.floor(canvas.clientHeight));
   const width = Math.floor(w * dpr);
   const height = Math.floor(h * dpr);
   if (canvas.width !== width || canvas.height !== height) {

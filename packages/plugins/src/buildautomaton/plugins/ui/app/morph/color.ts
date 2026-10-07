@@ -1,8 +1,29 @@
 import { ease } from './stages.js';
 
-export const NAVY = '#07131f';
-export const CYAN = '#8fe7ff';
-export const INK = '#3a3a40';
+export type Marker = {
+  board: string;
+  ink: string;
+  lit: readonly [number, number, number];
+  shade: readonly [number, number, number];
+};
+
+export const LIGHT_MARKER: Marker = {
+  board: '#e4ddd0',
+  ink: '#1c1916',
+  lit: [246, 241, 230],
+  shade: [168, 156, 138],
+};
+
+export const DARK_MARKER: Marker = {
+  board: '#1b1d21',
+  ink: '#f3ecdf',
+  lit: [48, 50, 56],
+  shade: [16, 17, 20],
+};
+
+export function markerFor(dark: boolean): Marker {
+  return dark ? DARK_MARKER : LIGHT_MARKER;
+}
 
 export function mixColor(from: string, to: string, t: number): string {
   const [ar, ag, ab] = parseColor(from);

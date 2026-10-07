@@ -1,7 +1,8 @@
-import { CYAN, INK, NAVY, mixColor } from './color.js';
-import { drawEngine } from './engine-draw.js';
+import { markerFor, mixColor, type Marker } from './color.js';
 import { drawFill } from './fill.js';
 import { drawGrid } from './grid.js';
+import { drawAssemble, drawSpin, drawUnfurl } from './scene.js';
+import { SLICES, STACKS } from './sphere.js';
 import { ease, morphStage, type MorphStage } from './stages.js';
 
 export function drawMorph(
@@ -10,15 +11,17 @@ export function drawMorph(
   h: number,
   t: number,
   paper: string,
+  dark = false,
 ): boolean {
   const { stage, local } = morphStage(t);
+  const marker = markerFor(dark);
   ctx.clearRect(0, 0, w, h);
   if (stage === 'fill') {
-    drawFill(ctx, w, h, local, paper);
+    drawFill(ctx, w, h, local, paper, marker);
     return true;
   }
-  paintBackdrop(ctx, w, h, stage, local, paper);
-  paintScene(ctx, w, h, stage, local);
+  paintBackdrop(ctx, w, h, stage, local, paper, marker);
+  paintScene(ctx, w, h, stage, local, marker);
   return false;
 }
 
@@ -29,53 +32,22 @@ function paintBackdrop(
   stage: MorphStage,
   local: number,
   paper: string,
+  marker: Marker,
 ): void {
-  const schematic = stage === 'grid' ? 0 : 1;
-  ctx.save();
-  ctx.globalAlpha = stage === 'grid' ? ease(local) : 1;
-  ctx.fillStyle = mixColor(paper, NAVY, schematic === 0 ? 0 : stage === 'schematic' ? local : 1);
+  ctx.fillStyle = mixColor(paper, marker.board, stage === 'grid' ? local : 1);
   ctx.fillRect(0, 0, w, h);
-  ctx.restore();
 }
 
-function paintScene(ctx: CanvasRenderingContext2D, w: number, h: number, stage: MorphStage, local: number): void {
-  const origin = { x: w / 2, y: h / 2 };
-  if (stage === 'grid') drawGrid(ctx, w, h, INK, ease(local), 0);
-  if (stage === 'schematic') drawGrid(ctx, w, h, mixColor(INK, CYAN, local), 1, ease(local));
-  if (stage === 'engine') drawCollapsing(ctx, w, h, origin, local);
-  if (stage === 'orbit') drawOrbit(ctx, w, h, origin, local);
-  if (stage === 'rematerialize') drawReturn(ctx, w, h, origin, local);
-}
-
-function drawCollapsing(ctx: CanvasRenderingContext2D, w: number, h: number, origin: { x: number; y: number }, local: number): void {
-  const zoom = 1 - ease(local) * 0.62;
-  ctx.save();
-  ctx.translate(origin.x, origin.y);
-  ctx.scale(zoom, zoom);
-  ctx.translate(-origin.x, -origin.y);
-  ctx.globalAlpha = 1 - ease(local) * 0.82;
-  drawGrid(ctx, w, h, CYAN, 1, 1);
-  ctx.restore();
-  drawEngine(ctx, origin, 70 + ease(local) * 90, -0.45, 0, ease(local), CYAN);
-}
-
-function drawOrbit(ctx: CanvasRenderingContext2D, w: number, h: number, origin: { x: number; y: number }, local: number): void {
-  ctx.save();
-  ctx.globalAlpha = 0.18;
-  drawGrid(ctx, w, h, CYAN, 1, 0.4);
-  ctx.restore();
-  const angle = -0.45 + ease(local) * 1.65;
-  drawEngine(ctx, origin, 160, angle, local, 1, CYAN);
-}
-
-function drawReturn(ctx: CanvasRenderingContext2D, w: number, h: number, origin: { x: number; y: number }, local: number): void {
-  const spread = 0.34 + ease(local) * 0.66;
-  ctx.save();
-  ctx.translate(origin.x, origin.y);
-  ctx.scale(spread, spread);
-  ctx.translate(-origin.x, -origin.y);
-  ctx.globalAlpha = ease(local);
-  drawGrid(ctx, w, h, CYAN, 1, 1);
-  ctx.restore();
-  drawEngine(ctx, origin, 160 + ease(local) * 120, 1.2, 1, 1 - ease(local), CYAN);
+function paintScene(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  stage: MorphStage,
+  local: number,
+  marker: Marker,
+): void {
+  if (stage === 'grid') drawGrid(ctx, w, h, marker.ink, ease(local), SLICES, STACKS);
+  if (stage === 'assemble') drawAssemble(ctx, w, h, local, marker);
+  if (stage === 'rotate') drawSpin(ctx, w, h, local, marker);
+  if (stage === 'unfurl') drawUnfurl(ctx, w, h, local, marker);
 }

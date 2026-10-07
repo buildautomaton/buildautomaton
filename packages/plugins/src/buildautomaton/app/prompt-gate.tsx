@@ -1,5 +1,6 @@
 import { useId, useState, type FormEvent, type KeyboardEvent } from 'react';
-import { PromptField, PromptToolbar } from '@buildautomaton/ui-runtime';
+import { PromptField } from '@buildautomaton/ui-runtime';
+import { PromptActions } from './prompt-actions.js';
 
 export function PromptGate({
   onSubmit,
@@ -43,26 +44,26 @@ export function PromptGate({
 
   return (
     <main className="flex h-full min-h-screen items-center justify-center bg-background px-6 text-foreground">
-      <form className="w-full max-w-xl" onSubmit={onFormSubmit}>
+      <form className="w-full max-w-2xl" onSubmit={onFormSubmit}>
         <label htmlFor={id} className="sr-only">
           What do you want to build?
         </label>
-        <PromptField
-          id={id}
-          value={shown}
-          readOnly={locked}
-          disabled={busy || locked}
-          rows={4}
-          placeholder="What do you want to build?"
-          className="min-h-28 rounded-lg border border-border bg-card px-3"
-          onChange={(event) => setValue(event.target.value)}
-          onKeyDown={onKeyDown}
-        />
-        {locked ? null : (
-          <div className="mt-2">
-            <PromptToolbar disabled={busy || empty} onSubmit={() => void submit()} />
-          </div>
-        )}
+        <div className="relative rounded-2xl border border-border bg-card shadow-md">
+          <PromptField
+            id={id}
+            value={shown}
+            readOnly={locked}
+            disabled={busy || locked}
+            rows={6}
+            placeholder="What do you want to build?"
+            className="min-h-48 rounded-2xl border-0 bg-transparent px-4 pb-16 pt-4 text-base"
+            onChange={(event) => setValue(event.target.value)}
+            onKeyDown={onKeyDown}
+          />
+          {locked ? null : (
+            <PromptActions typing={shown.length > 0} disabled={busy || empty} onSubmit={() => void submit()} />
+          )}
+        </div>
         {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
       </form>
     </main>
