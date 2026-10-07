@@ -6,7 +6,8 @@
       "slug": "apps",
       "title": "Apps",
       "children": [
-        { "slug": "apps/email", "title": "Email" }
+        { "slug": "apps/email", "title": "Email" },
+        { "slug": "apps/marketplace", "title": "Marketplace" }
       ]
     },
     { "slug": "local-cli", "title": "Local CLI" },

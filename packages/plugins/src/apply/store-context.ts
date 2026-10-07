@@ -10,6 +10,6 @@ export function storeContext(slots: PluginSlots): StoreContext {
     sqlStores: host.sqlStores,
     sqlOpeners: host.sqlOpeners,
     extras: slots.extras,
-    byKind: slots.byKind,
+    plugins: slots.pluginRegistry,
   };
 }

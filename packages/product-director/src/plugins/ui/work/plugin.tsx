@@ -16,7 +16,6 @@ function bindProvider(client?: WorkClient) {
 export function workUiPlugin(client?: WorkClient): UiPlugin {
   return {
     name: 'work',
-    kind: 'surface',
     implementation: {
       layout: 'columns',
       providers: [{ id: 'work', component: bindProvider(client) }],

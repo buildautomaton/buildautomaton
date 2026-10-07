@@ -1,11 +1,11 @@
-import type { PluginFactory, PluginInit, PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginFactory, PluginInit, PluginRuntimeContext, ServiceContribution } from '@buildautomaton/runtime';
 import type { AnyFileStore } from './any-store.js';
 import type { FileStore } from './interface.js';
 import type { FileStoreOptions } from './options.js';
 
 export type FileStorePlugin = {
   name: string;
-  kind: 'file-store';
+  services: ServiceContribution[];
   options?: FileStoreOptions;
   implementation: AnyFileStore;
   runtime?: PluginRuntimeContext;

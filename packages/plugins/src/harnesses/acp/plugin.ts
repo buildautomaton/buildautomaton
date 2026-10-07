@@ -3,7 +3,6 @@ import type { RuntimePlugin } from '@buildautomaton/runtime';
 export function acpPlugin(): RuntimePlugin {
   return {
     name: 'acp',
-    kind: 'acp',
     services: [{ id: 'acp', interface: { id: 'acp', name: 'AcpEngine' } }],
   };
 }

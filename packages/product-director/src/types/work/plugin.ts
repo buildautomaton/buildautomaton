@@ -3,6 +3,7 @@ import type {
   PluginInit,
   PluginRuntimeContext,
   PluginSupport,
+  ServiceContribution,
   StoreContext,
   HttpContributeContext,
   HttpRegistry,
@@ -14,7 +15,7 @@ import type { WorkOptions } from './options.js';
 
 export type WorkPlugin = {
   name: string;
-  kind: 'work';
+  services: ServiceContribution[];
   options?: WorkOptions;
   hooks?: WorkHooks;
   implementation?: WorkImplementation;

@@ -13,10 +13,11 @@ export function sqlSessionPlugin(
   init: PluginInit<SqlSessionOptions, SessionHooks, Partial<SessionImplementation>> = {},
 ): SessionPlugin {
   const schema = init.options?.schema ?? DEFAULT_SQL_SCHEMA;
+  const options = { id: init.options?.id ?? 'sql', schema };
   return {
     name: 'session-sql',
-    kind: 'session',
-    options: { id: init.options?.id ?? 'sql', schema },
+    services: [{ id: 'session', options, hooks: init.hooks, implementation: init.implementation }],
+    options,
     hooks: init.hooks,
     supports: { stores: ['sql-store'], transports: ['http'] },
     sqlSchema: schema,

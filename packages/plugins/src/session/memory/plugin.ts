@@ -8,12 +8,14 @@ import { createStreamBackend } from '../stream/backend.js';
 export function memorySessionPlugin(
   init: PluginInit<object, SessionHooks, Partial<SessionImplementation>> = {},
 ): SessionPlugin {
+  const options = { id: init.options && 'id' in init.options ? String(init.options.id) : 'memory' };
+  const implementation = { ...createStreamBackend(), ...init.implementation };
   return {
     name: 'session-memory',
-    kind: 'session',
-    options: { id: init.options && 'id' in init.options ? String(init.options.id) : 'memory' },
+    services: [{ id: 'session', options, hooks: init.hooks, implementation }],
+    options,
     hooks: init.hooks,
-    implementation: { ...createStreamBackend(), ...init.implementation },
+    implementation,
     runtime: init.runtime,
   };
 }

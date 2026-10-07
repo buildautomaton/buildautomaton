@@ -15,9 +15,6 @@ export function applyPlugins(
     for (const contrib of pluginServices(plugin)) {
       if (contrib.interface) slots.services.define(contrib.id, contrib.interface);
       slots.services.provide({ ...contrib, plugin: plugin.name });
-      const list = slots.byKind.get(contrib.id) ?? [];
-      if (!list.includes(plugin)) list.push(plugin);
-      slots.byKind.set(contrib.id, list);
     }
   }
   applyServiceContributions(slots);

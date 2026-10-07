@@ -9,7 +9,6 @@ export type {
   UiProviderContribution,
   UiHooks,
   SurfaceProps,
-  UiPluginKind,
 } from './core/plugin.js';
 export type { UiHost, CreateUiOptions } from './core/create-ui.js';
 export { DashboardShell } from './dashboard/shell.js';

@@ -7,7 +7,6 @@ export type PluginSlots = {
   pluginRegistry: PluginRegistry;
   services: ServiceRegistry;
   plugins: RuntimePlugin[];
-  byKind: Map<string, RuntimePlugin[]>;
   extras: Record<string, unknown>;
   ready: Promise<void>[];
 };
@@ -17,7 +16,6 @@ export function createPluginSlots(): PluginSlots {
     pluginRegistry: createPluginRegistry(),
     services: createServiceRegistry(),
     plugins: [],
-    byKind: new Map(),
     extras: {},
     ready: [],
   };

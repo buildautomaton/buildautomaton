@@ -20,12 +20,14 @@ export function doSqlStorePlugin(init: DoSqlStorePluginInit = {}): SqlStorePlugi
   }
   const schema = init.options?.schema ?? DEFAULT_SQL_SCHEMA;
   const base = storage ? createDoSqlStore(storage) : undefined;
+  const options = { id: init.options?.id ?? schema, schema, backend: 'do' as const };
+  const implementation = { ...base, ...init.implementation } as SqlStorePlugin['implementation'];
   return {
     name: sqlStorePluginName(schema, 'store-sql-do'),
-    kind: 'sql-store',
-    options: { id: init.options?.id ?? schema, schema, backend: 'do' },
+    services: [{ id: 'sql-store', options, implementation }],
+    options,
     sqlMigrations: init.sqlMigrations,
-    implementation: { ...base, ...init.implementation } as SqlStorePlugin['implementation'],
+    implementation,
     runtime: init.runtime,
   };
 }

@@ -34,7 +34,7 @@ describe('work plugin compose', () => {
       const work = slots.extras.work as WorkImplementation & { id?: string };
       expect(work?.id).toBe('memory');
       expect((slots.extras['work-memory'] as { id?: string })?.id).toBe('memory');
-      expect(slots.byKind.get('artifact')).toHaveLength(6);
+      expect(slots.pluginRegistry.byService('artifact')).toHaveLength(6);
       expect(slots.extras.artifacts).toHaveLength(6);
       expect(asHost(slots).tools).toHaveLength(1);
     } finally {

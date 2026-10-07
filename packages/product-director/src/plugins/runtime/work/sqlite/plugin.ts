@@ -7,10 +7,11 @@ import { contributeWorkHttp } from '@plugins/runtime/work/http/contribute.js';
 import { WORK_MIGRATIONS } from './migrations.js';
 
 export function sqliteWorkPlugin(init: WorkPluginInit = {}): WorkPlugin {
+  const options = { id: init.options?.id ?? 'sqlite', file: init.options?.file };
   return {
     name: 'work-sqlite',
-    kind: 'work',
-    options: { id: init.options?.id ?? 'sqlite', file: init.options?.file },
+    services: [{ id: 'work', options, hooks: init.hooks }],
+    options,
     hooks: init.hooks,
     supports: { stores: ['sql-store'], transports: ['http'] },
     sqlSchema: DEFAULT_SQL_SCHEMA,
@@ -35,7 +36,8 @@ export function memoryWorkPlugin(init: WorkPluginInit = {}): WorkPlugin {
 }
 
 function artifactKindsFrom(stores: StoreContext): ArtifactKind[] {
-  return (stores.byKind.get('artifact') ?? [])
+  return stores.plugins
+    .byService('artifact')
     .map((plugin) => (plugin as ArtifactPlugin).artifact)
     .filter((artifact): artifact is ArtifactKind => Boolean(artifact));
 }

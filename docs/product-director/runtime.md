@@ -17,11 +17,11 @@ Each artifact plugin teaches agents (and the tell tool) about one kind of review
 
 ## Work plugin
 
-`sqliteWorkPlugin` (`kind: 'work'`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api` and serves the [sidebar widget](./ui.md). `memoryWorkPlugin` is for tests and light embeds.
+`sqliteWorkPlugin` (service id `work`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api` and serves the [sidebar widget](./ui.md). `memoryWorkPlugin` is for tests and light embeds.
 
 ## Director tools
 
-`workToolsPlugin` (`kind: 'tools'`) adds three tools beside the runtime’s minion tools:
+`workToolsPlugin` (service id `tools`) adds three tools beside the runtime’s minion tools:
 
 | Tool | What it does |
 | --- | --- |

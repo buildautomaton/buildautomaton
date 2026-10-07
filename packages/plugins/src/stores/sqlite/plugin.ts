@@ -9,12 +9,14 @@ export function sqlStorePlugin(init: SqlStorePluginInit = {}): SqlStorePlugin {
   const cwd = init.runtime?.cwd ?? process.cwd();
   const schema = init.options?.schema ?? DEFAULT_SQL_SCHEMA;
   const file = init.options?.file ?? defaultSqlFile(cwd, schema);
+  const options = { file, id: init.options?.id ?? schema, schema, backend: init.options?.backend ?? 'sqlite' };
+  const implementation = { ...createSqlStore(openSqliteDatabase(file)), ...init.implementation };
   return {
     name: sqlStorePluginName(schema),
-    kind: 'sql-store',
-    options: { file, id: init.options?.id ?? schema, schema, backend: init.options?.backend ?? 'sqlite' },
+    services: [{ id: 'sql-store', options, implementation }],
+    options,
     sqlMigrations: init.sqlMigrations,
-    implementation: { ...createSqlStore(openSqliteDatabase(file)), ...init.implementation },
+    implementation,
     runtime: init.runtime,
   };
 }

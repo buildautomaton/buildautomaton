@@ -18,7 +18,7 @@ export function appPlugin(init: PluginInit<AppPluginOptions> = {}): AppPlugin {
   const cwd = init.runtime?.cwd ?? process.cwd();
   return {
     name: 'app',
-    kind: 'app',
+    services: [{ id: 'app' }],
     runtime: init.runtime,
     contributeHttp(http: HttpRegistry) {
       contributeAppRoutes(http, cwd, init.options?.staticRoot);

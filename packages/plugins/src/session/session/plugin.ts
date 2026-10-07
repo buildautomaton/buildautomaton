@@ -1,4 +1,4 @@
-import type { PluginFactory, PluginInit, PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginFactory, PluginInit, PluginRuntimeContext, ServiceContribution } from '@buildautomaton/runtime';
 import type { SessionBackendWrap } from './backend.js';
 import type { SessionHooks } from './hooks.js';
 import type { SessionImplementation } from './implementation.js';
@@ -12,7 +12,7 @@ export type { SessionBackendWrap };
 
 export type SessionPlugin = {
   name: string;
-  kind: 'session';
+  services: ServiceContribution[];
   options: DiskSessionOptions | StreamSessionOptions | SqlSessionOptions;
   hooks?: SessionHooks;
   implementation?: SessionImplementation;

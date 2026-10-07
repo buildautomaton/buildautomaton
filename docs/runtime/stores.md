@@ -4,7 +4,7 @@ File store is still one root. SQL stores are **named schemas**. You can register
 
 ## File store
 
-`fileStorePlugin` (`kind: 'file-store'`) reads and writes files under a root folder. Sessions and other plugins use it when they need the filesystem.
+`fileStorePlugin` (service id `file-store`) reads and writes files under a root folder. Sessions and other plugins use it when they need the filesystem.
 
 ```ts
 fileStorePlugin({ options: { root: process.cwd() } })
@@ -44,4 +44,4 @@ cloudSqlStorePlugin({ options: { schema: 'marketplace-plugin', backend: 'do', na
 r2FileStorePlugin({ options: { bucket: env.MARKETPLACE_FILES, prefix: 'marketplace', backend: 'r2' } })
 ```
 
-`doSqlStorePlugin` remains the in-object `ctx.storage.sql` adapter. Skip file SQL plugins from `coreSet` / app sets (`sql: false`) on Workers.
+`doSqlStorePlugin` remains the in-object `ctx.storage.sql` adapter. Skip file SQL plugins from `coreSet` / app sets (`sql: false`) on Workers. [Marketplace](../apps/marketplace.md) is that composition: `createMarketplaceHost` passes your D1 database, Durable Object namespace, and R2 bucket into these store plugins.

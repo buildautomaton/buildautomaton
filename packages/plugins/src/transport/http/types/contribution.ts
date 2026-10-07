@@ -1,4 +1,4 @@
-import type { LogFn, RuntimePlugin } from '@buildautomaton/runtime';
+import type { LogFn, PluginRegistry } from '@buildautomaton/runtime';
 import type { AgentHarness } from '@plugins/harnesses/acp/host/types.js';
 import type { AnyFileStore } from '../../../stores/file-store/any-store.js';
 import type { AnySqlStore } from '../../../stores/sql-store/any-store.js';
@@ -11,7 +11,7 @@ export type StoreContext = {
   sqlStores?: Record<string, AnySqlStore>;
   sqlOpeners?: Record<string, SqlStoreOpener>;
   extras: Record<string, unknown>;
-  byKind: Map<string, RuntimePlugin[]>;
+  plugins: PluginRegistry;
 };
 
 export type HttpContributeContext = {

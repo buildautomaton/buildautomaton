@@ -23,12 +23,13 @@ export function workToolsPlugin(init: ToolsPluginInit = {}): ToolsPlugin {
     },
     instructions: (ctx) => workInstructions(artifactsFrom(ctx)),
   };
+  const implementation = { ...defaults, ...init.implementation };
   return {
     name: 'product-director-tools',
-    kind: 'tools',
+    services: [{ id: 'tools', options: init.options, hooks: init.hooks, implementation }],
     options: init.options,
     hooks: init.hooks,
-    implementation: { ...defaults, ...init.implementation },
+    implementation,
     runtime: init.runtime,
   };
 }

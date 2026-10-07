@@ -1,4 +1,4 @@
-import type { PluginFactory, PluginInit, PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginFactory, PluginInit, PluginRuntimeContext, ServiceContribution } from '@buildautomaton/runtime';
 import type { TransportHooks } from './hooks.js';
 import type { TransportImplementation } from './implementation.js';
 import type {
@@ -9,7 +9,7 @@ import type {
 
 export type TransportPlugin = {
   name: string;
-  kind: 'transport';
+  services: ServiceContribution[];
   options: HttpTransportOptions | StdioTransportOptions;
   hooks?: TransportHooks;
   implementation: TransportImplementation;

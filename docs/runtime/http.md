@@ -1,6 +1,6 @@
 # HTTP
 
-The HTTP plugin (`httpTransportPlugin`, `kind: 'http'`) starts **one** shared server. Other plugins mount routes and websockets onto it. This is separate from the `transport` kind (stdio / remote).
+The HTTP plugin (`httpTransportPlugin`, service id `http`) starts **one** shared server. Other plugins mount routes and websockets onto it. This is separate from the `transport` service (stdio / remote).
 
 Default tools path is `/mcp`. Extra mounts come from `endpoints`:
 

@@ -9,7 +9,7 @@ export function applyExtensionPlugin(slots: PluginSlots, plugin: ExtensionPlugin
   const impl = plugin.implementation ?? plugin.createFromStores?.(storeContext(slots));
   if (impl && typeof impl === 'object') {
     slots.extras[plugin.name] = impl;
-    if (plugin.kind) slots.extras[plugin.kind] = impl;
+    for (const service of plugin.services ?? []) slots.extras[service.id] = impl;
   }
   queueMigrations(slots, plugin);
 }
