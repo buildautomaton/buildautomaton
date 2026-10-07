@@ -44,4 +44,4 @@ cloudSqlStorePlugin({ options: { schema: 'marketplace-plugin', backend: 'do', na
 r2FileStorePlugin({ options: { bucket: env.MARKETPLACE_FILES, prefix: 'marketplace', backend: 'r2' } })
 ```
 
-`doSqlStorePlugin` remains the in-object `ctx.storage.sql` adapter. Skip file SQL plugins from `coreSet` / app sets (`sql: false`) on Workers. [Marketplace](../apps/marketplace.md) is that composition: `createMarketplaceHost` passes your D1 database, Durable Object namespace, and R2 bucket into these store plugins.
+`doSqlStorePlugin` remains the in-object `ctx.storage.sql` adapter. Skip file SQL plugins from `coreSet` / app sets (`sql: false`) on Workers. A host app passes your D1 database, Durable Object namespace, and R2 bucket into these store plugins.

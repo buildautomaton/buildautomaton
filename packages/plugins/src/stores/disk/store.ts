@@ -1,6 +1,12 @@
 import { mkdirSync, readdirSync, existsSync, readFileSync, writeFileSync, appendFileSync, unlinkSync } from 'node:fs';
-import { isAbsolute, join } from 'node:path';
+import { dirname, isAbsolute, join } from 'node:path';
 import type { FileStore } from '@plugins/stores/file-store/interface.js';
+
+function writeInto(full: string, write: () => void): void {
+  mkdirSync(dirname(full), { recursive: true });
+  write();
+}
+
 export function createNodeFileStore(root: string): FileStore {
   mkdirSync(root, { recursive: true });
   const resolve = (p: string) => (isAbsolute(p) ? p : join(root, p));
@@ -12,10 +18,12 @@ export function createNodeFileStore(root: string): FileStore {
       return readFileSync(full, 'utf8');
     },
     write(path, content) {
-      writeFileSync(resolve(path), content);
+      const full = resolve(path);
+      writeInto(full, () => writeFileSync(full, content));
     },
     append(path, content) {
-      appendFileSync(resolve(path), content);
+      const full = resolve(path);
+      writeInto(full, () => appendFileSync(full, content));
     },
     remove(path) {
       const full = resolve(path);
