@@ -26,4 +26,4 @@ A harness typically detects whether the agent is installed, can help install it,
 prompt → pick a run → start or reuse a process → send the prompt → return the result
 ```
 
-Harness plugins register agent types on the runtime handle. Session plugins remember the agent’s session id. Tools and HTTP sit next to them.
+Harness plugins register agent types on the runtime handle. [Session plugins](./sessions.md) remember the agent’s session id. Tools and HTTP sit next to them.

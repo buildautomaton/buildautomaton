@@ -1,6 +1,6 @@
 # @buildautomaton/plugins
 
-Catalog of runtime plugins: stores, sessions, harnesses, transport, and tools. Pair with `@buildautomaton/runtime` for `createRuntime`.
+Catalog of runtime plugins: stores, sessions, harnesses, transport, and tools. Pair with `@buildautomaton/runtime` for `createRuntime`. Docs live in [`docs/plugins`](../../docs/plugins/).
 
 ```bash
 npm install @buildautomaton/runtime @buildautomaton/plugins

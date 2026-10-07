@@ -1,6 +1,6 @@
 # Product director: runtime plugins
 
-These plugins run inside [`@buildautomaton/plugins`](../runtime/). `productDirectorSet()` installs all of them. They need the shared SQL store and HTTP server (not the file store). The same set works on a local host or a cloud host.
+These plugins run inside [`@buildautomaton/plugins`](../plugins/). `productDirectorSet()` installs all of them. They need the shared SQL store and HTTP server (not the file store). The same set works on a local host or a cloud host.
 
 ## Artifact plugins
 

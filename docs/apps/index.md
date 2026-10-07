@@ -12,10 +12,11 @@ The runtimes do not know what the app is. Plugins do.
 
 | Layer | What you pass |
 | --- | --- |
-| [Runtime](../runtime/) | Store, HTTP, tools, and domain plugins (mail, queue, …) |
+| [Runtime](../runtime/) | Registries and lifecycle. It does not know the app. |
+| [Plugins](../plugins/) | Store, HTTP, tools, and domain plugins (mail, queue, …) |
 | [UI runtime](../ui-runtime/) | Surfaces for `main` (the app) and `sidebar` (director) |
 
-The same app runs **locally** or **in the cloud**. Swap the host and the store plugins. Each SQL [schema](../runtime/stores.md) is its own SQLite file, or its own Durable Object. Keep the rest.
+The same app runs **locally** or **in the cloud**. Swap the host and the store plugins. Each SQL [schema](../plugins/sqlite-store.md) is its own SQLite file, or its own Durable Object. Keep the rest.
 
 ## Model
 
