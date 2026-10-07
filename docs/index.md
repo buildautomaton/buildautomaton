@@ -1,6 +1,10 @@
 # Architecture
 
-meta-harness is two small runtimes plus plugins. You compose them into an **app**.
+One open source app. It starts as a blank surface. You describe a problem, or the solution you want. Agents compose open source components into that software. The surface morphs into the interface. The runtime is the backend behind it.
+
+Use the agents and models you want. Keep data on your own hardware, in your private cloud, or wherever you control it.
+
+meta-harness is how that app is built: two small runtimes plus plugins. You compose them into an **app**.
 
 | Runtime | Package | What it does |
 | --- | --- | --- |

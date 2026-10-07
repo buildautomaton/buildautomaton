@@ -1,8 +1,8 @@
 # Buildautomaton
 
-Buildautomaton is the work queue and the app you start from a prompt. It lives in [`@buildautomaton/plugins`](../plugins/) as several plugins, and `coreSet()` installs them.
+Buildautomaton is the blank surface and the work queue behind it. It lives in [`@buildautomaton/plugins`](../plugins/) as several plugins, and `coreSet()` installs them.
 
-Someone writes what to build. An agent picks it up, does the work, and comes back with a summary. You review that in the **sidebar widget**, answer questions, and queue follow-ups.
+You describe a problem, or the solution you want. An agent picks that up, builds it from open source components, and comes back with a summary. You review that in the **sidebar widget**, answer questions, and queue follow-ups. The agents and models are whichever ones you hook up.
 
 It plugs into both runtimes:
 
@@ -25,7 +25,7 @@ flowchart LR
   review --> ask
 ```
 
-The [local CLI](../local-cli/) opens a blank screen with a prompt. Submitting it morphs that screen into the app. The widget stays in the sidebar.
+The [local CLI](../local-cli/) opens a blank screen with a prompt. Submitting it morphs that screen into the app, with the runtime as the backend. The widget stays in the sidebar.
 
 ## Quick wire-up
 

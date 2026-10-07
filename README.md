@@ -1,8 +1,10 @@
 # meta-harness
 
-Swap out agents at will.
+One open source app. It starts as a blank surface, then morphs into the software a problem needs.
 
-Open-source app framework. Two small runtimes ([runtime](./docs/runtime/) and [UI runtime](./docs/ui-runtime/)) plus plugins. [Apps](./docs/apps/) are compositions of those plugins. The same runtime runs locally or in the cloud. Buildautomaton is the prompt screen and the sidebar widget.
+You describe the problem, or the solution you want. Agents compose open source plugins into that software. The surface becomes the interface. The runtime is the backend. Swap the agents and models. Keep data on your hardware, in your private cloud, or wherever you control it.
+
+Two small runtimes ([runtime](./docs/runtime/) and [UI runtime](./docs/ui-runtime/)) plus plugins. [Apps](./docs/apps/) are compositions of those plugins. The same runtime runs locally or in the cloud. Buildautomaton is the blank prompt and the sidebar widget.
 
 **Documentation:** [`docs/`](./docs/) (also on the [BuildAutomaton site](https://buildautomaton.com/meta-harness)).
 
