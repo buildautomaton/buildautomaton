@@ -1,6 +1,6 @@
 # Custom plugins
 
-A plugin publishes a service **interface**, an **implementation**, or both. The [Runtime](./index.md) page covers how the plugin registry and service registry compose, and how you look them up. `tools`, `sql-store`, and `session` are service ids. A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both** (see [product director](../product-director/)).
+A plugin publishes a service **interface**, an implementation, or both. The [Runtime](../runtime/) page covers how the plugin registry and service registry compose, and how you look them up. `tools`, `sql-store`, and `session` are service ids. A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both** (see [product director](../product-director/)).
 
 A tiny tools plugin that answers `ping`:
 

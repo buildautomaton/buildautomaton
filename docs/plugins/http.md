@@ -1,0 +1,25 @@
+# HTTP
+
+`httpTransportPlugin` (service id `http`) starts **one** shared server. Other plugins mount routes and websockets onto it. This is separate from the `transport` service ([stdio](./stdio.md) / [remote](./remote.md)).
+
+Default tools path is `/mcp`. Extra mounts come from `endpoints`:
+
+```ts
+import { httpTransportPlugin } from '@buildautomaton/plugins';
+
+httpTransportPlugin({
+  options: {
+    host: '127.0.0.1',
+    port: 3333,
+    endpoints: [
+      { kind: 'tools', path: '/mcp' },
+      { plugin: 'session-disk', path: '/api' },
+      { plugin: 'work-sqlite', path: '/api' },
+    ],
+  },
+});
+```
+
+`directorHttpEndpoints()` in product-director sets up the work and session mounts the CLI uses.
+
+This is the default path in `coreSet()`. On Cloudflare, use [Fetch](./fetch.md) (or [Worker host](./worker-host.md)). `createRuntime` then exposes `handle.fetch(request)` instead of binding a port.
