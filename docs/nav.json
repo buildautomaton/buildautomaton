@@ -11,18 +11,46 @@
     },
     { "slug": "local-cli", "title": "Local CLI" },
     { "slug": "ui", "title": "UI" },
+    { "slug": "runtime", "title": "Runtime" },
     {
-      "slug": "runtime",
-      "title": "Runtime",
+      "slug": "plugins",
+      "title": "Plugins",
       "children": [
-        { "slug": "runtime/stores", "title": "Stores" },
-        { "slug": "runtime/sessions", "title": "Sessions" },
-        { "slug": "runtime/harnesses", "title": "Harnesses" },
-        { "slug": "runtime/tools", "title": "Tools" },
-        { "slug": "runtime/http", "title": "HTTP" },
-        { "slug": "runtime/cloud", "title": "Cloudflare" },
-        { "slug": "runtime/transports", "title": "Transports" },
-        { "slug": "runtime/custom", "title": "Custom plugins" }
+        {
+          "slug": "plugins/stores",
+          "title": "Stores",
+          "children": [
+            { "slug": "plugins/file-store", "title": "File store" },
+            { "slug": "plugins/sqlite-store", "title": "SQLite store" },
+            { "slug": "plugins/cloudflare-sql", "title": "Cloudflare SQL" },
+            { "slug": "plugins/r2", "title": "R2 files" }
+          ]
+        },
+        {
+          "slug": "plugins/sessions",
+          "title": "Sessions",
+          "children": [
+            { "slug": "plugins/disk-sessions", "title": "Disk" },
+            { "slug": "plugins/sql-sessions", "title": "SQL" },
+            { "slug": "plugins/stream-sessions", "title": "Stream" },
+            { "slug": "plugins/memory-sessions", "title": "Memory" }
+          ]
+        },
+        { "slug": "plugins/harnesses", "title": "Harnesses" },
+        { "slug": "plugins/minion-tools", "title": "Minion tools" },
+        {
+          "slug": "plugins/transports",
+          "title": "Transports",
+          "children": [
+            { "slug": "plugins/http", "title": "HTTP" },
+            { "slug": "plugins/fetch", "title": "Fetch" },
+            { "slug": "plugins/stdio", "title": "Stdio" },
+            { "slug": "plugins/remote", "title": "Remote" }
+          ]
+        },
+        { "slug": "plugins/app", "title": "App" },
+        { "slug": "plugins/worker-host", "title": "Worker host" },
+        { "slug": "plugins/custom", "title": "Custom" }
       ]
     },
     { "slug": "ui-runtime", "title": "UI runtime" },

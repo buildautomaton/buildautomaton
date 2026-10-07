@@ -1,8 +1,8 @@
 # Runtime
 
-`@buildautomaton/runtime` is the plugin registry, service registry, appliers, start/stop, and `createRuntime`. Stores, sessions, harnesses, and HTTP plugins live in `@buildautomaton/plugins`.
+`@buildautomaton/runtime` is the plugin registry, service registry, appliers, start/stop, and `createRuntime`. It does not know stores, sessions, or HTTP. Those ids live in [`@buildautomaton/plugins`](../plugins/).
 
-The same host API runs **locally** (the [Local CLI](../local-cli/)) or **in the cloud** ([Cloudflare Workers](./cloud.md)).
+The same host API runs **locally** (the [Local CLI](../local-cli/)) or **in the cloud**. The host changes. The registries do not.
 
 ```text
 Host (local-cli, cloud, test)
@@ -13,7 +13,7 @@ Host (local-cli, cloud, test)
     → handle.start()
 ```
 
-## Plugins
+## Plugin shape
 
 A plugin is a named list of service contributions, plus optional `start` and `stop`. Domain fields (SQL migrations, an HTTP registrar, an opener) can sit on the plugin. The `services` list is what it contributes.
 
@@ -30,7 +30,7 @@ const ping = {
 };
 ```
 
-One plugin can contribute several services. Several plugins can contribute the same service id. See [Custom plugins](./custom.md) for a full example.
+One plugin can contribute several services. Several plugins can contribute the same service id. See [Custom plugins](../plugins/custom.md).
 
 ## Plugin registry
 
@@ -75,11 +75,7 @@ A plugin can publish the interface in one contribution and the implementation in
 4. Appliers run in `order`. `registerService('sql-store', apply, 20)` handles that id. A `*` applier handles ids with no specific applier, once per plugin.
 5. `start()` and `stop()` call the same methods on each plugin.
 
-After that:
-
-- Plugins that contribute a service: `slots.pluginRegistry.byService('artifact')`
-- Implementations: `slots.services.implementations('sql-store')`
-- One implementation: `slots.services.get('sql-store', (record) => record.options?.schema === 'email')`
+Look up plugins with `slots.pluginRegistry.byService('artifact')`. Look up implementations with `slots.services.implementations('sql-store')` or `slots.services.get('sql-store', (record) => record.options?.schema === 'email')`.
 
 `@buildautomaton/plugins` registers the appliers for stores, sessions, harnesses, tools, and HTTP. The runtime package does not know those ids.
 
@@ -100,18 +96,4 @@ const runtime = await createRuntime({
 await runtime.start();
 ```
 
-Needs Node 18+. Built-in plugins also export from `@buildautomaton/plugins/plugins`. Cloudflare hosts should import `@buildautomaton/plugins/worker`.
-
-`coreSet()` is the default bundle: both stores, five agent types, disk sessions, minion tools, and HTTP (or stdio / remote). Add more plugins beside it. `appPlugin` turns the process into an app host (`/` and `/api/app`).
-
-## Plugin categories
-
-The runtime stays small. These plugins (and yours) add the behavior:
-
-- [Stores](./stores.md): files on disk or R2, named SQL schemas on SQLite, D1, or Durable Objects
-- [Sessions](./sessions.md): where agent runs are recorded
-- [Harnesses](./harnesses.md): Cursor, Codex, Claude Code, and friends
-- [Tools](./tools.md): minion tools agents can call
-- [HTTP](./http.md): one shared server plugins mount onto
-- [Transports](./transports.md): stdio and remote (HTTP is its own service)
-- [Custom plugins](./custom.md): write your own, or a dual runtime + UI pack
+Needs Node 18+. Built-in plugins and `coreSet()` live in [Plugins](../plugins/).

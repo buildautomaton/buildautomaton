@@ -1,10 +1,6 @@
-# Tools
+# Minion tools
 
-Tools plugins expose functions agents can call (usually over MCP). You can register many; their tool lists are merged.
-
-## Minion tools
-
-`minionToolsPlugin` is the built-in tools pack. It lets a parent agent start and watch other agent runs (“minions”).
+`minionToolsPlugin` is the built-in tools pack (service id `tools`). It lets a parent agent start and watch other agent runs (“minions”). You can register many tools plugins; their lists are merged.
 
 | Tool | What it does |
 | --- | --- |
@@ -18,11 +14,11 @@ Tools plugins expose functions agents can call (usually over MCP). You can regis
 Spawn already waits, so you do not need to poll. Permission prompts show up on the same open tool call.
 
 ```ts
+import { minionToolsPlugin } from '@buildautomaton/plugins';
+
 minionToolsPlugin()
 ```
 
-Skip them in `coreSet()` with `minionTools: false`.
-
-Other packages add more tools plugins beside this one. [Product director](../product-director/runtime.md) adds ask/tell.
+Skip them in `coreSet()` with `minionTools: false`. Other packages add more tools plugins beside this one. [Product director](../product-director/runtime.md) adds ask/tell.
 
 The same `/mcp` list is passed into ACP sessions as `mcpServers`, so prompt sessions and minions share those tools.

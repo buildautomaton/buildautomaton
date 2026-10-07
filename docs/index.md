@@ -5,14 +5,14 @@ meta-harness is two small runtimes plus plugins. You compose them into an **app*
 | Runtime | Package | What it does |
 | --- | --- | --- |
 | [Runtime](./runtime/) | `@buildautomaton/runtime` | Plugin and service registries, plus lifecycle. |
-| Plugins | `@buildautomaton/plugins` | Stores, sessions, harnesses, HTTP, and `createRuntime`. |
+| [Plugins](./plugins/) | `@buildautomaton/plugins` | Stores, sessions, harnesses, HTTP, and `coreSet`. |
 | [UI runtime](./ui-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into an app shell. |
 
 The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the director widget) is a plugin.
 
 ## Where the runtime runs
 
-The same runtime runs **locally** or **in the cloud**. The host changes; the runtime and plugin contracts do not.
+The same runtime runs **locally** or **in the cloud**. The host changes. The runtime and plugin contracts do not.
 
 | Host | Package | Role |
 | --- | --- | --- |

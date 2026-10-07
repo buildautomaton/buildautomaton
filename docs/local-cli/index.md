@@ -1,6 +1,6 @@
 # @buildautomaton/local-cli
 
-The **Local CLI** is the local host for the [runtime](../runtime/). A cloud host would call the same `createRuntime` with a different mix of store and HTTP plugins.
+The **Local CLI** is the local host for the [runtime](../runtime/). A cloud host would call the same `createRuntime` with a different mix of [plugins](../plugins/).
 
 You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/). [Email](../apps/email.md) is a sample you compose yourself, not in this host. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
 
@@ -59,4 +59,4 @@ local-cli --transport remote --remote-url https://control.example
 
 On disk: sessions under `.harness/sessions`, SQLite at `.harness/work.sqlite`, app state at `.harness/app.json`.
 
-Want a different mix, or a cloud host? Call `createRuntime` yourself from the [runtime](../runtime/) package.
+Want a different mix, or a cloud host? Call `createRuntime` yourself from the [runtime](../runtime/) package and compose [plugins](../plugins/).
