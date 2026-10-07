@@ -19,7 +19,7 @@ export async function startUiDev(opts: { apiPort: number; port?: number }): Prom
       strictPort: true,
       proxy: {
         '/api': { target: api, changeOrigin: true },
-        '/director': { target: api, changeOrigin: true },
+        '/buildautomaton': { target: api, changeOrigin: true },
       },
     },
   });

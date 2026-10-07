@@ -15,7 +15,7 @@ export default defineConfig({
   sourcemap: true,
   dts: true,
   tsconfig: './tsconfig.json',
-  external: ['@buildautomaton/runtime'],
+  external: ['@buildautomaton/runtime', '@buildautomaton/ui-runtime', 'marked', 'react', 'react-dom', 'lucide-react'],
   esbuildOptions(options) {
     options.alias = {
       '@plugins': src,

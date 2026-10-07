@@ -1,0 +1,3 @@
+export const ASK_BUILDAUTOMATON_WHAT_TO_BUILD_NEXT = 'ask_buildautomaton_what_to_build_next';
+export const TELL_BUILDAUTOMATON_WHAT_WAS_BUILT = 'tell_buildautomaton_what_was_built';
+export const ASK_BUILDAUTOMATON_INTERVIEW_QUESTIONS = 'ask_buildautomaton_interview_questions';

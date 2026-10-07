@@ -17,4 +17,4 @@ Session plugins record what happened in an agent run (service id `session`). You
 | `sessionId` | you | Your session record |
 | `acpSessionId` | the agent | The agent’s own session id |
 
-ACP `session/new` receives this runtime’s MCP server once HTTP is listening (`http://127.0.0.1:<port>/mcp`). [Product director](../product-director/runtime.md) prompt sessions use those tools so they can report completed work.
+ACP `session/new` receives this runtime’s MCP server once HTTP is listening (`http://127.0.0.1:<port>/mcp`). [Buildautomaton](../buildautomaton/runtime.md) prompt sessions use those tools so they can report completed work.

@@ -1,8 +1,6 @@
 export type {
-  ApplierRegistry,
   Runtime,
   RuntimeContext,
-  ServiceApplier,
   LogFn,
   ServiceId,
   ServiceContribution,
@@ -14,7 +12,6 @@ export type {
 } from './core/registry-types.js';
 export { initRuntime } from './core/init-runtime.js';
 export type { InitRuntimeOptions } from './core/init-runtime.js';
-export { createApplierRegistry } from './core/applier-registry.js';
 export { pluginServices } from './core/collect-services.js';
 
 export { createRuntime } from './core/create-runtime.js';
@@ -22,8 +19,7 @@ export type { ComposeRuntime } from './core/create-runtime.js';
 export { runRuntime } from './core/run-runtime.js';
 export { RUNTIME_VERSION, MCP_SERVER_NAME } from './core/version.js';
 export type { RuntimeOptions, RuntimeHandle } from './core/runtime-types.js';
-export { applyPlugins } from './core/plugin-apply.js';
-export { createPluginSlots } from './core/plugin-slots.js';
+export { createPluginSlots } from './core/plugin-apply.js';
 export type { PluginSlots } from './core/plugin-slots.js';
 export { registerService } from './core/service-appliers.js';
 export { createPluginRegistry } from './core/plugin-registry.js';

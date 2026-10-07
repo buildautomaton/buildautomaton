@@ -16,6 +16,15 @@ describe('coreSet', () => {
       'tools-minion',
       'transport-http',
       'acp',
+      'artifact-summary',
+      'artifact-changes-overview',
+      'artifact-api',
+      'artifact-data-model',
+      'artifact-ui',
+      'artifact-algorithm',
+      'work-sqlite',
+      'buildautomaton-tools',
+      'buildautomaton-coordinator',
     ]);
   });
 
@@ -29,6 +38,8 @@ describe('coreSet', () => {
     expect(http.services[0]?.id).toBe('http');
     expect('endpoints' in http.options ? http.options.endpoints : undefined).toEqual([
       { kind: 'tools', path: '/mcp' },
+      { plugin: 'work-sqlite', path: '/api' },
+      { plugin: 'session-disk', path: '/api' },
     ]);
   });
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyUiPlugins } from './apply.js';
+import { createUiSlots } from './apply.js';
 import { layoutPlugin } from './layout-plugin.js';
 import type { UiPlugin } from './plugin.js';
 
@@ -17,9 +17,9 @@ const theme: UiPlugin = {
   },
 };
 
-describe('applyUiPlugins', () => {
+describe('createUiSlots', () => {
   it('collects surfaces and providers from many plugins', () => {
-    const slots = applyUiPlugins([theme, queue]);
+    const slots = createUiSlots([theme, queue]);
     expect(slots.providers.map((p) => p.id)).toEqual(['theme']);
     expect(slots.surfaces.map((s) => s.id)).toEqual(['queue']);
     expect(slots.layout).toBe('sidebar');
@@ -30,7 +30,7 @@ describe('applyUiPlugins', () => {
       name: 'work',
       implementation: { layout: 'columns', surfaces: [] },
     };
-    const slots = applyUiPlugins([layoutPlugin('sidebar'), work, layoutPlugin('master-detail')]);
+    const slots = createUiSlots([layoutPlugin('sidebar'), work, layoutPlugin('master-detail')]);
     expect(slots.layout).toBe('master-detail');
   });
 });

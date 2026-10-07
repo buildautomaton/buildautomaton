@@ -1,5 +1,5 @@
 export { createUi } from './core/create-ui.js';
-export { applyUiPlugins } from './core/apply.js';
+export { createUiSlots } from './core/apply.js';
 export { layoutPlugin } from './core/layout-plugin.js';
 export { DEFAULT_PANELS, DEFAULT_LAYOUT, DASHBOARD_LAYOUTS, ALL_PANELS } from './core/slots.js';
 export type { DashboardLayoutId, DashboardPanelId } from './core/slots.js';

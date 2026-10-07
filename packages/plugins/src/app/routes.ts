@@ -5,7 +5,7 @@ import { readRequestBody } from '@plugins/transport/http/http-read-body.js';
 import { commitAppPrompt, readAppState, type AppState } from './state.js';
 import { serveStatic } from './serve-static.js';
 
-export const APP_HOME = '/director/app.html';
+export const APP_HOME = '/buildautomaton/app.html';
 
 export function contributeAppRoutes(http: HttpRegistry, cwd: string, staticRoot?: string): void {
   http.addRoute({ path: '/api/app', handler: (req, res) => handleApp(req, res, cwd) });

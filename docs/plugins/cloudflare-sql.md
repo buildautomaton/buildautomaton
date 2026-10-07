@@ -13,7 +13,7 @@ cloudSqlStorePlugin({ options: { schema: 'marketplace', backend: 'd1', d1: env.G
 cloudSqlStorePlugin({
   options: { schema: 'marketplace-plugin', backend: 'do', namespace: env.MARKETPLACE_PLUGIN },
 })
-cloudSqlStorePlugin({ options: { schema: 'email', backend: 'do', storage: ctx.storage } })
+cloudSqlStorePlugin({ options: { schema: 'work', backend: 'do', storage: ctx.storage } })
 ```
 
 `doSqlStorePlugin` is the in-object adapter for `ctx.storage.sql` when you already have the Durable Object storage.
@@ -21,7 +21,7 @@ cloudSqlStorePlugin({ options: { schema: 'email', backend: 'do', storage: ctx.st
 ```ts
 import { doSqlStorePlugin } from '@buildautomaton/plugins/worker';
 
-doSqlStorePlugin({ options: { schema: 'email', storage: ctx.storage } })
+doSqlStorePlugin({ options: { schema: 'work', storage: ctx.storage } })
 ```
 
 Skip [SQLite](./sqlite-store.md) from `coreSet` / app sets (`sql: false`) on Workers. [Worker host](./worker-host.md) wires D1 and Durable Object openers for you.

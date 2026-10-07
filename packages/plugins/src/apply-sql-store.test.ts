@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { applyPlugins } from '@buildautomaton/runtime';
+import { createPluginSlots } from '@buildautomaton/runtime';
 import { asHost } from '@plugins/host-slots.js';
 import { sqlStorePlugin } from '@plugins/stores/sqlite/plugin.js';
 import '@plugins/register-services.js';
 
 describe('applySqlStorePlugin', () => {
   it('runs the schema store migrations on that Durable Object / file', () => {
-    const slots = applyPlugins(
+    const slots = createPluginSlots(
       [
         sqlStorePlugin({
           options: { schema: 'email', file: ':memory:' },

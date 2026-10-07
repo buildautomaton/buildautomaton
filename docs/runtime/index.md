@@ -1,6 +1,6 @@
 # Runtime
 
-`@buildautomaton/runtime` is the plugin registry, service registry, appliers, start/stop, and `createRuntime`. It does not know stores, sessions, or HTTP. Those ids live in [`@buildautomaton/plugins`](../plugins/).
+`@buildautomaton/runtime` is the plugin registry, service registry, start/stop, and `createRuntime`. It does not know stores, sessions, or HTTP. Those ids live in [`@buildautomaton/plugins`](../plugins/).
 
 The same host API runs **locally** (the [Local CLI](../local-cli/)) or **in the cloud**. The host changes. The registries do not.
 
@@ -9,7 +9,6 @@ Host (local-cli, cloud, test)
   → createRuntime({ plugins })
     → plugin registry
     → service registry
-    → appliers
     → handle.start()
 ```
 
@@ -41,7 +40,7 @@ One plugin can contribute several services. Several plugins can contribute the s
 - `byName(name)` returns one plugin
 - `byService(id)` returns every plugin that contributes that service id
 
-`createRuntime` and `applyPlugins` register the plugins you pass in before anything is applied.
+`createRuntime` registers the plugins you pass in, then wires each declared service.
 
 ## Services
 
@@ -65,19 +64,19 @@ A plugin can publish the interface in one contribution and the implementation in
 - `getAll(id)` returns every record for that id, including interface-only and options-only rows
 - `implementations(id)` returns every implementation object
 
-`applyPlugins` calls `define` and `provide` for each contribution before appliers run, so lookup works while a later plugin is being applied.
+`createRuntime` calls `define` and `provide` for each contribution before it wires services, so lookup works while a later plugin is being connected.
 
 ## How they compose
 
-1. You pass plugins to `createRuntime` or `applyPlugins`.
+1. You pass plugins to `createRuntime`. Plugins declare service objects. They do not wire themselves.
 2. Each plugin is registered on the plugin registry.
 3. Each `services` entry is provided to the service registry.
-4. Appliers run in `order`. `registerService('sql-store', apply, 20)` handles that id. A `*` applier handles ids with no specific applier, once per plugin.
+4. The runtime wires known service ids (stores, sessions, HTTP, tools). A `*` handler covers ids with no specific wirer, once per plugin.
 5. `start()` and `stop()` call the same methods on each plugin.
 
-Look up plugins with `slots.pluginRegistry.byService('artifact')`. Look up implementations with `slots.services.implementations('sql-store')` or `slots.services.get('sql-store', (record) => record.options?.schema === 'email')`.
+Look up plugins with `slots.pluginRegistry.byService('artifact')`. Look up implementations with `slots.services.implementations('sql-store')` or `slots.services.get('sql-store', (record) => record.options?.schema === 'work')`.
 
-`@buildautomaton/plugins` registers the appliers for stores, sessions, harnesses, tools, and HTTP. The runtime package does not know those ids.
+`@buildautomaton/plugins` registers how stores, sessions, harnesses, tools, and HTTP are wired. The runtime package does not know those ids.
 
 ## Install
 

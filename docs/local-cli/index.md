@@ -2,12 +2,12 @@
 
 The **Local CLI** is the local host for the [runtime](../runtime/). A cloud host would call the same `createRuntime` with a different mix of [plugins](../plugins/).
 
-You point it at a repo folder. It starts the runtime with `coreSet()` plus [product-director](../product-director/). [Email](../apps/email.md) is a sample you compose yourself, not in this host. In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/).
+You point it at a repo folder. It starts the runtime with `coreSet()`, which includes [buildautomaton](../buildautomaton/). In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/) on a blank prompt.
 
 ```text
 local-cli  (local host)
   ├── runtime
-  ├── core + director plugins
+  ├── core + buildautomaton plugins
   └── appPlugin            optional: serve the app
          ↓
       createRuntime → listen
@@ -20,7 +20,7 @@ npx @buildautomaton/local-cli --cwd /path/to/repo
 
 `app` starts the runtime and the UI. **Dev is the default**: Vite serves the UI with live HMR (no rebuild). `--prod` (or `NODE_ENV=production`) serves the built UI from the HTTP server. Use that on servers.
 
-Without `app` it is tools and HTTP only (agents still talk to the director queue).
+Without `app` it is tools and HTTP only (agents still talk to the buildautomaton queue).
 
 By default it serves HTTP at `http://127.0.0.1:3333`:
 
@@ -28,12 +28,12 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 /                    app (app mode)
 /mcp                 tools
 /api/app             app state
-/api/director        setup + start session
+/api/buildautomaton        setup + start session
 /api/work            queue
 /api/artifacts       reviews
 /api/sessions        sessions
 /api/work/events     websocket
-/director            sidebar widget
+/buildautomaton            sidebar widget
 ```
 
 ```bash

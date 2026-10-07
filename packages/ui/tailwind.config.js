@@ -1,11 +1,16 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const dir = path.dirname(fileURLToPath(import.meta.url));
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class'],
   content: [
-    './index.html',
-    './src/**/*.{ts,tsx}',
-    '../ui-runtime/src/**/*.{ts,tsx}',
-    '../product-director/src/plugins/ui/**/*.{ts,tsx}',
+    path.join(dir, 'index.html'),
+    path.join(dir, 'src/**/*.{ts,tsx}'),
+    path.join(dir, '../ui-runtime/src/**/*.{ts,tsx}'),
+    path.join(dir, '../plugins/src/buildautomaton/**/*.{ts,tsx}'),
   ],
   theme: {
     extend: {

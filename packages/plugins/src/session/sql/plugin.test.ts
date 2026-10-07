@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyPlugins } from '@buildautomaton/runtime';
+import { createPluginSlots } from '@buildautomaton/runtime';
 import { asHost } from '@plugins/host-slots.js';
 import { sqlStorePlugin } from '@plugins/stores/sqlite/plugin.js';
 import '@plugins/register-services.js';
@@ -7,7 +7,7 @@ import { sqlSessionPlugin } from './plugin.js';
 
 describe('sqlSessionPlugin', () => {
   it('stores sessions on the work SQL schema', async () => {
-    const slots = applyPlugins(
+    const slots = createPluginSlots(
       [sqlStorePlugin({ options: { file: ':memory:' } }), sqlSessionPlugin()],
       { cwd: '/', log: () => {} },
     );

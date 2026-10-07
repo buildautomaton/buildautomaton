@@ -1,14 +1,14 @@
 import type { LogFn, RuntimePlugin } from './registry-types.js';
-import { createPluginSlots, type PluginSlots } from './plugin-slots.js';
+import { emptyPluginSlots, type PluginSlots } from './plugin-slots.js';
 import { pluginServices } from './collect-services.js';
 import { applyServiceContributions } from './apply-services.js';
 
-/** Fill the plugin and service registries, then apply each service. */
-export function applyPlugins(
-  plugins: readonly RuntimePlugin[],
-  _options: { log: LogFn; cwd: string },
+/** Register plugins and wire each declared service into slots. */
+export function createPluginSlots(
+  plugins: readonly RuntimePlugin[] = [],
+  _options: { log: LogFn; cwd: string } = { log: () => {}, cwd: '/' },
 ): PluginSlots {
-  const slots = createPluginSlots();
+  const slots = emptyPluginSlots();
   slots.plugins = [...plugins];
   for (const plugin of plugins) {
     slots.pluginRegistry.register(plugin);
