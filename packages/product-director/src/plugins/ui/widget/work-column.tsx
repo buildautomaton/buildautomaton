@@ -1,4 +1,4 @@
-import { Sparkles } from 'lucide-react';
+import { Bot } from 'lucide-react';
 import { ColumnHeader } from '@buildautomaton/ui-runtime';
 import type { CoordinatorSetup } from '../../runtime/work/http/setup-status.js';
 import { CoordinatorLine } from './coordinator-line.js';
@@ -10,7 +10,7 @@ import { WidgetComposer } from './widget-composer.js';
 export function WorkColumn({ cwd, coordinator }: { cwd: string; coordinator?: CoordinatorSetup }) {
   return (
     <section className="flex h-full min-h-0 flex-col bg-background text-foreground">
-      <ColumnHeader title="Product director" icon={Sparkles} trailing={<WidgetClose />} />
+      <ColumnHeader title="Product director" icon={Bot} trailing={<WidgetClose />} />
       <p className="truncate border-b border-border px-4 py-2 font-mono text-xs text-muted-foreground" title={cwd}>
         {cwd}
       </p>

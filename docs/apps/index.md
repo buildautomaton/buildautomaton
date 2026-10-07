@@ -45,4 +45,3 @@ flowchart TB
 | App | Package | Main screen |
 | --- | --- | --- |
 | [Email](./email.md) | `@buildautomaton/email` | Sample inbox. Compose it into a host. It is not in the default local CLI. |
-| [Marketplace](./marketplace.md) | `@buildautomaton/marketplace` | Plugin and app catalog. Local file stores, or D1, Durable Objects, and R2. |

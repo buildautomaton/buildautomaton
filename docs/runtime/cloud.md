@@ -25,8 +25,8 @@ await handle.start();
 return handle.fetch(request);
 ```
 
-`workerHostPlugins` reads `backend: 'd1' | 'do'` on each SQL schema. `doOpeners` opens one Durable Object per key (one marketplace plugin). `handle.fetch` is a Web `Request` in, `Response` out.
+`workerHostPlugins` reads `backend: 'd1' | 'do'` on each SQL schema. `doOpeners` opens one Durable Object per key. `handle.fetch` is a Web `Request` in, `Response` out.
 
-[Marketplace](../apps/marketplace.md) packages that host: `createMarketplaceHost` wires the D1, Durable Object, and R2 store plugins, then the marketplace plugins. Export `MarketplacePluginDO` from `@buildautomaton/marketplace/do`.
+A host app wires these store plugins, then its own domain plugins. Export any Durable Object classes the openers call.
 
 Serve static UI with Workers Assets. Keep API paths (`/api/*`, `/mcp`) on the Worker.
