@@ -15,7 +15,7 @@ export const EMAIL_SQL_SCHEMA = 'email';
 export function emailPlugin(init: PluginInit = {}): ExtensionPlugin {
   return {
     name: 'email-sql',
-    kind: 'email',
+    services: [{ id: 'email' }],
     sqlSchema: EMAIL_SQL_SCHEMA,
     sqlMigrations: EMAIL_MIGRATIONS,
     createFromStores: (stores: StoreContext) =>

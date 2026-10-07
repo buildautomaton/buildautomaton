@@ -26,7 +26,7 @@ describe('coreSet', () => {
 
   it('mounts MCP tools on the HTTP transport', () => {
     const http = coreSet({ options: { cwd: '/tmp' } }).find((p) => p.name === 'transport-http') as HttpPlugin;
-    expect(http.kind).toBe('http');
+    expect(http.services[0]?.id).toBe('http');
     expect('endpoints' in http.options ? http.options.endpoints : undefined).toEqual([
       { kind: 'tools', path: '/mcp' },
     ]);

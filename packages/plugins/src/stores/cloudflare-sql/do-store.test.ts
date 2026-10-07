@@ -40,6 +40,6 @@ describe('Durable Object SQL store', () => {
   it('requires storage or an implementation', () => {
     expect(() => doSqlStorePlugin()).toThrow(/storage or implementation/);
     const memory = sqlStorePlugin({ options: { file: ':memory:' } }).implementation as SqlStore;
-    expect(doSqlStorePlugin({ options: { storage: asDo(memory) } }).kind).toBe('sql-store');
+    expect(doSqlStorePlugin({ options: { storage: asDo(memory) } }).services[0]?.id).toBe('sql-store');
   });
 });

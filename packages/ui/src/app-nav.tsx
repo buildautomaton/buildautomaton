@@ -31,7 +31,6 @@ export function AppNav() {
 export function appNavPlugin(): UiPlugin {
   return {
     name: 'app-nav',
-    kind: 'surface',
     implementation: {
       surfaces: [{ id: 'app-nav', title: 'Apps', panel: 'nav', order: 0, component: AppNav }],
     },

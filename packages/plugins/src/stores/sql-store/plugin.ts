@@ -1,4 +1,4 @@
-import type { PluginFactory, PluginInit, PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginFactory, PluginInit, PluginRuntimeContext, ServiceContribution } from '@buildautomaton/runtime';
 import type { AnySqlStore } from './any-store.js';
 import type { SqlStore } from './interface.js';
 import type { SqlStoreOpener } from './opener.js';
@@ -7,7 +7,7 @@ import type { SqlMigration } from './migration.js';
 
 export type SqlStorePlugin = {
   name: string;
-  kind: 'sql-store';
+  services: ServiceContribution[];
   options?: SqlStoreOptions;
   implementation?: AnySqlStore;
   /** One store per key (per-plugin Durable Objects). */

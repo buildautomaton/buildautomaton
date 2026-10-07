@@ -27,4 +27,6 @@ return handle.fetch(request);
 
 `workerHostPlugins` reads `backend: 'd1' | 'do'` on each SQL schema. `doOpeners` opens one Durable Object per key (one marketplace plugin). `handle.fetch` is a Web `Request` in, `Response` out.
 
+[Marketplace](../apps/marketplace.md) packages that host: `createMarketplaceHost` wires the D1, Durable Object, and R2 store plugins, then the marketplace plugins. Export `MarketplacePluginDO` from `@buildautomaton/marketplace/do`.
+
 Serve static UI with Workers Assets. Keep API paths (`/api/*`, `/mcp`) on the Worker.

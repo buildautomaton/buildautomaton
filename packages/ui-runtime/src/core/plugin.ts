@@ -1,8 +1,6 @@
 import type { ComponentType, ReactNode } from 'react';
 import type { DashboardLayoutId, DashboardPanelId } from './layouts.js';
 
-export type UiPluginKind = 'theme' | 'provider' | 'surface' | 'layout';
-
 export type SurfaceProps = {
   panel: string;
 };
@@ -28,7 +26,6 @@ export type UiHooks = {
 
 export type UiPlugin = {
   name: string;
-  kind: UiPluginKind;
   hooks?: UiHooks;
   implementation?: {
     surfaces?: UiSurface[];

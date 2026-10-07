@@ -1,4 +1,4 @@
-import type { PluginFactory, PluginInit, PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginFactory, PluginInit, PluginRuntimeContext, ServiceContribution } from '@buildautomaton/runtime';
 import type { AttachFetch } from '../../../host-slots.js';
 import type { TransportHooks } from '../../transport/hooks.js';
 import type { TransportImplementation } from '../../transport/implementation.js';
@@ -7,7 +7,7 @@ import type { HttpRegistry } from './registry.js';
 
 export type HttpPlugin = {
   name: string;
-  kind: 'http';
+  services: ServiceContribution[];
   options: HttpTransportOptions;
   hooks?: TransportHooks;
   implementation: TransportImplementation;

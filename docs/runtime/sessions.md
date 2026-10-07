@@ -4,7 +4,7 @@ Session plugins record what happened in an agent run. You need one session plugi
 
 ## Disk sessions
 
-`diskSessionPlugin` (`kind: 'session'`) is the default. While a run is live it appends to `{id}.jsonl`. When the run finishes it packs that into `{id}.json` and `{id}.md`.
+`diskSessionPlugin` (service id `session`) is the default. While a run is live it appends to `{id}.jsonl`. When the run finishes it packs that into `{id}.json` and `{id}.md`.
 
 Default folder: `<cwd>/.harness/sessions`. It uses the file store, can mirror into SQLite, and can serve `/api/sessions` when HTTP is up.
 

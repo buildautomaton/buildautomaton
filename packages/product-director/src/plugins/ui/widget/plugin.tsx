@@ -13,7 +13,6 @@ function bindProvider(client?: WorkClient) {
 export function widgetUiPlugin(client?: WorkClient): UiPlugin {
   return {
     name: 'director-widget',
-    kind: 'surface',
     implementation: {
       layout: 'sidebar',
       providers: [{ id: 'work', component: bindProvider(client) }],

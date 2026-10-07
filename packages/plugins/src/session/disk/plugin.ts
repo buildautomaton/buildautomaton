@@ -17,10 +17,11 @@ export function diskSessionPlugin(
     options: DiskSessionOptions;
   },
 ): SessionPlugin {
+  const options = { dir: init.options.dir, id: init.options.id ?? 'disk' };
   return {
     name: 'session-disk',
-    kind: 'session',
-    options: { dir: init.options.dir, id: init.options.id ?? 'disk' },
+    services: [{ id: 'session', options, hooks: init.hooks, implementation: init.implementation }],
+    options,
     hooks: init.hooks,
     supports: { stores: ['file-store', 'sql-store'], transports: ['http'] },
     createFromStores: (stores) => createSessionFromStores(init.options.dir, stores, init.implementation),

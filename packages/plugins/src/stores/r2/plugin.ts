@@ -19,11 +19,13 @@ export function r2FileStorePlugin(init: R2FileStorePluginInit = {}): FileStorePl
     throw new Error('r2FileStorePlugin requires options.bucket or implementation');
   }
   const prefix = init.options?.prefix ?? init.options?.root ?? '';
+  const options = { id: init.options?.id ?? 'file', root: prefix, backend: 'r2' as const };
+  const implementation = (init.implementation ?? createR2FileStore(bucket!, prefix)) as FileStorePlugin['implementation'];
   return {
     name: 'store-file-r2',
-    kind: 'file-store',
-    options: { id: init.options?.id ?? 'file', root: prefix, backend: 'r2' },
-    implementation: (init.implementation ?? createR2FileStore(bucket!, prefix)) as FileStorePlugin['implementation'],
+    services: [{ id: 'file-store', options, implementation }],
+    options,
+    implementation,
     runtime: init.runtime,
   };
 }

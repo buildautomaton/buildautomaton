@@ -8,12 +8,14 @@ export function stdioTransportPlugin(
   init: PluginInit<StdioTransportOptions, TransportHooks> = {},
 ): TransportPlugin {
   const transport = createStdioTransport(init.runtime?.log);
+  const options = { id: init.options?.id ?? transport.id };
+  const implementation = { start: transport.start, stop: transport.stop };
   return {
     name: 'transport-stdio',
-    kind: 'transport',
-    options: { id: init.options?.id ?? transport.id },
+    services: [{ id: 'transport', options, hooks: init.hooks, implementation }],
+    options,
     hooks: init.hooks,
-    implementation: { start: transport.start, stop: transport.stop },
+    implementation,
     runtime: init.runtime,
   };
 }

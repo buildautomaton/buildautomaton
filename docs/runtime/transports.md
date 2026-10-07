@@ -1,6 +1,6 @@
 # Transports
 
-Transport plugins (`kind: 'transport'`) open a channel that is **not** the shared HTTP server. Pick one when you do not want localhost HTTP.
+Transport plugins (service id `transport`) open a channel that is **not** the shared HTTP server. Pick one when you do not want localhost HTTP.
 
 | Plugin | Channel |
 | --- | --- |

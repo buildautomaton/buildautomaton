@@ -13,10 +13,11 @@ export function streamSessionPlugin(
     ...createStreamBackend(base),
     ...init.implementation,
   });
+  const options = { layer: true as const, id: init.options?.id };
   const plugin = {
     name: 'session-stream',
-    kind: 'session' as const,
-    options: { layer: true as const, id: init.options?.id },
+    services: [{ id: 'session', options, hooks: init.hooks }],
+    options,
     hooks: init.hooks,
     runtime: init.runtime,
     wrapBackend,

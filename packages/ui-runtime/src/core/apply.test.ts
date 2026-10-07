@@ -5,7 +5,6 @@ import type { UiPlugin } from './plugin.js';
 
 const queue: UiPlugin = {
   name: 'work-queue',
-  kind: 'surface',
   implementation: {
     surfaces: [{ id: 'queue', title: 'Queue', panel: 'sidebar', component: () => null }],
   },
@@ -13,7 +12,6 @@ const queue: UiPlugin = {
 
 const theme: UiPlugin = {
   name: 'theme',
-  kind: 'provider',
   implementation: {
     providers: [{ id: 'theme', component: ({ children }) => children }],
   },
@@ -30,7 +28,6 @@ describe('applyUiPlugins', () => {
   it('uses the last contributed layout', () => {
     const work: UiPlugin = {
       name: 'work',
-      kind: 'surface',
       implementation: { layout: 'columns', surfaces: [] },
     };
     const slots = applyUiPlugins([layoutPlugin('sidebar'), work, layoutPlugin('master-detail')]);

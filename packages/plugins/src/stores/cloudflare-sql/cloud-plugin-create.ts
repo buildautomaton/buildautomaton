@@ -14,9 +14,9 @@ function inferBackend(options: CloudSqlStorePluginInit['options']): 'd1' | 'do' 
 export function cloudSqlStorePlugin(init: CloudSqlStorePluginInit = {}): SqlStorePlugin {
   const backend = init.options?.backend ?? inferBackend(init.options);
   const schema = init.options?.schema ?? DEFAULT_SQL_SCHEMA;
+  const options = { id: init.options?.id ?? schema, schema, backend };
   const shared = {
-    kind: 'sql-store' as const,
-    options: { id: init.options?.id ?? schema, schema, backend },
+    options,
     sqlMigrations: init.sqlMigrations,
     runtime: init.runtime,
     name: sqlStorePluginName(schema, backend === 'd1' ? 'store-sql-d1' : 'store-sql-do'),
@@ -25,17 +25,20 @@ export function cloudSqlStorePlugin(init: CloudSqlStorePluginInit = {}): SqlStor
     if (!init.options?.d1 && !init.implementation) {
       throw new Error('cloudSqlStorePlugin backend d1 requires options.d1 or implementation');
     }
-    return {
-      ...shared,
-      implementation: (init.implementation ?? createD1SqlStore(init.options!.d1!)) as SqlStorePlugin['implementation'],
-    };
+    const implementation = (init.implementation ?? createD1SqlStore(init.options!.d1!)) as SqlStorePlugin['implementation'];
+    return { ...shared, implementation, services: [{ id: 'sql-store', options, implementation }] };
   }
   if (init.opener || init.options?.namespace) {
-    return { ...shared, opener: init.opener ?? createDoSqlOpener(init.options!.namespace!) };
+    return {
+      ...shared,
+      opener: init.opener ?? createDoSqlOpener(init.options!.namespace!),
+      services: [{ id: 'sql-store', options }],
+    };
   }
   if (!init.options?.storage && !init.implementation) {
     throw new Error('cloudSqlStorePlugin backend do requires options.storage, namespace, or implementation');
   }
   const base = init.options?.storage ? createDoSqlStore(init.options.storage) : undefined;
-  return { ...shared, implementation: { ...base, ...init.implementation } as SqlStorePlugin['implementation'] };
+  const implementation = { ...base, ...init.implementation } as SqlStorePlugin['implementation'];
+  return { ...shared, implementation, services: [{ id: 'sql-store', options, implementation }] };
 }

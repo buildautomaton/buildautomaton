@@ -6,7 +6,7 @@ import { bindMinionHost } from './bind-host.js';
 import { createPendingStore } from './pending-store.js';
 import { MINION_INSTRUCTIONS, MINION_PROMPT } from './instructions.js';
 
-/** One tools plugin: spawn/await/get minions. Register beside any other `kind: 'tools'` plugin. */
+/** One tools plugin: spawn/await/get minions. Register beside any other tools service. */
 export function minionToolsPlugin(init: ToolsPluginInit = {}): ToolsPlugin {
   const pending = createPendingStore();
   const defaults: ToolsImplementation = {
@@ -16,12 +16,13 @@ export function minionToolsPlugin(init: ToolsPluginInit = {}): ToolsPlugin {
     instructions: () => MINION_INSTRUCTIONS,
     prompts: () => [MINION_PROMPT],
   };
+  const implementation = { ...defaults, ...init.implementation };
   return {
     name: 'tools-minion',
-    kind: 'tools',
+    services: [{ id: 'tools', options: init.options, hooks: init.hooks, implementation }],
     options: init.options,
     hooks: init.hooks,
-    implementation: { ...defaults, ...init.implementation },
+    implementation,
     runtime: init.runtime,
   };
 }

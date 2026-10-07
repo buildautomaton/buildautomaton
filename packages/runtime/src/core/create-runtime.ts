@@ -13,7 +13,7 @@ export type ComposeRuntime = (
 
 /**
  * Apply registered plugins, then let a plugin compose the handle.
- * The runtime does not know session, harness, store, or transport kinds.
+ * The runtime does not know session, harness, store, or transport service ids.
  */
 export async function createRuntime(options: RuntimeOptions): Promise<RuntimeHandle> {
   const log = options.log ?? defaultLog;

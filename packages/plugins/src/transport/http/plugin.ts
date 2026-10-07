@@ -6,12 +6,14 @@ import { attachFetch } from './attach-fetch.js';
 export function httpTransportPlugin(init: HttpPluginInit = {}): HttpPlugin {
   const registry = createHttpRegistry();
   const transport = createHttpTransport({ ...init.options, registry });
+  const options = { id: init.options?.id ?? transport.id, ...init.options };
+  const implementation = { start: transport.start, stop: transport.stop, ...init.implementation };
   return {
     name: 'transport-http',
-    kind: 'http',
-    options: { id: init.options?.id ?? transport.id, ...init.options },
+    services: [{ id: 'http', options, hooks: init.hooks, implementation }],
+    options,
     hooks: init.hooks,
-    implementation: { start: transport.start, stop: transport.stop, ...init.implementation },
+    implementation,
     registry,
     attachFetch,
     runtime: init.runtime,

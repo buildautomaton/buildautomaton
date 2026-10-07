@@ -6,12 +6,16 @@ export function defineHarnessPlugin(
   defaultOptions: HarnessOptions,
   defaultImplementation: HarnessImplementation,
 ) {
-  return (init: HarnessPluginInit = {}): HarnessPlugin => ({
-    name,
-    kind: 'harness',
-    options: { ...defaultOptions, ...init.options },
-    hooks: init.hooks,
-    implementation: { ...defaultImplementation, ...init.implementation },
-    runtime: init.runtime,
-  });
+  return (init: HarnessPluginInit = {}): HarnessPlugin => {
+    const options = { ...defaultOptions, ...init.options };
+    const implementation = { ...defaultImplementation, ...init.implementation };
+    return {
+      name,
+      services: [{ id: 'harness', options, hooks: init.hooks, implementation }],
+      options,
+      hooks: init.hooks,
+      implementation,
+      runtime: init.runtime,
+    };
+  };
 }

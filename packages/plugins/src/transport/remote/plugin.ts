@@ -10,12 +10,14 @@ export function remoteTransportPlugin(
   },
 ): TransportPlugin {
   const transport = createRemoteTransport(init.implementation);
+  const options = { id: init.options?.id ?? transport.id };
+  const implementation = { start: transport.start, stop: transport.stop };
   return {
     name: 'transport-remote',
-    kind: 'transport',
-    options: { id: init.options?.id ?? transport.id },
+    services: [{ id: 'transport', options, hooks: init.hooks, implementation }],
+    options,
     hooks: init.hooks,
-    implementation: { start: transport.start, stop: transport.stop },
+    implementation,
     runtime: init.runtime,
   };
 }

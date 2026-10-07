@@ -1,11 +1,11 @@
-import type { PluginFactory, PluginInit, PluginRuntimeContext } from '@buildautomaton/runtime';
+import type { PluginFactory, PluginInit, PluginRuntimeContext, ServiceContribution } from '@buildautomaton/runtime';
 import type { HarnessHooks } from './hooks.js';
 import type { HarnessImplementation } from './implementation.js';
 import type { HarnessOptions } from './options.js';
 
 export type HarnessPlugin = {
   name: string;
-  kind: 'harness';
+  services: ServiceContribution[];
   options: HarnessOptions;
   hooks?: HarnessHooks;
   implementation: HarnessImplementation;

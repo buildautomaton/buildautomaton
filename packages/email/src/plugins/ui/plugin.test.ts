@@ -7,7 +7,7 @@ describe('email UI', () => {
   it('puts the inbox in main', () => {
     const slots = applyUiPlugins(emailUiSet());
     expect(slots.surfaces.map((s) => `${s.panel}:${s.id}`)).toEqual(['main:email-inbox']);
-    expect(emailUiPlugin().kind).toBe('surface');
+    expect(emailUiPlugin().name).toBe('email');
   });
 
   it('composes inbox and director', () => {

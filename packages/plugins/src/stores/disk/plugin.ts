@@ -3,11 +3,13 @@ import { createNodeFileStore } from './store.js';
 
 export function fileStorePlugin(init: FileStorePluginInit = {}): FileStorePlugin {
   const root = init.options?.root ?? init.runtime?.cwd ?? process.cwd();
+  const options = { root, id: init.options?.id ?? 'file', backend: init.options?.backend ?? 'disk' };
+  const implementation = { ...createNodeFileStore(root), ...init.implementation };
   return {
     name: 'store-file',
-    kind: 'file-store',
-    options: { root, id: init.options?.id ?? 'file', backend: init.options?.backend ?? 'disk' },
-    implementation: { ...createNodeFileStore(root), ...init.implementation },
+    services: [{ id: 'file-store', options, implementation }],
+    options,
+    implementation,
     runtime: init.runtime,
   };
 }
