@@ -14,6 +14,7 @@ Plugins are **not** split by runtime. Each plugin declares `targetRuntime`: `nod
 | [tools](./src/tools/) | MCP tools for minions and other agents |
 | [transport](./src/transport/) | HTTP, fetch, stdio, or remote |
 | [app](./src/app/) | Morphing app HTTP surface |
+| [git](./src/git/) | Working directory repo root and branch |
 | [work](./src/work/) | BuildAutomaton queue, artifacts, prompt, and widget |
 
 Read a plugin's `README.md` before composing it. Pair node plugins with `createRuntime`. Pair react plugins with `createUi`.

@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { WidgetShell } from './widget-shell.js';
 import { readWidgetOpen, writeWidgetOpen } from './open-state.js';
+import { useSetup } from './use-setup.js';
 
 export function ChatWidget() {
+  useSetup();
   const [open, setOpen] = useState(readWidgetOpen);
 
   function toggle() {

@@ -33,7 +33,7 @@ The tell tool’s fields and instructions are built from the artifact plugins yo
 
 ## Prompt sessions
 
-The widget composer and the app’s first prompt start a **new ACP session** per prompt. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. The dashboard shows an in-progress task, then the recorded artifacts — not the session transcript.
+The widget composer and the app’s first prompt start a **new ACP session** per prompt, using the harness and model selected in the field. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. The widget lists sessions that are still running, then the recorded artifacts on the session card.
 
 `GET /api/buildautomaton` includes `coordinator`. `POST /api/buildautomaton/session` with `{ prompt, project? }` creates in-progress work and starts the session.
 

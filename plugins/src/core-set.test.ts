@@ -7,6 +7,7 @@ describe('coreSet', () => {
     expect(names).toEqual([
       'store-file',
       'store-sql',
+      'git',
       'harness-cursor',
       'harness-codex',
       'harness-kiro',

@@ -26,6 +26,7 @@ Built-in plugins also export from `@buildautomaton/plugins/plugins`. Cloudflare 
 | Agents | [Harnesses](./harnesses.md), [Minion tools](./minion-tools.md) |
 | [Transports](./transports.md) | [HTTP](./http.md), [Fetch](./fetch.md), [Stdio](./stdio.md), [Remote](./remote.md) |
 | Host | [App](./app.md), [Worker host](./worker-host.md) |
+| Git | [Working tree](./git.md) |
 | Work | [Queue, tools, prompt, widget](../work/) |
 | Your own | [Custom plugins](./custom.md) |
 

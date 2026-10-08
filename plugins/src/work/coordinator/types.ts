@@ -19,6 +19,8 @@ export type CoordinatorContext = {
 export type StartSessionInput = {
   prompt: string;
   project?: string;
+  harness?: string;
+  model?: string;
 };
 
 export type StartSessionResult = CoordinatorStatus & { work?: WorkItem };

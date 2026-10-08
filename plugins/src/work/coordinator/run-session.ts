@@ -1,4 +1,5 @@
 import type { SessionRecord } from '@plugins/work/host.js';
+import { AGENT_CONFIG_AGENT_MODEL_KEY } from '@plugins/harnesses/acp/util/agent-config.js';
 import type { CoordinatorContext, CoordinatorStatus } from './types.js';
 
 export function runSessionTurn(
@@ -13,6 +14,7 @@ export function runSessionTurn(
     runId: record.runId,
     scopeId: record.id,
     agentType: record.harness,
+    agentConfig: record.model ? { [AGENT_CONFIG_AGENT_MODEL_KEY]: record.model } : undefined,
     cwd: record.cwd,
     isNewSession: true,
     sendResult: (result) => {

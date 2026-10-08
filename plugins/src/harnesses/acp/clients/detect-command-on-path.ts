@@ -6,25 +6,19 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { isShutdownRequested } from '@plugins/harnesses/acp/util/shutdown.js';
 import { agentPathEnv, getAgentPathEntries } from './agent-path.js';
+import { forgetPresence, readPresence, writePresence } from './presence-cache.js';
 
 const execFileAsync = promisify(execFile);
 
-/** Default for `which` probes — keep short so startup/shutdown are not held on a slow PATH lookup. */
 export const COMMAND_ON_PATH_PROBE_TIMEOUT_MS = 750;
 
-async function execFileShutdownAware(
-  file: string,
-  args: readonly string[],
-  timeoutMs: number,
-): Promise<void> {
+async function execFileShutdownAware(file: string, args: readonly string[], timeoutMs: number): Promise<void> {
   if (isShutdownRequested()) throw new Error('shutdown');
-
   const ac = new AbortController();
   const shutdownPoll = setInterval(() => {
     if (isShutdownRequested()) ac.abort();
   }, 50);
   shutdownPoll.unref?.();
-
   try {
     await execFileAsync(file, args, { timeout: timeoutMs, signal: ac.signal });
   } finally {
@@ -49,24 +43,26 @@ async function isCommandInBridgeAgentDirs(command: string): Promise<boolean> {
   return false;
 }
 
-/** Best-effort: `which <command>` or a known bridge install dir (Unix/macOS bridge host). */
+/** Known install dirs first, then `which`. Results are cached so repeat opens stay instant. */
 export async function isCommandOnPath(
   command: string,
   timeoutMs = COMMAND_ON_PATH_PROBE_TIMEOUT_MS,
 ): Promise<boolean> {
   if (isShutdownRequested()) return false;
-  try {
-    await execFileAsync('which', [command], {
-      timeout: timeoutMs,
-      env: agentPathEnv(),
-    });
-    return true;
-  } catch {
-    return isCommandInBridgeAgentDirs(command);
-  }
+  const cached = readPresence(command);
+  if (cached !== undefined) return cached;
+  const found = (await isCommandInBridgeAgentDirs(command)) || (await whichCommand(command, timeoutMs));
+  writePresence(command, found);
+  return found;
 }
 
-/** Retry PATH probes after install — symlinks can lag briefly on some hosts. */
+function whichCommand(command: string, timeoutMs: number): Promise<boolean> {
+  return execFileAsync('which', [command], { timeout: timeoutMs, env: agentPathEnv() }).then(
+    () => true,
+    () => false,
+  );
+}
+
 export async function waitForCommandOnPath(
   command: string,
   opts: { maxAttempts?: number; delayMs?: number; timeoutMs?: number } = {},
@@ -75,13 +71,13 @@ export async function waitForCommandOnPath(
   const delayMs = opts.delayMs ?? 400;
   const timeoutMs = opts.timeoutMs ?? COMMAND_ON_PATH_PROBE_TIMEOUT_MS;
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    forgetPresence(command);
     if (await isCommandOnPath(command, timeoutMs)) return true;
-    if (attempt < maxAttempts - 1) await new Promise((r) => setTimeout(r, delayMs));
+    if (attempt < maxAttempts - 1) await new Promise((resolve) => setTimeout(resolve, delayMs));
   }
   return false;
 }
 
-/** Run a short subprocess probe; aborts on shutdown (used by agent presence detection). */
 export async function execProbeShutdownAware(
   file: string,
   args: readonly string[],

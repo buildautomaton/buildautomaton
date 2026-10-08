@@ -1,17 +1,27 @@
 import { useId, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { PromptField } from '@buildautomaton/ui-runtime';
+import type { SetupAgent } from '../queue/http/setup-status.js';
+import type { PromptChoice } from '../prompt/choice.js';
+import { PromptPickers } from '../prompt/pickers.js';
 import { PromptActions } from './prompt-actions.js';
+
+const NO_AGENTS: SetupAgent[] = [];
 
 export function PromptGate({
   onSubmit,
   lockedValue,
+  agents = NO_AGENTS,
+  checking = false,
 }: {
-  onSubmit?: (prompt: string) => Promise<void>;
+  onSubmit?: (input: { prompt: string; harness?: string; model?: string }) => Promise<void>;
   lockedValue?: string;
+  agents?: SetupAgent[];
+  checking?: boolean;
 }) {
   const id = useId();
   const locked = lockedValue !== undefined;
   const [value, setValue] = useState('');
+  const [choice, setChoice] = useState<PromptChoice>({ harness: '', model: '' });
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const shown = locked ? lockedValue : value;
@@ -23,7 +33,7 @@ export function PromptGate({
     setBusy(true);
     setError(null);
     try {
-      await onSubmit(next);
+      await onSubmit({ prompt: next, harness: choice.harness || undefined, model: choice.model || undefined });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not start the app');
       setBusy(false);
@@ -60,6 +70,11 @@ export function PromptGate({
             onChange={(event) => setValue(event.target.value)}
             onKeyDown={onKeyDown}
           />
+          {locked ? null : (
+            <div className="absolute bottom-2.5 left-3 flex max-w-[calc(100%-7rem)] items-center">
+              <PromptPickers agents={agents} checking={checking} onChange={setChoice} />
+            </div>
+          )}
           {locked ? null : (
             <PromptActions typing={shown.length > 0} disabled={busy || empty} onSubmit={() => void submit()} />
           )}

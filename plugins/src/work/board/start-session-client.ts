@@ -2,7 +2,7 @@ import type { WorkItem } from './types.js';
 
 export async function startBuildAutomatonSession(
   base: string,
-  input: { prompt: string; project?: string },
+  input: { prompt: string; project?: string; harness?: string; model?: string },
 ): Promise<WorkItem> {
   const res = await fetch(`${base}/api/buildautomaton/session`, {
     method: 'POST',
