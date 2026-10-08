@@ -1,11 +1,6 @@
-import {
-  HTTP_DEFAULT_PORT,
-  MCP_DEFAULT_PATH,
-  normalizeHttpPath,
-  type SessionBackendKind,
-  type TransportKind,
-} from '@buildautomaton/plugins';
+import { MCP_DEFAULT_PATH, normalizeHttpPath } from '@buildautomaton/plugins';
 import { printHelp } from './help.js';
+import { parseBackend, parseEnv, parsePort, parseTransport, readFlags, strFlag } from './parse-flags.js';
 import { CLI_VERSION } from './version.js';
 
 export type CliMode = 'harness' | 'app';
@@ -18,8 +13,8 @@ export type ParsedCli = {
   env: AppEnv;
   cwd: string;
   sessionsDir?: string;
-  backend: SessionBackendKind;
-  transport: TransportKind;
+  backend: ReturnType<typeof parseBackend>;
+  transport: ReturnType<typeof parseTransport>;
   remoteUrl?: string;
   mcpPort: number;
   uiPort: number;
@@ -40,13 +35,12 @@ export function parseCli(argv: string[]): ParsedCli {
     process.exit(0);
   }
   const flags = readFlags(args);
-  const backend = flags.backend === 'stream' ? 'stream' : 'disk';
   return {
     mode,
     env: parseEnv(flags),
     cwd: strFlag(flags.cwd) ?? process.cwd(),
     sessionsDir: strFlag(flags['sessions-dir']),
-    backend,
+    backend: parseBackend(flags.backend),
     transport: parseTransport(flags.transport),
     remoteUrl: strFlag(flags['remote-url']),
     mcpPort: parsePort(flags.port),
@@ -54,46 +48,4 @@ export function parseCli(argv: string[]): ParsedCli {
     mcpPath: normalizeHttpPath(strFlag(flags['mcp-path']) ?? MCP_DEFAULT_PATH),
     verbose: flags.verbose === true,
   };
-}
-
-function parseEnv(flags: Record<string, string | true>): AppEnv {
-  if (flags.dev === true) return 'dev';
-  if (flags.prod === true || process.env.NODE_ENV === 'production') return 'prod';
-  return 'dev';
-}
-
-function parseTransport(value: string | true | undefined): TransportKind {
-  if (value === 'remote') return 'remote';
-  if (value === 'stdio') return 'stdio';
-  return 'http';
-}
-
-function parsePort(value: string | true | undefined, fallback = HTTP_DEFAULT_PORT): number {
-  if (value === undefined) return fallback;
-  const n = typeof value === 'string' ? Number(value) : NaN;
-  if (!Number.isInteger(n) || n < 1 || n > 65535) {
-    console.error('Invalid --port (expected an integer 1-65535).');
-    process.exit(1);
-  }
-  return n;
-}
-
-function strFlag(value: string | true | undefined): string | undefined {
-  return typeof value === 'string' ? value : undefined;
-}
-
-function readFlags(args: string[]): Record<string, string | true> {
-  const out: Record<string, string | true> = {};
-  for (let i = 0; i < args.length; i++) {
-    const token = args[i]!;
-    if (!token.startsWith('--')) continue;
-    const key = token.slice(2);
-    const next = args[i + 1];
-    if (!next || next.startsWith('--')) out[key] = true;
-    else {
-      out[key] = next;
-      i += 1;
-    }
-  }
-  return out;
 }

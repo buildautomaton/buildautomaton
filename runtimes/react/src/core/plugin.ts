@@ -26,6 +26,8 @@ export type UiHooks = {
 
 export type UiPlugin = {
   name: string;
+  /** Agent-facing note: when to use this UI plugin and what it paints. */
+  description?: string;
   hooks?: UiHooks;
   implementation?: {
     surfaces?: UiSurface[];

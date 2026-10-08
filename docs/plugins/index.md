@@ -1,6 +1,6 @@
 # Plugins
 
-`@buildautomaton/plugins` is the catalog of runtime plugins. The [runtime](../runtime/) only indexes them. Each plugin owns a service id: stores, sessions, harnesses, tools, or HTTP.
+`@buildautomaton/plugins` is the catalog of open source components agents compose, modify, and customize. The [runtime](../runtime/) only indexes them. Each plugin owns a service id: stores, sessions, harnesses, tools, or HTTP.
 
 ```ts
 import { createRuntime } from '@buildautomaton/runtime';
@@ -28,4 +28,4 @@ Built-in plugins also export from `@buildautomaton/plugins/plugins`. Cloudflare 
 | Host | [App](./app.md), [Worker host](./worker-host.md) |
 | Your own | [Custom plugins](./custom.md) |
 
-A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../ui-runtime/), or **both**. [Buildautomaton](../buildautomaton/) is the dual example.
+A package can ship **runtime** plugins, **UI** plugins for [`@buildautomaton/ui-runtime`](../react-runtime/), or **both**. [Buildautomaton](../buildautomaton/) is the dual example.

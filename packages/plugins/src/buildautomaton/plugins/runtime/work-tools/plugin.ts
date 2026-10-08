@@ -26,6 +26,7 @@ export function workToolsPlugin(init: ToolsPluginInit = {}): ToolsPlugin {
   const implementation = { ...defaults, ...init.implementation };
   return {
     name: 'buildautomaton-tools',
+    description: 'Ask/tell MCP loop for queued build work. Use when an agent should pull work, implement it, and submit artifacts.',
     services: [{ id: 'tools', options: init.options, hooks: init.hooks, implementation }],
     options: init.options,
     hooks: init.hooks,

@@ -6,6 +6,7 @@ import type { ToolsOptions } from './options.js';
 /** A registerable tool set. Minion tools are one implementation of this contract. */
 export type ToolsPlugin = {
   name: string;
+  description?: string;
   services: ServiceContribution[];
   options?: ToolsOptions;
   hooks?: ToolsHooks;

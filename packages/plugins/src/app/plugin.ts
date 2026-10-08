@@ -18,6 +18,7 @@ export function appPlugin(init: PluginInit<AppPluginOptions> = {}): AppPlugin {
   const cwd = init.runtime?.cwd ?? process.cwd();
   return {
     name: 'app',
+    description: 'Morphing app surface: a prompt until the first one becomes the running product. Use for blank-to-app hosts.',
     services: [{ id: 'app' }],
     runtime: init.runtime,
     contributeHttp(http: HttpRegistry) {

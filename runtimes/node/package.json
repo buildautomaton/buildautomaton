@@ -2,14 +2,14 @@
   "name": "@buildautomaton/runtime",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Plugin registry, service registry, and createRuntime host",
+  "description": "Node runtime: plugin and service registries, createRuntime, and process start. Pair with plugins for stores, HTTP, and tools.",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/buildautomaton/meta-harness.git",
-    "directory": "packages/runtime"
+    "directory": "runtimes/node"
   },
-  "homepage": "https://github.com/buildautomaton/meta-harness/tree/main/packages/runtime",
+  "homepage": "https://github.com/buildautomaton/meta-harness/tree/main/runtimes/node",
   "bugs": {
     "url": "https://github.com/buildautomaton/meta-harness/issues"
   },

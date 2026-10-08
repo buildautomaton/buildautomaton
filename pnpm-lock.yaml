@@ -19,7 +19,7 @@ importers:
         version: link:../plugins
       '@buildautomaton/runtime':
         specifier: workspace:*
-        version: link:../runtime
+        version: link:../../runtimes/node
       '@buildautomaton/ui':
         specifier: workspace:*
         version: link:../ui
@@ -50,7 +50,7 @@ importers:
         version: 0.14.1(zod@4.5.4)
       '@buildautomaton/runtime':
         specifier: workspace:*
-        version: link:../runtime
+        version: link:../../runtimes/node
       marked:
         specifier: ^18.0.14
         version: 18.0.14
@@ -63,7 +63,7 @@ importers:
     devDependencies:
       '@buildautomaton/ui-runtime':
         specifier: workspace:*
-        version: link:../ui-runtime
+        version: link:../../runtimes/react
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.1
@@ -103,21 +103,6 @@ importers:
       vite:
         specifier: ^7.0.0
         version: 7.3.6(@types/node@22.20.1)(jiti@1.21.7)(tsx@4.23.15)
-      vitest:
-        specifier: ^2.0.0
-        version: 2.1.9(@types/node@22.20.1)
-
-  packages/runtime:
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.1
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@1.21.7)(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
       vitest:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.20.1)
@@ -129,7 +114,7 @@ importers:
         version: link:../plugins
       '@buildautomaton/ui-runtime':
         specifier: workspace:*
-        version: link:../ui-runtime
+        version: link:../../runtimes/react
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.2.0(vite@7.3.6(@types/node@22.20.1)(jiti@1.21.7)(tsx@4.23.15))
@@ -165,7 +150,22 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/ui-runtime:
+  runtimes/node:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@1.21.7)(postcss@8.5.28)(tsx@4.23.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.20.1)
+
+  runtimes/react:
     dependencies:
       class-variance-authority:
         specifier: ^0.7.0

@@ -37,6 +37,8 @@ export type PluginInit<Options = Record<string, never>, Hooks = object, Implemen
 /** A plugin is a named bundle of service contributions plus optional lifecycle. */
 export type RuntimePlugin = {
   name: string;
+  /** Agent-facing note: when to use this plugin and what it provides. */
+  description?: string;
   services?: ServiceContribution[];
   options?: object;
   hooks?: object;
