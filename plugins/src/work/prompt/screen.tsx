@@ -3,6 +3,7 @@ import { createHttpWorkClient } from '../board/http-client.js';
 import { loadApp, transformApp, type AppState } from '../app/load-app.js';
 import { PromptGate } from '../app/prompt-gate.js';
 import type { SetupAgent } from '../queue/http/setup-status.js';
+import { writeActiveChat } from '../widget/active-chat.js';
 import { useSetup } from '../widget/use-setup.js';
 import { AppCanvas } from './canvas.js';
 import { MorphOverlay } from './morph/overlay.js';
@@ -22,7 +23,9 @@ export function AppScreen() {
   }, []);
 
   async function onSubmit(input: { prompt: string; harness?: string; model?: string }) {
-    await createHttpWorkClient().startSession(input);
+    const started = await createHttpWorkClient().startSession(input);
+    const sessionId = started.sessionId ?? started.sessionIds[0];
+    if (sessionId) writeActiveChat(sessionId);
     setState(await transformApp(input.prompt));
     setMorphing(true);
   }

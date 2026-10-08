@@ -1,60 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
-import { Folder, Loader2 } from 'lucide-react';
-import type { GitContext } from '@plugins/git/types.js';
-import { loadGitContext } from './load-git.js';
+import { useRef, useState } from 'react';
+import { MessageSquare, Loader2 } from 'lucide-react';
+import { AnchorPopup } from '../prompt/anchor-popup.js';
 import { pageFromLocation } from './page-context.js';
 import { pageHostWarning } from './page-host.js';
 import { GitSections } from './cwd-sections.js';
+import { useGit } from './use-git.js';
 
+/** Hover-only session icon. Click does not select or open menus. */
 export function CwdPopup({ note }: { note?: string }) {
   const [open, setOpen] = useState(false);
-  const [git, setGit] = useState<GitContext | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [anchor, setAnchor] = useState<{ top: number; right: number } | null>(null);
+  const [anchor, setAnchor] = useState<DOMRect | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    function onPointer(event: PointerEvent) {
-      const target = event.target as Node;
-      if (buttonRef.current?.contains(target) || panelRef.current?.contains(target)) return;
-      setOpen(false);
-    }
-    function onKey(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(false);
-    }
-    window.addEventListener('pointerdown', onPointer);
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('pointerdown', onPointer);
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    let stop = false;
-    setError(null);
-    loadGitContext()
-      .then((next) => {
-        if (!stop) setGit(next);
-      })
-      .catch((err: unknown) => {
-        if (!stop) setError(err instanceof Error ? err.message : 'Could not read git');
-      });
-    return () => {
-      stop = true;
-    };
-  }, [open]);
-
+  const hide = useRef<number | null>(null);
+  const { git, error } = useGit();
   const page = typeof window === 'undefined' ? null : pageFromLocation(window.location.search);
   const warning = page ? pageHostWarning(page) : null;
 
-  function toggle() {
-    const rect = buttonRef.current?.getBoundingClientRect();
-    if (rect) setAnchor({ top: rect.bottom + 6, right: Math.max(8, window.innerWidth - rect.right) });
-    setOpen((current) => !current);
+  function show() {
+    if (hide.current) window.clearTimeout(hide.current);
+    hide.current = null;
+    setAnchor(buttonRef.current?.getBoundingClientRect() ?? null);
+    setOpen(true);
+  }
+
+  function later() {
+    if (hide.current) window.clearTimeout(hide.current);
+    hide.current = window.setTimeout(() => setOpen(false), 120);
   }
 
   return (
@@ -62,32 +33,35 @@ export function CwdPopup({ note }: { note?: string }) {
       <button
         ref={buttonRef}
         type="button"
+        tabIndex={-1}
+        aria-label="Session location"
         aria-expanded={open}
-        aria-label="Working directory"
-        title="Working directory"
-        className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted"
-        onClick={toggle}
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-muted-foreground"
+        onMouseEnter={show}
+        onMouseLeave={later}
+        onClick={(event) => event.stopPropagation()}
+        onPointerDown={(event) => event.stopPropagation()}
       >
-        <Folder className="h-4 w-4" />
+        <MessageSquare className="h-4 w-4" aria-hidden />
       </button>
-      {open && anchor ? (
-        <div
-          ref={panelRef}
-          role="dialog"
-          aria-label="Working directory"
-          className="fixed z-[80] w-72 rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-md"
-          style={{ top: anchor.top, right: anchor.right }}
-        >
-          {git ? (
-            <GitSections git={git} note={note} page={page} warning={warning} />
-          ) : (
-            <p className="flex items-center gap-2 text-xs text-muted-foreground">
-              {error ? null : <Loader2 className="h-3 w-3 animate-spin" aria-hidden />}
-              {error ?? 'Checking git'}
-            </p>
-          )}
-        </div>
-      ) : null}
+      <AnchorPopup
+        open={open}
+        anchor={anchor}
+        drop="down"
+        align="start"
+        className="z-[80] w-72 rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-md"
+        onMouseEnter={show}
+        onMouseLeave={later}
+      >
+        {git ? (
+          <GitSections git={git} note={note} page={page} warning={warning} />
+        ) : (
+          <p className="flex items-center gap-2 text-xs text-muted-foreground">
+            {error ? null : <Loader2 className="h-3 w-3 animate-spin" aria-hidden />}
+            {error ?? 'Checking git'}
+          </p>
+        )}
+      </AnchorPopup>
     </>
   );
 }

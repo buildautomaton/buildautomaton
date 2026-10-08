@@ -10,7 +10,7 @@ export function attachHttpWebSockets(
   registry: HttpRegistry,
 ): { detach: () => void } {
   const attached = registry.websockets().map((ws) => {
-    const hub = createWsHub(ws.onMessage);
+    const hub = createWsHub(ws.onMessage, ws.onConnect);
     const unsub = ws.subscribe?.(hub.broadcast);
     return { path: ws.path, hub, unsub };
   });

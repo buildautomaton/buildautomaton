@@ -1,13 +1,17 @@
-import { Bot, Loader2 } from 'lucide-react';
-import { ColumnHeader } from '@buildautomaton/ui-runtime';
-import { SessionList } from '@plugins/session/ui/session-list.js';
+import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { useDiskSessions } from '@plugins/session/ui/use-sessions.js';
 import type { BuildAutomatonSetup } from '../queue/http/setup-status.js';
 import { CoordinatorLine } from './coordinator-line.js';
-import { CwdPopup } from './cwd-popup.js';
 import { AgentSetup } from './setup-view.js';
-import { SessionWork } from './session-work.js';
 import { WidgetClose } from './widget-close.js';
 import { WidgetComposer } from './widget-composer.js';
+import { PromptList } from './prompt-list.js';
+import { SessionHeader } from './session-header.js';
+import { LiveStatus } from './live-status.js';
+import { sessionIsRunning } from './active-running.js';
+import { useLive } from '@plugins/live/ui/context.js';
+import { readActiveChat, writeActiveChat } from './active-chat.js';
 
 const NO_AGENTS: BuildAutomatonSetup['agents'] = [];
 
@@ -24,18 +28,25 @@ export function WorkColumn({
 }) {
   const agents = setup?.agents ?? NO_AGENTS;
   const showSetup = Boolean(setup && !setup.ready);
+  const { sessions } = useDiskSessions(true);
+  const { sessions: live } = useLive();
+  const [chat, setChat] = useState<string | null>(readActiveChat);
+  const sessionId = chat === '' ? null : (chat ?? sessions[0]?.id ?? null);
+  const selected = sessions.find((session) => session.id === sessionId);
+  const running = sessionIsRunning(sessionId, live) || selected?.status === 'running';
+
+  function selectChat(id: string) {
+    writeActiveChat(id);
+    setChat(id);
+  }
+
   return (
     <section className="flex h-full min-h-0 flex-col bg-background text-foreground">
-      <ColumnHeader
-        title="BuildAutomaton"
-        icon={Bot}
-        trailing={
-          <span className="flex items-center gap-1">
-            <CwdPopup note={setup?.appNote} />
-            <WidgetClose />
-          </span>
-        }
-      />
+      <header className="flex h-12 shrink-0 items-center gap-1 border-b border-border px-3">
+        <SessionHeader sessionId={sessionId} sessions={sessions} note={setup?.appNote} onChange={selectChat} />
+        <LiveStatus running={running} />
+        <WidgetClose />
+      </header>
       {checking ? (
         <p className="flex items-center gap-2 border-b border-border px-4 py-1.5 text-xs text-muted-foreground" role="status">
           <Loader2 className="h-3 w-3 animate-spin" aria-hidden />
@@ -46,13 +57,15 @@ export function WorkColumn({
       <div className="min-h-0 flex-1 overflow-y-auto">
         {showSetup ? <AgentSetup agents={agents} onChanged={reload} /> : null}
         <CoordinatorLine coordinator={setup?.coordinator} />
-        <SessionList
-          include={(session) => session.status === 'running'}
-          empty={showSetup ? null : { title: 'Nothing in progress', description: 'Send a prompt to start a session.' }}
-          extra={(session) => <SessionWork sessionId={session.id} />}
-        />
+        <PromptList sessionId={sessionId} />
       </div>
-      <WidgetComposer agents={agents} checking={checking} />
+      <WidgetComposer
+        agents={agents}
+        checking={checking}
+        sessionId={sessionId}
+        lockHarness={sessionId ? selected?.harness : undefined}
+        onSession={selectChat}
+      />
     </section>
   );
 }

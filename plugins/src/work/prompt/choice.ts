@@ -16,11 +16,15 @@ export type ChoiceAgent = {
 
 export type PromptChoice = { harness: string; model: string };
 
-export function resolveChoice(store: ChoiceStore, agents: ChoiceAgent[]): PromptChoice {
+export function resolveChoice(store: ChoiceStore, agents: ChoiceAgent[], lockHarness?: string): PromptChoice {
   const detected = agents.filter((agent) => agent.detected);
   const saved = store.get(HARNESS_KEY);
-  const harness = detected.some((agent) => agent.type === saved) ? (saved ?? '') : (detected[0]?.type ?? '');
-  const agent = detected.find((item) => item.type === harness);
+  const harness = lockHarness
+    ? lockHarness
+    : detected.some((agent) => agent.type === saved)
+      ? (saved ?? '')
+      : (detected[0]?.type ?? '');
+  const agent = agents.find((item) => item.type === harness);
   const models = agent?.models ?? [];
   const savedModel = store.get(MODEL_KEY) ?? '';
   const model = agent?.modelsPending

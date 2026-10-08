@@ -33,10 +33,10 @@ The tell tool’s fields and instructions are built from the artifact plugins yo
 
 ## Prompt sessions
 
-The widget composer and the app’s first prompt start a **new ACP session** per prompt, using the harness and model selected in the field. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. The widget lists sessions that are still running, then the recorded artifacts on the session card.
+The app’s first prompt starts a **new ACP session**. Later prompts in the widget continue that session (`isNewSession: false`) unless you switch to New chat. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. Follow-up prompts are stored as ACP `user_message` events so the chat can list every turn.
 
-`GET /api/buildautomaton` includes `coordinator`. `POST /api/buildautomaton/session` with `{ prompt, project? }` creates in-progress work and starts the session.
+`GET /api/buildautomaton` includes `coordinator`. `POST /api/buildautomaton/session` with `{ prompt, project?, sessionId? }` starts a session or continues `sessionId`.
 
 ## HTTP paths
 
-Default mounts: `/api/work`, `/api/artifacts`, `/api/assets`, `/api/work/events`, `/api/buildautomaton`, `/buildautomaton`, `/buildautomaton.js`.
+Default mounts: `/api/live`, `/api/work`, `/api/artifacts`, `/api/assets`, `/api/work/events`, `/api/buildautomaton`, `/buildautomaton`, `/buildautomaton.js`.

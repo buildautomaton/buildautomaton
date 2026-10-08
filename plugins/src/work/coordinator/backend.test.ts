@@ -21,6 +21,7 @@ function ctx(work: ReturnType<typeof createSqliteWorkBackend>, prompt = vi.fn())
           created.push(record);
         },
         patch: async () => undefined,
+        append: async () => undefined,
       } as unknown as SessionImplementation,
       cwd: '/repo',
       log: () => {},
@@ -74,7 +75,13 @@ describe('buildautomaton session starter', () => {
         setPreferredHarnessType: () => {},
         prompt,
       } as unknown as AcpEngine,
-      backend: { create: async (record: SessionRecord) => { created.push(record); } } as unknown as SessionImplementation,
+      backend: {
+        create: async (record: SessionRecord) => {
+          created.push(record);
+        },
+        append: async () => undefined,
+        patch: async () => undefined,
+      } as unknown as SessionImplementation,
       cwd: '/repo',
       log: () => {},
       extras: { work },

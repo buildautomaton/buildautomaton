@@ -40,4 +40,10 @@ describe('resolveChoice', () => {
     writeChoice(store, { harness: 'cursor-cli', model: 'gpt-5.4' });
     expect(resolveChoice(store, agents).model).toBe('');
   });
+
+  it('locks the harness on a follow-up and keeps a valid model', () => {
+    const store = memory();
+    writeChoice(store, { harness: 'cursor-cli', model: 'gpt-5.4' });
+    expect(resolveChoice(store, agents, 'codex-acp')).toEqual({ harness: 'codex-acp', model: 'gpt-5.4' });
+  });
 });
