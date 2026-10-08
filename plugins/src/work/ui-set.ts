@@ -1,6 +1,6 @@
 import { createUi, layoutPlugin, type UiPlugin } from '@buildautomaton/ui-runtime';
 import { appUiPlugin } from './prompt/plugin.js';
-import { widgetUiPlugin } from './sidebar/plugin.js';
+import { widgetUiPlugin } from './widget/plugin.js';
 import type { WorkClient } from './board/types.js';
 
 export type BuildAutomatonUiOptions = {
@@ -13,6 +13,6 @@ export function buildautomatonUiSet(options: BuildAutomatonUiOptions = {}): UiPl
 
 export function createAppUi(options: BuildAutomatonUiOptions = {}) {
   return createUi({
-    plugins: [layoutPlugin('sidebar'), ...buildautomatonUiSet(options)],
+    plugins: [layoutPlugin('app'), ...buildautomatonUiSet(options)],
   });
 }

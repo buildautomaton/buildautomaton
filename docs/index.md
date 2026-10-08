@@ -40,20 +40,22 @@ flowchart LR
 
 A package can ship **runtime** plugins, **UI** plugins, or **both**. The runtime only indexes them. The plugin owns the behavior.
 
-[Work plugins](./work/) power the BuildAutomaton prompt and sidebar: queue and tools on the node runtime, prompt and widget on the React runtime.
+[Work plugins](./work/) power the BuildAutomaton prompt and chat popup: queue and tools on the node runtime, prompt and widget on the React runtime.
 
 ## What an app looks like
 
-The main screen starts as the buildautomaton prompt. After you submit it, the running app fills the main panel and the widget stays in the sidebar.
+The main screen starts as the buildautomaton prompt. After you submit it, the running app fills the main panel. A circle button opens the BuildAutomaton popup over the app.
 
 ```text
 ┌────────────────────────────────────────────┐
 │  nav                                       │
-├─────────────────────────────┬──────────────┤
-│  main                       │  sidebar     │
-│  the app                    │  BuildAutomaton │
-│                             │  widget      │
-└─────────────────────────────┴──────────────┘
+├────────────────────────────────────────────┤
+│  main: the app                      (o)    │
+│                                            │
+│                         ┌──────────────┐   │
+│                         │  popup       │   │
+│                         └──────────────┘   │
+└────────────────────────────────────────────┘
 ```
 
 [App host](./app-host/) is the ready-made shell. [Apps](./apps/) are plugin compositions you assemble in a host.

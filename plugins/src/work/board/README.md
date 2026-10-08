@@ -1,7 +1,5 @@
-# work board
+# work cards
 
-**Target runtime:** react
+Shared React cards for completed work. The chat popup attaches them to the session that built them.
 
-Full-screen columns for completed, draft, and queued work. Use when the main screen should be the queue itself instead of a morphing app.
-
-The default app-host uses prompt + sidebar, not this board.
+This folder is not a plugin. Open a session's completed work to see the artifacts in a modal.

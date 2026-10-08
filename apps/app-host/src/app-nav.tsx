@@ -31,7 +31,7 @@ export function AppNav() {
 export function appNavPlugin(): UiPlugin {
   return {
     name: 'app-nav',
-    description: 'Nav rail for switching main surfaces. Use in the app-host sidebar shell.',
+    description: 'Nav rail for switching main surfaces. Use beside the app in the host shell.',
     targetRuntime: 'react',
     implementation: {
       surfaces: [{ id: 'app-nav', title: 'Apps', panel: 'nav', order: 0, component: AppNav }],

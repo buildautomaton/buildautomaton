@@ -17,7 +17,7 @@ Each artifact plugin teaches agents (and the tell tool) about one kind of review
 
 ## Work plugin
 
-`sqliteWorkPlugin` (service id `work`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api` and serves the [sidebar widget](./ui.md). `memoryWorkPlugin` is for tests and light embeds.
+`sqliteWorkPlugin` (service id `work`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api` and serves the [chat widget](./ui.md). `memoryWorkPlugin` is for tests and light embeds.
 
 ## Director tools
 
@@ -33,7 +33,7 @@ The tell tool’s fields and instructions are built from the artifact plugins yo
 
 ## Prompt sessions
 
-The sidebar composer and the app’s first prompt start a **new ACP session** per prompt. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. The dashboard shows an in-progress task, then the recorded artifacts — not the session transcript.
+The widget composer and the app’s first prompt start a **new ACP session** per prompt. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. The dashboard shows an in-progress task, then the recorded artifacts — not the session transcript.
 
 `GET /api/buildautomaton` includes `coordinator`. `POST /api/buildautomaton/session` with `{ prompt, project? }` creates in-progress work and starts the session.
 

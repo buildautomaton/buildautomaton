@@ -26,7 +26,7 @@ Built-in plugins also export from `@buildautomaton/plugins/plugins`. Cloudflare 
 | Agents | [Harnesses](./harnesses.md), [Minion tools](./minion-tools.md) |
 | [Transports](./transports.md) | [HTTP](./http.md), [Fetch](./fetch.md), [Stdio](./stdio.md), [Remote](./remote.md) |
 | Host | [App](./app.md), [Worker host](./worker-host.md) |
-| Work | [Queue, tools, prompt, sidebar](../work/) |
+| Work | [Queue, tools, prompt, widget](../work/) |
 | Your own | [Custom plugins](./custom.md) |
 
 Each plugin declares `targetRuntime` (`node` or `react`). Plugins are not split into runtime folders. [Work](../work/) is the dual example: queue and tools on node, prompt and widget on react.

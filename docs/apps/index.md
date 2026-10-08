@@ -5,7 +5,7 @@ An **app** is a composition of plugins on the two runtimes, plus a short descrip
 | App | What it does |
 | --- | --- |
 | [local-cli](../local-cli/) | Node runtime + core and work plugins. Optional app mode starts app-host. |
-| [app-host](../app-host/) | React runtime + sidebar shell, BuildAutomaton prompt, and widget. |
+| [app-host](../app-host/) | React runtime, BuildAutomaton prompt, and chat popup. |
 
 ```text
 local-cli  →  createRuntime({ plugins: coreSet + appPlugin })

@@ -17,7 +17,7 @@ export function WorkCardPreview(props: {
   const srcDoc = withMermaidStyle(previewSrcDoc(file.path, file.content));
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-background/80 p-4"
       onClick={props.onClose}
     >
       <div
