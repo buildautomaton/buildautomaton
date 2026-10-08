@@ -3,9 +3,10 @@ import { createUiSlots } from '@buildautomaton/ui-runtime';
 import { widgetUiPlugin } from './plugin.js';
 
 describe('widgetUiPlugin', () => {
-  it('puts the buildautomaton in the sidebar', () => {
+  it('floats over the app and does not add a sidebar', () => {
     const slots = createUiSlots([widgetUiPlugin()]);
-    expect(slots.layout).toBe('sidebar');
-    expect(slots.surfaces.map((s) => `${s.panel}:${s.id}`)).toEqual(['sidebar:buildautomaton-widget']);
+    expect(slots.layout).toBe('app');
+    expect(slots.surfaces).toEqual([]);
+    expect(slots.providers.map((provider) => provider.id)).toEqual(['work']);
   });
 });

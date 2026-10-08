@@ -2,19 +2,19 @@
 
 The React runtime (`runtimes/react`, `@buildautomaton/ui-runtime`) is the other **small runtime**, for the app screen. It starts as a React app. You pass in UI plugins and get a composed dashboard.
 
-The ready-made [app-host](../app-host/) uses this. Apps always use the **sidebar** shell: the app in `main`, widgets in `sidebar`.
+The ready-made [app-host](../app-host/) uses this. Apps use the **app** shell: the product in `main`. The BuildAutomaton widget floats over that shell.
 
 ```text
 Your host (Vite app, or pages the runtime serves)
   → createUi({ plugins })
-  → sidebar layout
-  → app in main, widgets in sidebar
+  → app layout
+  → app in main, widget over the page
 ```
 
 ```ts
 import { createUi, layoutPlugin } from '@buildautomaton/ui-runtime';
 
-const { App } = createUi({ plugins: [layoutPlugin('sidebar')] });
+const { App } = createUi({ plugins: [layoutPlugin('app')] });
 ```
 
 | Kind | Role |
@@ -26,10 +26,10 @@ const { App } = createUi({ plugins: [layoutPlugin('sidebar')] });
 
 | Layout | Panels | When to use |
 | --- | --- | --- |
-| `sidebar` | `nav`, `sidebar`, `main` | **Apps.** Main is the app; sidebar is the widget. |
+| `app` | `nav`, `main` | **Apps.** Main is the app. The widget floats over it. |
 | `master-detail` | `nav`, `master`, `detail` | Custom two-pane tools |
 | `columns` | `nav`, `column`, `header` | Custom boards — not the buildautomaton |
 
 Shared pieces like `Column`, `PromptComposer`, and `NumberedQuestion` live in `@buildautomaton/ui-runtime/design`.
 
-A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [BuildAutomaton](../work/ui.md) is the sidebar widget.
+A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [BuildAutomaton](../work/ui.md) is the chat popup.

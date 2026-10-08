@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { readSidebarOpen, writeSidebarOpen } from './sidebar-open.js';
+import { readWidgetOpen, writeWidgetOpen } from './open-state.js';
 
-describe('sidebar open state', () => {
-  it('defaults to open and remembers the last choice', () => {
+describe('widget open state', () => {
+  it('defaults to closed and remembers the last choice', () => {
     const store = new Map<string, string>();
     const memory = {
       getItem: (key: string) => store.get(key) ?? null,
@@ -11,10 +11,10 @@ describe('sidebar open state', () => {
       },
     };
     Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: memory });
-    expect(readSidebarOpen()).toBe(true);
-    writeSidebarOpen(false);
-    expect(readSidebarOpen()).toBe(false);
-    writeSidebarOpen(true);
-    expect(readSidebarOpen()).toBe(true);
+    expect(readWidgetOpen()).toBe(false);
+    writeWidgetOpen(true);
+    expect(readWidgetOpen()).toBe(true);
+    writeWidgetOpen(false);
+    expect(readWidgetOpen()).toBe(false);
   });
 });

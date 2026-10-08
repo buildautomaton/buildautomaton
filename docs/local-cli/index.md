@@ -33,7 +33,7 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 /api/artifacts       reviews
 /api/sessions        sessions
 /api/work/events     websocket
-/buildautomaton            sidebar widget
+/buildautomaton            chat widget
 ```
 
 ```bash

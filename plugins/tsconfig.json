@@ -23,13 +23,13 @@
     "node_modules",
     "dist",
     "src/work/prompt",
-    "src/work/sidebar",
     "src/work/board",
     "src/work/app",
     "src/work/widget",
     "src/work/ui.ts",
     "src/work/ui-set.ts",
     "src/work/ui-set.test.ts",
-    "src/work/vite-env.d.ts"
+    "src/work/vite-env.d.ts",
+    "src/session/ui"
   ]
 }

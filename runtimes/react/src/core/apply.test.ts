@@ -6,7 +6,7 @@ import type { UiPlugin } from './plugin.js';
 const queue: UiPlugin = {
   name: 'work-queue',
   implementation: {
-    surfaces: [{ id: 'queue', title: 'Queue', panel: 'sidebar', component: () => null }],
+    surfaces: [{ id: 'queue', title: 'Queue', panel: 'main', component: () => null }],
   },
 };
 
@@ -22,7 +22,7 @@ describe('createUiSlots', () => {
     const slots = createUiSlots([theme, queue]);
     expect(slots.providers.map((p) => p.id)).toEqual(['theme']);
     expect(slots.surfaces.map((s) => s.id)).toEqual(['queue']);
-    expect(slots.layout).toBe('sidebar');
+    expect(slots.layout).toBe('app');
   });
 
   it('uses the last contributed layout', () => {
@@ -30,7 +30,7 @@ describe('createUiSlots', () => {
       name: 'work',
       implementation: { layout: 'columns', surfaces: [] },
     };
-    const slots = createUiSlots([layoutPlugin('sidebar'), work, layoutPlugin('master-detail')]);
+    const slots = createUiSlots([layoutPlugin('app'), work, layoutPlugin('master-detail')]);
     expect(slots.layout).toBe('master-detail');
   });
 });

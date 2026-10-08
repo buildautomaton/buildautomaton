@@ -4,7 +4,7 @@ One open source app. It starts as a blank surface, then morphs into the software
 
 You describe the problem, or the solution you want. Agents compose open source plugins into that software. The surface becomes the interface. The runtime is the backend. Swap the agents and models. Keep data on your hardware, in your private cloud, or wherever you control it.
 
-Five top-level folders: [`runtimes/`](./runtimes/), [`plugins/`](./plugins/), [`skills/`](./skills/), [`docs/`](./docs/), and [`apps/`](./apps/). [Apps](./docs/apps/) compose plugins with a runtime. The same runtimes run locally or in the cloud. BuildAutomaton is the blank prompt and the sidebar widget.
+Five top-level folders: [`runtimes/`](./runtimes/), [`plugins/`](./plugins/), [`skills/`](./skills/), [`docs/`](./docs/), and [`apps/`](./apps/). [Apps](./docs/apps/) compose plugins with a runtime. The same runtimes run locally or in the cloud. BuildAutomaton is the blank prompt and the chat widget.
 
 **Documentation:** [`docs/`](./docs/) (also on the [BuildAutomaton site](https://buildautomaton.com/meta-harness)).
 

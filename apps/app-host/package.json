@@ -2,7 +2,7 @@
   "name": "@buildautomaton/app-host",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Local app host: sidebar shell that composes the node runtime with work plugins and the BuildAutomaton widget.",
+  "description": "Local app host: app shell, chat widget, and modals over the node runtime.",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",

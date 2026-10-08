@@ -11,6 +11,7 @@ export default {
     path.join(dir, 'src/**/*.{ts,tsx}'),
     path.join(dir, '../../runtimes/react/src/**/*.{ts,tsx}'),
     path.join(dir, '../../plugins/src/work/**/*.{ts,tsx}'),
+    path.join(dir, '../../plugins/src/session/ui/**/*.{ts,tsx}'),
   ],
   theme: {
     extend: {

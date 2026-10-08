@@ -4,6 +4,6 @@ import { appNavPlugin } from './app-nav.js';
 
 export function createHostUi() {
   return createUi({
-    plugins: [layoutPlugin('sidebar'), appNavPlugin(), ...buildautomatonUiSet()],
+    plugins: [layoutPlugin('app'), appNavPlugin(), ...buildautomatonUiSet()],
   });
 }

@@ -1,12 +1,12 @@
 # @buildautomaton/app-host
 
-The **app host** is the visual app in [`apps/app-host`](../../apps/app-host/). The main screen starts as a blank [BuildAutomaton](../work/) prompt. After that prompt, the product fills main and the widget stays in the sidebar.
+The **app host** is the visual app in [`apps/app-host`](../../apps/app-host/). The main screen starts as a blank [BuildAutomaton](../work/) prompt. After that prompt, the product fills main. A circle button opens the widget in a popup.
 
-It is a thin Vite host: [`createUi`](../react-runtime/) with a sidebar layout. It talks to the [runtime](../runtime/) over HTTP (local-cli or a cloud host).
+It is a thin Vite host: [`createUi`](../react-runtime/) with the app layout. The chat widget floats over the page. It talks to the [runtime](../runtime/) over HTTP (local-cli or a cloud host).
 
 ```text
 app-host
-  ├── react runtime        sidebar shell
+  ├── react runtime        app shell, widget over the page
   ├── app surface          main: the running app
   └── work plugins         prompt + BuildAutomaton widget
          ↓
