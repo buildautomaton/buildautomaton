@@ -5,6 +5,7 @@ export { DEFAULT_PANELS, DEFAULT_LAYOUT, DASHBOARD_LAYOUTS, ALL_PANELS } from '.
 export type { DashboardLayoutId, DashboardPanelId } from './core/slots.js';
 export type {
   UiPlugin,
+  TargetRuntime,
   UiSurface,
   UiProviderContribution,
   UiHooks,

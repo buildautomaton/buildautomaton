@@ -24,10 +24,14 @@ export type UiHooks = {
   onReady?: () => void;
 };
 
+export type TargetRuntime = 'node' | 'react';
+
 export type UiPlugin = {
   name: string;
   /** Agent-facing note: when to use this UI plugin and what it paints. */
   description?: string;
+  /** Which runtime this plugin is built for. */
+  targetRuntime?: TargetRuntime;
   hooks?: UiHooks;
   implementation?: {
     surfaces?: UiSurface[];

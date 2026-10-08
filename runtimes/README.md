@@ -7,7 +7,7 @@ Two small runtimes. Both are plugin and service based. They start differently an
 | [Node](./node/) | `@buildautomaton/runtime` | `createRuntime` then `handle.start()` | Register plugins, wire services, listen (HTTP/MCP) |
 | [React](./react/) | `@buildautomaton/ui-runtime` | `createUi({ plugins })` | Compose UI plugins into a dashboard shell |
 
-The runtimes do not know your product. Plugins do. A host (local-cli, a Worker, a Vite app) picks the runtime, passes plugins, and starts it.
+The runtimes do not know your product. Plugins do, and each plugin declares `targetRuntime`. A host (local-cli, a Worker, app-host) picks the runtime, passes plugins, and starts it.
 
 ```ts
 import { createRuntime } from '@buildautomaton/runtime';

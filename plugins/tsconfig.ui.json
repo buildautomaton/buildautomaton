@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@plugins/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/work/prompt",
+    "src/work/sidebar",
+    "src/work/board",
+    "src/work/app",
+    "src/work/widget",
+    "src/work/ui.ts",
+    "src/work/ui-set.ts",
+    "src/work/ui-set.test.ts",
+    "src/work/vite-env.d.ts"
+  ]
+}

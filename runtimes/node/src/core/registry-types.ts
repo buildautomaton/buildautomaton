@@ -34,11 +34,15 @@ export type PluginInit<Options = Record<string, never>, Hooks = object, Implemen
   runtime?: PluginRuntimeContext;
 };
 
+export type TargetRuntime = 'node' | 'react';
+
 /** A plugin is a named bundle of service contributions plus optional lifecycle. */
 export type RuntimePlugin = {
   name: string;
   /** Agent-facing note: when to use this plugin and what it provides. */
   description?: string;
+  /** Which runtime this plugin is built for. */
+  targetRuntime?: TargetRuntime;
   services?: ServiceContribution[];
   options?: object;
   hooks?: object;

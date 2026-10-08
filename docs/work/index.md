@@ -1,0 +1,43 @@
+# Work plugins
+
+Work plugins power the **BuildAutomaton** blank surface and queue. They live under `plugins/src/work/` — not named after the repo. `coreSet()` installs the node set.
+
+You describe a problem, or the solution you want. An agent picks that up, builds it from open source components, and comes back with a summary. You review that in the **sidebar widget**, answer questions, and queue follow-ups. The agents and models are whichever ones you hook up.
+
+It plugs into both runtimes:
+
+- [Runtime plugins](./runtime.md) — queue, artifacts, tools, widget HTTP
+- [UI plugins](./ui.md) — the prompt screen and the sidebar widget
+
+[Local CLI](../local-cli/) (`app` mode) and [app-host](../app-host/) already compose those plugins.
+
+```mermaid
+flowchart LR
+  ask("ask what to build")
+  queue("work queue")
+  agent("agent builds")
+  tell("tell what was built")
+  review("you review in the widget")
+  ask --> queue
+  queue --> agent
+  agent --> tell
+  tell --> review
+  review --> ask
+```
+
+The [local CLI](../local-cli/) opens a blank screen with a prompt. Submitting it morphs that screen into the app, with the runtime as the backend. The widget stays in the sidebar.
+
+## Quick wire-up
+
+```ts
+import { createRuntime, coreSet, appPlugin } from '@buildautomaton/plugins';
+
+const runtime = { cwd: process.cwd(), log: console.error };
+await createRuntime({
+  cwd: process.cwd(),
+  plugins: [
+    ...coreSet({ options: { cwd: process.cwd() }, runtime }),
+    appPlugin({ runtime }),
+  ],
+});
+```

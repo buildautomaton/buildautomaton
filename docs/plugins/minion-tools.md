@@ -19,6 +19,6 @@ import { minionToolsPlugin } from '@buildautomaton/plugins';
 minionToolsPlugin()
 ```
 
-Skip them in `coreSet()` with `minionTools: false`. Other packages add more tools plugins beside this one. [Buildautomaton](../buildautomaton/runtime.md) adds ask/tell.
+Skip them in `coreSet()` with `minionTools: false`. Other packages add more tools plugins beside this one. [BuildAutomaton](../work/runtime.md) adds ask/tell.
 
 The same `/mcp` list is passed into ACP sessions as `mcpServers`, so prompt sessions and minions share those tools.

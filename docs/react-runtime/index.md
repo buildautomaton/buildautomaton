@@ -2,7 +2,7 @@
 
 The React runtime (`runtimes/react`, `@buildautomaton/ui-runtime`) is the other **small runtime**, for the app screen. It starts as a React app. You pass in UI plugins and get a composed dashboard.
 
-The ready-made [UI](../ui/) host uses this. Apps always use the **sidebar** shell: the app in `main`, widgets in `sidebar`.
+The ready-made [app-host](../app-host/) uses this. Apps always use the **sidebar** shell: the app in `main`, widgets in `sidebar`.
 
 ```text
 Your host (Vite app, or pages the runtime serves)
@@ -32,4 +32,4 @@ const { App } = createUi({ plugins: [layoutPlugin('sidebar')] });
 
 Shared pieces like `Column`, `PromptComposer`, and `NumberedQuestion` live in `@buildautomaton/ui-runtime/design`.
 
-A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [Buildautomaton](../buildautomaton/ui.md) is the sidebar widget.
+A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [BuildAutomaton](../work/ui.md) is the sidebar widget.
