@@ -4,13 +4,13 @@ One open source app. It starts as a blank surface. You describe a problem, or th
 
 Use the agents and models you want. Keep data on your own hardware, in your private cloud, or wherever you control it.
 
-meta-harness is how that app is built: two small runtimes plus plugins. You compose them into an **app**.
+Buildautomaton is how that app is built: two small runtimes plus plugins. You compose them into an **app**. Runtimes live in `runtimes/`.
 
 | Runtime | Package | What it does |
 | --- | --- | --- |
-| [Runtime](./runtime/) | `@buildautomaton/runtime` | Plugin and service registries, plus lifecycle. |
+| [Node runtime](./runtime/) | `@buildautomaton/runtime` | Plugin and service registries, plus process start. |
 | [Plugins](./plugins/) | `@buildautomaton/plugins` | Stores, sessions, harnesses, HTTP, and `coreSet`. |
-| [UI runtime](./ui-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into an app shell. |
+| [React runtime](./react-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into a React app shell. |
 
 The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the buildautomaton widget) is a plugin.
 
@@ -28,7 +28,7 @@ flowchart LR
   local("local-cli")
   cloud("cloud host")
   runtime("runtime")
-  uiRuntime("ui-runtime")
+  uiRuntime("react-runtime")
   plugins("plugins")
   local --> runtime
   cloud --> runtime

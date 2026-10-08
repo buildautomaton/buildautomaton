@@ -1,11 +1,11 @@
 {
-  "title": "meta-harness",
+  "title": "Buildautomaton",
   "items": [
     { "slug": "", "title": "Architecture" },
     { "slug": "apps", "title": "Apps" },
     { "slug": "local-cli", "title": "Local CLI" },
     { "slug": "ui", "title": "UI" },
-    { "slug": "runtime", "title": "Runtime" },
+    { "slug": "runtime", "title": "Node runtime" },
     {
       "slug": "plugins",
       "title": "Plugins",
@@ -47,7 +47,7 @@
         { "slug": "plugins/custom", "title": "Custom" }
       ]
     },
-    { "slug": "ui-runtime", "title": "UI runtime" },
+    { "slug": "react-runtime", "title": "React runtime" },
     {
       "slug": "buildautomaton",
       "title": "Buildautomaton",

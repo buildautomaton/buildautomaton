@@ -1,6 +1,6 @@
 # @buildautomaton/ui-runtime
 
-The UI runtime is the other **small runtime**, for the app screen. It does not ship as a finished app. You pass in UI plugins and get a composed React app.
+The React runtime (`runtimes/react`, `@buildautomaton/ui-runtime`) is the other **small runtime**, for the app screen. It starts as a React app. You pass in UI plugins and get a composed dashboard.
 
 The ready-made [UI](../ui/) host uses this. Apps always use the **sidebar** shell: the app in `main`, widgets in `sidebar`.
 

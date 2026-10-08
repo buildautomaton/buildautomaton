@@ -2,14 +2,14 @@
   "name": "@buildautomaton/ui-runtime",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Composable UI runtime: plugin registry, design system, and dashboard shells",
+  "description": "React runtime: plugin registry, design system, and dashboard shells. Start with createUi and UI plugins.",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/buildautomaton/meta-harness.git",
-    "directory": "packages/ui-runtime"
+    "directory": "runtimes/react"
   },
-  "homepage": "https://github.com/buildautomaton/meta-harness/tree/main/packages/ui-runtime",
+  "homepage": "https://github.com/buildautomaton/meta-harness/tree/main/runtimes/react",
   "bugs": {
     "url": "https://github.com/buildautomaton/meta-harness/issues"
   },

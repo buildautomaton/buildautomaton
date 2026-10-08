@@ -2,11 +2,11 @@
 
 The **UI** is the app host. The main screen starts as a blank [buildautomaton](../buildautomaton/) prompt. After that prompt, the same product stays in the sidebar as a widget.
 
-It is a thin Vite host: [`createUi`](../ui-runtime/) with a sidebar layout. The main panel is the buildautomaton prompt, then the app that prompt becomes. The widget stays in `sidebar`. It talks to the [runtime](../runtime/) over HTTP (local CLI or a cloud host).
+It is a thin Vite host: [`createUi`](../react-runtime/) with a sidebar layout. The main panel is the buildautomaton prompt, then the app that prompt becomes. The widget stays in `sidebar`. It talks to the [runtime](../runtime/) over HTTP (local CLI or a cloud host).
 
 ```text
 ui  (app host)
-  ├── ui-runtime           sidebar shell
+  ├── react runtime        sidebar shell
   ├── app surface          main: the running app
   └── buildautomaton       main prompt, sidebar widget
          ↓

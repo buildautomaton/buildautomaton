@@ -1,6 +1,6 @@
 # Runtime
 
-`@buildautomaton/runtime` is the plugin registry, service registry, start/stop, and `createRuntime`. It does not know stores, sessions, or HTTP. Those ids live in [`@buildautomaton/plugins`](../plugins/).
+`@buildautomaton/runtime` is the **node runtime** (`runtimes/node`). Plugin registry, service registry, start/stop, and `createRuntime`. It does not know stores, sessions, or HTTP. Those ids live in [`@buildautomaton/plugins`](../plugins/). It starts as a process: register plugins, wire services, listen.
 
 The same host API runs **locally** (the [Local CLI](../local-cli/)) or **in the cloud**. The host changes. The registries do not.
 

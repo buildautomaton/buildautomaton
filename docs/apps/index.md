@@ -14,7 +14,7 @@ The runtimes do not know what the app is. Plugins do.
 | --- | --- |
 | [Runtime](../runtime/) | Registries and lifecycle. It does not know the app. |
 | [Plugins](../plugins/) | Store, HTTP, tools, and domain plugins (mail, queue, …) |
-| [UI runtime](../ui-runtime/) | Surfaces for `main` (the app) and `sidebar` (buildautomaton) |
+| [React runtime](../react-runtime/) | Surfaces for `main` (the app) and `sidebar` (buildautomaton) |
 
 The same app runs **locally** or **in the cloud**. Swap the host and the store plugins. Each SQL [schema](../plugins/sqlite-store.md) is its own SQLite file, or its own Durable Object. That is where the data lives: on your machine, or in a cloud you control.
 
@@ -26,7 +26,7 @@ Agents customize the app for one situation. They start from these open source pl
 flowchart TB
   host["host"]
   runtime["runtime"]
-  ui["ui-runtime"]
+  ui["react-runtime"]
   core["core plugins"]
   app["app plugins"]
   buildautomaton["buildautomaton plugins"]

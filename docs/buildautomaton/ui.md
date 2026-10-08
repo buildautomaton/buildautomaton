@@ -1,6 +1,6 @@
 # Buildautomaton: app and widget
 
-These plugins run inside [`@buildautomaton/ui-runtime`](../ui-runtime/). `buildautomatonUiSet()` is the pack. The [UI](../ui/) host already installs it.
+These plugins run inside [`@buildautomaton/ui-runtime`](../react-runtime/). `buildautomatonUiSet()` is the pack. The [UI](../ui/) host already installs it.
 
 | Surface | Panel | What you see |
 | --- | --- | --- |

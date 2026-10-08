@@ -2,7 +2,7 @@
   "name": "@buildautomaton/plugins",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Plugin catalog: stores, sessions, harnesses, transport, tools, and buildautomaton",
+  "description": "Plugin catalog: stores, sessions, harnesses, transport, tools, and buildautomaton. Use as starting points, or look them up in the marketplace.",
   "author": "BuildAutomaton",
   "repository": {
     "type": "git",
