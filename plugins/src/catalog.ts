@@ -62,6 +62,10 @@ export { createCoreToolRegistry } from './tools/minion/core-registry.js';
 export { launchSession } from './tools/minion/launch-session.js';
 export { getSessionStatus } from './tools/minion/session-status.js';
 
+export { gitPlugin } from './git/plugin.js';
+export { livePlugin } from './live/plugin.js';
+export { createLiveHub } from './live/hub.js';
+export type { LiveHub, LiveMessage, LiveSession } from './live/types.js';
 export { appPlugin } from './app/plugin.js';
 export type { AppPhase, AppState, AppPluginOptions } from './app/plugin.js';
 

@@ -1,5 +1,6 @@
 import { applyEvent } from './apply-event.js';
 import { emptyDraft, flushText, flushThought, type TranscriptEvent, type TranscriptViewBlock } from './block.js';
+import { groupActivity } from './group-activity.js';
 import { userRequestText } from './user-request.js';
 
 export type { TranscriptEvent, TranscriptViewBlock } from './block.js';
@@ -19,5 +20,5 @@ export function transcriptBlocks(
   if (session.error && !draft.blocks.some((block) => block.kind === 'error')) {
     draft.blocks.push({ kind: 'error', text: session.error });
   }
-  return draft.blocks;
+  return groupActivity(draft.blocks);
 }

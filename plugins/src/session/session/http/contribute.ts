@@ -2,6 +2,7 @@ import type { HttpRegistry } from '@plugins/transport/http/types/registry.js';
 import type { HttpContributeContext } from '@plugins/transport/http/types/contribution.js';
 import { joinHttpPath } from '@plugins/transport/http/http-path.js';
 import { handleSessionHttp } from './handler.js';
+import { attachSessionLive } from '../live.js';
 
 export function contributeSessionHttp(http: HttpRegistry, ctx: HttpContributeContext): void {
   const backend = ctx.backend;
@@ -11,4 +12,5 @@ export function contributeSessionHttp(http: HttpRegistry, ctx: HttpContributeCon
     path: mount,
     handler: (req, res, hit) => handleSessionHttp(req, res, backend, hit.pathname, mount),
   });
+  attachSessionLive(ctx);
 }

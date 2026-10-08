@@ -50,14 +50,18 @@ export function createSdkStdioConnectionClient(deps: SdkStdioConnectionClientDep
       return acpWriteTextFileInProcess(sessionCtx, params.path, params.content);
     },
     async sessionUpdate(params: { sessionId: string; update: Record<string, unknown> }) {
-      const bridged = flattenSdkSessionNotificationParams(params);
-      dispatchAcpSessionUpdate({
-        flatPayload: bridged,
-        onAcpConfigOptionsUpdated: sessionCtx.onAcpConfigOptionsUpdated,
-        onAcpAvailableCommandsUpdated: sessionCtx.onAcpAvailableCommandsUpdated,
-        onSessionUpdate,
-        suppressLoadReplay: () => sessionCtx.suppressLoadReplay.value,
-      });
+      try {
+        const bridged = flattenSdkSessionNotificationParams(params);
+        dispatchAcpSessionUpdate({
+          flatPayload: bridged,
+          onAcpConfigOptionsUpdated: sessionCtx.onAcpConfigOptionsUpdated,
+          onAcpAvailableCommandsUpdated: sessionCtx.onAcpAvailableCommandsUpdated,
+          onSessionUpdate,
+          suppressLoadReplay: () => sessionCtx.suppressLoadReplay.value,
+        });
+      } catch {
+        /* persist/UI errors must not become JSON-RPC [-32603] */
+      }
     },
     async extNotification(method: string, params: unknown) {
       await extNotification(method, params);

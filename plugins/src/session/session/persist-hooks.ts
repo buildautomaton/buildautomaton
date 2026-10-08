@@ -15,7 +15,12 @@ export async function persistHooksFromBackend(
         acpSessionId: info.acpSessionId,
         configOptions: Array.isArray(info.configOptions) ? info.configOptions : null,
       });
-      void backend.patch(info.scopeId, { acpSessionId: info.acpSessionId });
+      try {
+        const result = backend.patch(info.scopeId, { acpSessionId: info.acpSessionId });
+        if (result && typeof result.then === 'function') void result.catch(() => undefined);
+      } catch {
+        /* ignore */
+      }
     },
   };
 }

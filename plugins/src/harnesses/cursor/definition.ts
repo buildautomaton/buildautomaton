@@ -11,7 +11,6 @@ import {
   cursorInstallTokenEnvVar,
   installCursor,
 } from './install.js';
-
 export const cursorHarnessOptions: HarnessOptions = {
   type: 'cursor-cli',
   displayName: 'Cursor',

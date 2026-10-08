@@ -1,9 +1,13 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { clearCommandPresenceCache } from '@plugins/harnesses/acp/clients/presence-cache.js';
+import { forgetAgentModels } from './agent-model-cache.js';
 import type { AgentHarness, HttpRegistry } from '@plugins/work/host.js';
 import { readJson, writeJson } from './io.js';
+import { clearSetupCache } from './setup-cache.js';
 import { installBuildAutomatonAgent } from './setup-install.js';
 import { allowsBuildAutomatonOrigin } from './setup-origin.js';
 import { describeSetup } from './setup-status.js';
+import { warmAgentModels } from './warm-models.js';
 import { coordinatorSetup, postSession } from './setup-coordinate.js';
 
 export function contributeSetupRoutes(
@@ -16,6 +20,15 @@ export function contributeSetupRoutes(
     path: '/api/buildautomaton',
     handler: (req, res, hit) => handleSetup(req, res, hit.pathname, cwd, harnesses, extras),
   });
+  void describeSetup(cwd, harnesses)
+    .then((setup) =>
+      warmAgentModels({
+        cwd,
+        harnesses,
+        detected: setup.agents.filter((agent) => agent.detected).map((agent) => agent.type),
+      }),
+    )
+    .catch(() => undefined);
 }
 
 async function handleSetup(
@@ -32,7 +45,14 @@ async function handleSetup(
   }
   const tail = pathname === '/api/buildautomaton' ? '' : pathname.slice('/api/buildautomaton/'.length);
   if (!tail && req.method === 'GET') {
-    writeJson(res, 200, { ...(await describeSetup(cwd, harnesses)), coordinator: coordinatorSetup(extras) });
+    const setup = await describeSetup(cwd, harnesses);
+    warmAgentModels({
+      cwd,
+      harnesses,
+      detected: setup.agents.filter((agent) => agent.detected).map((agent) => agent.type),
+      prefer: preferParam(req.url),
+    });
+    writeJson(res, 200, { ...setup, coordinator: coordinatorSetup(extras) });
     return;
   }
   if (tail === 'install' && req.method === 'POST') {
@@ -54,10 +74,21 @@ async function postInstall(req: IncomingMessage, res: ServerResponse, harnesses:
     return;
   }
   const result = await installBuildAutomatonAgent(harnesses, type, body?.token ?? '');
+  if (result.success) {
+    clearSetupCache();
+    clearCommandPresenceCache();
+    forgetAgentModels(type);
+  }
   writeJson(res, result.success ? 200 : 400, result);
 }
 
 function header(req: IncomingMessage, name: string): string | undefined {
   const value = req.headers[name];
   return Array.isArray(value) ? value[0] : value;
+}
+
+function preferParam(url: string | undefined): string | undefined {
+  const query = url?.includes('?') ? url.slice(url.indexOf('?') + 1) : '';
+  const prefer = new URLSearchParams(query).get('prefer')?.trim();
+  return prefer || undefined;
 }

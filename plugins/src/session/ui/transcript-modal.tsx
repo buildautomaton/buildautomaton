@@ -24,7 +24,7 @@ export function SessionTranscriptModal({ id, onClose }: { id: string; onClose: (
   const title = session ? sessionTitle(session.prompt) : 'Session';
   const live = session?.status === 'running';
   return createPortal(
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4" onMouseDown={onClose}>
+    <div data-ba-overlay className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4" onMouseDown={onClose}>
       <div
         role="dialog"
         aria-modal="true"

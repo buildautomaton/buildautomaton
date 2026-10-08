@@ -20,6 +20,7 @@ export type HttpWebSocket = {
   path: string;
   subscribe?: (broadcast: (payload: unknown) => void) => () => void;
   onMessage?: (payload: unknown) => void | Promise<void>;
+  onConnect?: (send: (payload: unknown) => void) => void;
 };
 
 export type HttpRegistry = {

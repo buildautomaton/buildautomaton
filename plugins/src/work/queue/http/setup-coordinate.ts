@@ -13,13 +13,27 @@ export async function postSession(
     writeJson(res, 503, { error: 'Coordinator plugin is not loaded' });
     return;
   }
-  const body = (await readJson(req).catch(() => null)) as { prompt?: string; project?: string } | null;
+  const body = (await readJson(req).catch(() => null)) as {
+    prompt?: string;
+    project?: string;
+    harness?: string;
+    model?: string;
+    sessionId?: string;
+  } | null;
   const prompt = body?.prompt?.trim() ?? '';
   if (!prompt) {
     writeJson(res, 400, { error: 'prompt is required' });
     return;
   }
-  const result = await coordinator.start({ prompt, project: body?.project });
+  const sessionId = body?.sessionId?.trim() ?? '';
+  const result = sessionId
+    ? await coordinator.continue({ sessionId, prompt, model: body?.model?.trim() || undefined })
+    : await coordinator.start({
+        prompt,
+        project: body?.project,
+        harness: body?.harness?.trim() || undefined,
+        model: body?.model?.trim() || undefined,
+      });
   if (result.status === 'failed' && !result.work) {
     writeJson(res, 500, result);
     return;

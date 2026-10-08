@@ -8,7 +8,6 @@ import {
   detectLocalAgentPresence,
 } from './client.js';
 import { createKiroSdkExtNotificationHandler } from './ext-notifications.js';
-
 export const kiroHarnessOptions: HarnessOptions = {
   type: 'kiro-acp',
   displayName: 'Kiro',

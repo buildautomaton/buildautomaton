@@ -9,7 +9,6 @@ import {
   detectLocalAgentPresence,
 } from './client.js';
 import { codexInstallDetectCommand, codexInstallTokenEnvVar, installCodex } from './install.js';
-
 export const codexHarnessOptions: HarnessOptions = {
   type: 'codex-acp',
   displayName: 'Codex',

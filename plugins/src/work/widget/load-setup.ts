@@ -1,7 +1,30 @@
+import { HARNESS_KEY } from '../prompt/choice.js';
 import type { BuildAutomatonSetup } from '../queue/http/setup-status.js';
 
-export async function loadSetup(): Promise<BuildAutomatonSetup> {
-  const res = await fetch('/api/buildautomaton');
+let cached: BuildAutomatonSetup | null = null;
+let pending: Promise<BuildAutomatonSetup> | null = null;
+
+export function peekSetup(): BuildAutomatonSetup | null {
+  return cached;
+}
+
+export async function loadSetup(force = false): Promise<BuildAutomatonSetup> {
+  if (!force && cached) return cached;
+  if (!force && pending) return pending;
+  const run = fetchSetup();
+  pending = run;
+  try {
+    cached = await run;
+    return cached;
+  } finally {
+    if (pending === run) pending = null;
+  }
+}
+
+async function fetchSetup(): Promise<BuildAutomatonSetup> {
+  const prefer = typeof localStorage === 'undefined' ? '' : (localStorage.getItem(HARNESS_KEY) ?? '');
+  const query = prefer ? `?prefer=${encodeURIComponent(prefer)}` : '';
+  const res = await fetch(`/api/buildautomaton${query}`);
   if (!res.ok) throw new Error('Could not read buildautomaton setup');
   return res.json() as Promise<BuildAutomatonSetup>;
 }

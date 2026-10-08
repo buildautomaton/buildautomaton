@@ -20,4 +20,15 @@ describe('pickCoordinatorHarness', () => {
   it('returns null when nothing is installed', async () => {
     expect(await pickCoordinatorHarness(engine([]))).toBeNull();
   });
+
+  it('prefers the harness the user selected', async () => {
+    const picked = await pickCoordinatorHarness(
+      engine([
+        { type: 'cursor-cli', displayName: 'Cursor', detectPresence: async () => true } as AgentHarness,
+        { type: 'codex-acp', displayName: 'Codex', detectPresence: async () => true } as AgentHarness,
+      ]),
+      'codex-acp',
+    );
+    expect(picked?.type).toBe('codex-acp');
+  });
 });

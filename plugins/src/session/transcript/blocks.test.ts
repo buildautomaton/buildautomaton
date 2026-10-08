@@ -29,11 +29,11 @@ describe('transcriptBlocks', () => {
       },
       { kind: 'update', payload: { sessionUpdate: 'agent_message_chunk', content: { type: 'text', text: 'lo' } } },
     ]);
-    expect(blocks.map((block) => block.kind)).toEqual(['user', 'text', 'thought', 'tool', 'text']);
+    expect(blocks.map((block) => block.kind)).toEqual(['user', 'text', 'activity', 'text']);
     expect(blocks[0]).toMatchObject({ kind: 'user', text: 'Add a circle button' });
     expect(blocks[1]).toMatchObject({ kind: 'text', text: 'Hel' });
-    expect(blocks[3]).toMatchObject({ kind: 'tool', key: 't1', status: 'completed', detail: 'ok' });
-    expect(blocks[4]).toMatchObject({ kind: 'text', text: 'lo' });
+    expect(blocks[2]).toMatchObject({ kind: 'activity', title: '1 tool call and reasoning' });
+    expect(blocks[3]).toMatchObject({ kind: 'text', text: 'lo' });
   });
 
   it('uses result output when the agent sent no message', () => {
@@ -44,6 +44,33 @@ describe('transcriptBlocks', () => {
       { kind: 'user', text: 'Ship it' },
       { kind: 'text', text: 'done' },
     ]);
+  });
+
+  it('shows follow-up prompts, permissions, files, and plans', () => {
+    const blocks = transcriptBlocks({ prompt: 'Ship it' }, [
+      { kind: 'update', payload: { sessionUpdate: 'agent_message_chunk', content: { type: 'text', text: 'Ok' } } },
+      {
+        kind: 'request',
+        payload: {
+          type: 'session_update',
+          requestId: 'p1',
+          kind: 'permission',
+          payload: {
+            sessionUpdate: 'permission',
+            method: 'session/request_permission',
+            params: { toolCall: { title: 'Read .env' } },
+          },
+        },
+      },
+      { kind: 'update', payload: { sessionUpdate: 'file_change', path: 'src/a.ts' } },
+      { kind: 'update', payload: { sessionUpdate: 'user_message', content: { type: 'text', text: 'Also tests' } } },
+      { kind: 'update', payload: { sessionUpdate: 'plan', title: 'Plan', entries: ['write tests'] } },
+    ]);
+    expect(blocks.map((block) => block.kind)).toEqual(['user', 'text', 'permission', 'files', 'user', 'detail']);
+    expect(blocks[2]).toMatchObject({ kind: 'permission', title: 'Read .env' });
+    expect(blocks[3]).toMatchObject({ kind: 'files', paths: ['src/a.ts'] });
+    expect(blocks[4]).toMatchObject({ kind: 'user', text: 'Also tests' });
+    expect(blocks[5]).toMatchObject({ kind: 'detail', title: 'Plan' });
   });
 });
 

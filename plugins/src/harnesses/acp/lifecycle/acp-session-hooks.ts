@@ -2,7 +2,16 @@
 
 import type { AcpClientOptions } from '@plugins/harnesses/acp/client-types.js';
 import type { ClientHostHooks } from '@plugins/harnesses/acp/engine/types.js';
+import type { AgentFileChangeEvent, AgentRuntimeRequest } from '@plugins/harnesses/acp/session-kinds.js';
 import { mapRequestKind } from './map-request-kind.js';
+
+function safe(run: () => void): void {
+  try {
+    run();
+  } catch {
+    /* host persist/UI must not become JSON-RPC [-32603] */
+  }
+}
 
 export function acpSessionHooks(params: {
   hostHooks?: ClientHostHooks;
@@ -12,23 +21,34 @@ export function acpSessionHooks(params: {
   const { hostHooks, sendSessionUpdate, sendRequest } = params;
   return {
     onSessionUpdate: (payload) => {
-      sendSessionUpdate(payload);
-      hostHooks?.onSessionUpdate?.(payload);
+      safe(() => sendSessionUpdate(payload));
+      safe(() => hostHooks?.onSessionUpdate?.(payload));
     },
     onRequest: (request) => {
-      sendRequest({
-        type: 'session_update',
-        requestId: request.requestId,
-        kind: mapRequestKind(request.method),
-        payload: {
-          sessionUpdate: mapRequestKind(request.method),
-          requestId: request.requestId,
-          method: request.method,
-          params: request.params,
-        },
-      });
-      hostHooks?.onRequest?.(request);
+      safe(() => sendRequest(requestPayload(request)));
+      safe(() => hostHooks?.onRequest?.(request));
     },
-    onFileChange: hostHooks?.onFileChange,
+    onFileChange: (evt) => {
+      safe(() => sendSessionUpdate(fileChangePayload(evt)));
+      safe(() => hostHooks?.onFileChange?.(evt));
+    },
   };
+}
+
+function requestPayload(request: AgentRuntimeRequest) {
+  return {
+    type: 'session_update',
+    requestId: request.requestId,
+    kind: mapRequestKind(request.method),
+    payload: {
+      sessionUpdate: mapRequestKind(request.method),
+      requestId: request.requestId,
+      method: request.method,
+      params: request.params,
+    },
+  };
+}
+
+function fileChangePayload(evt: AgentFileChangeEvent) {
+  return { sessionUpdate: 'file_change', path: evt.path, oldText: evt.oldText, newText: evt.newText };
 }
