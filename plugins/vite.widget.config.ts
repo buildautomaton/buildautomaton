@@ -4,10 +4,16 @@ import react from '@vitejs/plugin-react';
 
 const root = path.resolve(__dirname);
 
-export default defineConfig(({ command }) => ({
+export default defineConfig(({ command }) => {
+  const api = process.env.VITE_API_ORIGIN ?? process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333';
+  return {
   root,
   base: command === 'build' ? '/buildautomaton/' : '/',
   plugins: [react()],
+  define:
+    command === 'serve'
+      ? { 'import.meta.env.VITE_API_ORIGIN': JSON.stringify(api) }
+      : {},
   resolve: {
     alias: {
       '@plugins': path.resolve(root, 'src'),
@@ -16,7 +22,7 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 5174,
-    proxy: { '/api': { target: process.env.META_HARNESS_API ?? 'http://127.0.0.1:3333', ws: true } },
+    proxy: { '/api': { target: api, changeOrigin: true } },
     fs: { allow: [path.resolve(root, '..')] },
   },
   build: {
@@ -29,4 +35,5 @@ export default defineConfig(({ command }) => ({
       },
     },
   },
-}));
+  };
+});

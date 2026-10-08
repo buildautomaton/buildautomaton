@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { UiPlugin } from '@buildautomaton/ui-runtime';
+import { LiveProvider } from '@plugins/live/ui/context.js';
 import { WorkProvider } from '../board/context.js';
 import type { WorkClient } from '../board/types.js';
 import { ChatWidget } from './chat-widget.js';
@@ -7,10 +8,12 @@ import { ChatWidget } from './chat-widget.js';
 function bindProvider(client?: WorkClient) {
   return function WorkBoundProvider({ children }: { children: ReactNode }) {
     return (
-      <WorkProvider client={client}>
-        {children}
-        <ChatWidget />
-      </WorkProvider>
+      <LiveProvider>
+        <WorkProvider client={client}>
+          {children}
+          <ChatWidget />
+        </WorkProvider>
+      </LiveProvider>
     );
   };
 }

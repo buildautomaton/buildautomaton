@@ -8,6 +8,7 @@ import type { WorkImplementation } from '@plugins/work/types/work/implementation
 import { dispatchWorkHttp } from './dispatch.js';
 import { contributeSetupRoutes } from './setup-route.js';
 import { contributeWidgetRoutes } from './widget-routes.js';
+import { attachWorkLive } from './live.js';
 
 export function contributeWorkHttp(http: HttpRegistry, ctx: HttpContributeContext): void {
   const work = ctx.extras[ctx.pluginName] as WorkImplementation | undefined;
@@ -23,6 +24,7 @@ export function contributeWorkHttp(http: HttpRegistry, ctx: HttpContributeContex
     path: joinHttpPath(workPath, 'events'),
     subscribe: (broadcast) => work.subscribe((event) => broadcast(event)),
   });
+  attachWorkLive(ctx);
   contributeWidgetRoutes(http);
   contributeSetupRoutes(http, ctx.cwd, ctx.harnesses ?? [], ctx.extras);
 }

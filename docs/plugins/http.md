@@ -20,6 +20,6 @@ httpTransportPlugin({
 });
 ```
 
-`coreSet()` mounts [live](./live.md), buildautomaton work, and sessions at `/api`. The live plugin adds `ws://…/api/live`. Other plugins register message types on that connection.
+`coreSet()` mounts [live](./live.md), buildautomaton work, and sessions at `/api`. The live plugin adds `ws://…/api/live`. Other plugins register message types on that connection. Vite proxies HTTP `/api` only. The UI websocket goes to the CLI origin.
 
 This is the default path in `coreSet()`. On Cloudflare, use [Fetch](./fetch.md) (or [Worker host](./worker-host.md)). `createRuntime` then exposes `handle.fetch(request)` instead of binding a port.
