@@ -4,7 +4,7 @@ One open source app. It starts as a blank surface. You describe a problem, or th
 
 Use the agents and models you want. Keep data on your own hardware, in your private cloud, or wherever you control it.
 
-Buildautomaton is how that app is built: two small runtimes plus plugins. You compose them into an **app**. Runtimes live in `runtimes/`.
+BuildAutomaton is how that app is built: two small runtimes plus plugins. You compose them into an **app**. Top-level folders are `runtimes/`, `plugins/`, `skills/`, `docs/`, and `apps/`.
 
 | Runtime | Package | What it does |
 | --- | --- | --- |
@@ -40,7 +40,7 @@ flowchart LR
 
 A package can ship **runtime** plugins, **UI** plugins, or **both**. The runtime only indexes them. The plugin owns the behavior.
 
-[Buildautomaton](./buildautomaton/) is the dual example: queue and tools on the runtime, a prompt screen and a sidebar widget on the UI runtime.
+[Work plugins](./work/) power the BuildAutomaton prompt and sidebar: queue and tools on the node runtime, prompt and widget on the React runtime.
 
 ## What an app looks like
 
@@ -51,12 +51,12 @@ The main screen starts as the buildautomaton prompt. After you submit it, the ru
 │  nav                                       │
 ├─────────────────────────────┬──────────────┤
 │  main                       │  sidebar     │
-│  the app                    │  buildautomaton │
+│  the app                    │  BuildAutomaton │
 │                             │  widget      │
 └─────────────────────────────┴──────────────┘
 ```
 
-[UI](./ui/) is the ready-made host for that shell. [Apps](./apps/) are plugin compositions you assemble in a host.
+[App host](./app-host/) is the ready-made shell. [Apps](./apps/) are plugin compositions you assemble in a host.
 
 ## Try it
 

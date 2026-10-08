@@ -8,6 +8,7 @@ export type {
   PluginRuntimeContext,
   PluginInit,
   RuntimePlugin,
+  TargetRuntime,
   PluginFactory,
 } from './core/registry-types.js';
 export { initRuntime } from './core/init-runtime.js';

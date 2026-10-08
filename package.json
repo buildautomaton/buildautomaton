@@ -8,8 +8,9 @@
     "url": "https://github.com/buildautomaton/meta-harness.git"
   },
   "workspaces": [
-    "packages/*",
-    "runtimes/*"
+    "runtimes/*",
+    "plugins",
+    "apps/*"
   ],
   "packageManager": "pnpm@9.15.5",
   "scripts": {

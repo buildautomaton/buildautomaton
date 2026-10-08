@@ -12,7 +12,7 @@ importers:
         specifier: ^1.12.4
         version: 1.13.4
 
-  packages/local-cli:
+  apps/local-cli:
     dependencies:
       '@buildautomaton/plugins':
         specifier: workspace:*
@@ -20,7 +20,7 @@ importers:
       '@buildautomaton/runtime':
         specifier: workspace:*
         version: link:../../runtimes/node
-      '@buildautomaton/ui':
+      '@buildautomaton/app-host':
         specifier: workspace:*
         version: link:../ui
     devDependencies:
@@ -40,7 +40,7 @@ importers:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.20.1)
 
-  packages/plugins:
+  plugins:
     dependencies:
       '@agentclientprotocol/codex-acp':
         specifier: ^1.1.4
@@ -107,7 +107,7 @@ importers:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@22.20.1)
 
-  packages/ui:
+  apps/app-host:
     dependencies:
       '@buildautomaton/plugins':
         specifier: workspace:*

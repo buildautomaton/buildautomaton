@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "lib": ["ES2022"],
+    "baseUrl": ".",
+    "paths": {
+      "@plugins/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/work/prompt",
+    "src/work/sidebar",
+    "src/work/board",
+    "src/work/app",
+    "src/work/widget",
+    "src/work/ui.ts",
+    "src/work/ui-set.ts",
+    "src/work/ui-set.test.ts",
+    "src/work/vite-env.d.ts"
+  ]
+}

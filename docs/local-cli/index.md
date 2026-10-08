@@ -2,7 +2,7 @@
 
 The **Local CLI** is the local host for the [runtime](../runtime/). A cloud host would call the same `createRuntime` with a different mix of [plugins](../plugins/).
 
-You point it at a repo folder. It starts the node runtime with `coreSet()`, which includes [buildautomaton](../buildautomaton/). In `app` mode it also loads `appPlugin` and opens the [app UI](../ui/) on a blank prompt.
+You point it at a repo folder. It starts the node runtime with `coreSet()`, which includes [work](../work/) plugins. In `app` mode it also loads `appPlugin` and opens [app-host](../app-host/) on a blank prompt.
 
 ```text
 local-cli  (local host)

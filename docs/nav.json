@@ -1,10 +1,10 @@
 {
-  "title": "Buildautomaton",
+  "title": "BuildAutomaton",
   "items": [
     { "slug": "", "title": "Architecture" },
     { "slug": "apps", "title": "Apps" },
     { "slug": "local-cli", "title": "Local CLI" },
-    { "slug": "ui", "title": "UI" },
+    { "slug": "app-host", "title": "App host" },
     { "slug": "runtime", "title": "Node runtime" },
     {
       "slug": "plugins",
@@ -49,11 +49,11 @@
     },
     { "slug": "react-runtime", "title": "React runtime" },
     {
-      "slug": "buildautomaton",
-      "title": "Buildautomaton",
+      "slug": "work",
+      "title": "Work",
       "children": [
-        { "slug": "buildautomaton/runtime", "title": "Runtime plugins" },
-        { "slug": "buildautomaton/ui", "title": "Widget" }
+        { "slug": "work/runtime", "title": "Node plugins" },
+        { "slug": "work/ui", "title": "React plugins" }
       ]
     },
     { "slug": "license", "title": "License" }
