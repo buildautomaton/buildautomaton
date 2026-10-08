@@ -8,7 +8,13 @@ export function createLiveHub(): LiveHub {
 
   function emit(type: string, payload?: unknown): void {
     const message = { type, payload };
-    for (const broadcast of broadcasts) broadcast(message);
+    for (const broadcast of broadcasts) {
+      try {
+        broadcast(message);
+      } catch {
+        /* a dead UI socket must not fail the CLI */
+      }
+    }
   }
 
   return {
@@ -34,9 +40,19 @@ export function createLiveHub(): LiveHub {
       for (const handler of handlers.get(message.type) ?? []) handler(message.payload, reply);
     },
     greet(send) {
-      send({ type: 'hello', payload: { service: 'live' } });
+      try {
+        send({ type: 'hello', payload: { service: 'live' } });
+      } catch {
+        return;
+      }
       const typed: LiveSend = (type, payload) => send({ type, payload });
-      for (const welcome of welcomes) welcome(typed);
+      for (const welcome of welcomes) {
+        try {
+          welcome(typed);
+        } catch {
+          /* ignore */
+        }
+      }
     },
   };
 }

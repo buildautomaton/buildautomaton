@@ -1,17 +1,25 @@
 import type { TranscriptDraft, TranscriptEvent } from './block.js';
 import { flushText, flushThought } from './block.js';
 import { applyTool } from './apply-tool.js';
+import { applyPermission } from './apply-permission.js';
+import { applyDetail } from './apply-detail.js';
+import { applyFiles } from './apply-files.js';
 import { asRecord, textOf } from './text.js';
+import { unwrapUpdate } from './unwrap-update.js';
 
 export function applyEvent(draft: TranscriptDraft, event: TranscriptEvent, request: string): void {
   if (event.kind === 'result') return applyResult(draft, event.payload);
-  if (event.kind !== 'update') return;
-  const rec = asRecord(event.payload);
+  if (event.kind === 'file_change') return applyFiles(draft, event.payload);
+  if (event.kind !== 'update' && event.kind !== 'request') return;
+  const rec = unwrapUpdate(event.payload);
   if (!rec) return;
-  const kind = String(rec.sessionUpdate ?? rec.session_update ?? '');
+  const kind = String(rec.sessionUpdate ?? rec.session_update ?? rec.kind ?? '');
   if (/user_message/i.test(kind)) return applyUser(draft, rec, request);
   if (/thought|reason/i.test(kind)) return appendThought(draft, textOf(rec));
   if (/tool_call/i.test(kind) || rec.toolCall != null || rec.tool_call != null) return applyTool(draft, rec);
+  if (/plan|todos|task/i.test(kind)) return applyDetail(draft, rec);
+  if (/permission|question/i.test(kind) || event.kind === 'request') return applyPermission(draft, rec);
+  if (/file/i.test(kind)) return applyFiles(draft, rec);
   if (!kind || /agent_message|message_chunk|^message$/i.test(kind)) appendText(draft, textOf(rec));
 }
 

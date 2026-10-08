@@ -7,9 +7,11 @@ export function attachSessionLive(ctx: HttpContributeContext): void {
   const live = asLiveHub(ctx.extras);
   const backend = ctx.backend;
   if (!live || !backend) return;
-  const publish = () => void pushSessions(backend, live);
+  const publish = () => void pushSessions(backend, live).catch(() => undefined);
   live.welcome((send) => {
-    void Promise.resolve(backend.list()).then((rows) => send('sessions', { sessions: mapSessions(rows) }));
+    void Promise.resolve(backend.list())
+      .then((rows) => send('sessions', { sessions: mapSessions(rows) }))
+      .catch(() => undefined);
   });
   const create = backend.create.bind(backend);
   const patch = backend.patch.bind(backend);

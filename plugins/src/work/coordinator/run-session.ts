@@ -30,5 +30,6 @@ export function runSessionTurn(
       void ctx.backend.patch(record.id, { status: 'completed' });
     },
     sendSessionUpdate: (payload) => appendTurnEvent(ctx.backend, record.id, 'update', payload),
+    sendRequest: (payload) => appendTurnEvent(ctx.backend, record.id, 'request', payload),
   });
 }

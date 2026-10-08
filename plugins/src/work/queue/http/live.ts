@@ -7,5 +7,11 @@ export function attachWorkLive(ctx: HttpContributeContext): void {
   const live = asLiveHub(ctx.extras);
   const work = ctx.extras[ctx.pluginName] as WorkImplementation | undefined;
   if (!live || !work) return;
-  work.subscribe((event) => live.publish('work', event));
+  work.subscribe((event) => {
+    try {
+      live.publish('work', event);
+    } catch {
+      /* ignore */
+    }
+  });
 }
