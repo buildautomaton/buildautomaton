@@ -26,10 +26,10 @@ const { App } = createUi({ plugins: [layoutPlugin('app')] });
 
 | Layout | Panels | When to use |
 | --- | --- | --- |
-| `app` | `nav`, `main` | **Apps.** Main is the app. The widget floats over it. |
+| `app` | `nav`, `main` | **Apps.** Main is the app. |
 | `master-detail` | `nav`, `master`, `detail` | Custom two-pane tools |
 | `columns` | `nav`, `column`, `header` | Custom boards — not the buildautomaton |
 
 Shared pieces like `Column`, `PromptComposer`, and `NumberedQuestion` live in `@buildautomaton/ui-runtime/design`.
 
-A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [BuildAutomaton](../work/ui.md) is the chat popup.
+A package can ship UI plugins only, or pair them with [runtime plugins](../plugins/). [BuildAutomaton](../work/ui.md) is the prompt on `main`. Collection widgets are the [widgets](../plugins/widgets.md) plugin.

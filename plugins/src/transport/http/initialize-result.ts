@@ -7,10 +7,21 @@ export { MCP_SERVER_NAME };
 export function mcpInitializeResult(
   id: JsonRpcMessage['id'],
   instructions?: string,
+  resources = false,
 ): JsonRpcMessage {
   return jsonRpcResult(id, {
     protocolVersion: MCP_PROTOCOL_VERSION,
-    capabilities: { tools: {}, logging: {}, prompts: {} },
+    capabilities: {
+      tools: {},
+      logging: {},
+      prompts: {},
+      ...(resources
+        ? {
+            resources: {},
+            extensions: { 'io.modelcontextprotocol/ui': { mimeTypes: ['text/html;profile=mcp-app'] } },
+          }
+        : {}),
+    },
     serverInfo: { name: MCP_SERVER_NAME, version: RUNTIME_VERSION },
     ...(instructions ? { instructions } : {}),
   });

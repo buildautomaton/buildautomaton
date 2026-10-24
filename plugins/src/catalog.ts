@@ -71,3 +71,14 @@ export type { AppPhase, AppState, AppPluginOptions } from './app/plugin.js';
 
 export { buildautomatonSet, buildautomatonHttpEndpoints } from './work/index.js';
 export type { BuildAutomatonOptions } from './work/index.js';
+
+export { securityPlugin } from './security/plugin.js';
+export type { SecurityOptions } from './security/plugin.js';
+export { dataStorePlugin } from './data-store/plugin.js';
+export type { DataStoreOptions } from './data-store/plugin.js';
+export { workflowsPlugin } from './workflows/plugin.js';
+export type { WorkflowOptions } from './workflows/plugin.js';
+export { widgetsPlugin } from './widgets/plugin.js';
+export type { WidgetOptions } from './widgets/plugin.js';
+export { externalMcpPlugin } from './external-mcp/plugin.js';
+export type { ExternalMcpOptions } from './external-mcp/plugin.js';

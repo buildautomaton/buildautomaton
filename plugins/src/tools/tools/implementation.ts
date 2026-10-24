@@ -3,7 +3,7 @@ import type { NotifierHub } from './notify.js';
 import type { SessionHooks } from '../../session/session/hooks.js';
 import type { SessionImplementation } from '../../session/session/implementation.js';
 import type { ToolsHooks } from './hooks.js';
-import type { McpToolCallResult, McpToolDefinition } from './definitions.js';
+import type { McpResource, McpToolCallResult, McpToolDefinition } from './definitions.js';
 import type { ToolsPrompt } from './prompts.js';
 
 export type ToolCallExtras = {
@@ -32,6 +32,8 @@ export type ToolsImplementation = {
   ): Promise<McpToolCallResult>;
   instructions?(ctx: ToolContext): string | undefined | Promise<string | undefined>;
   prompts?(): ToolsPrompt[] | Promise<ToolsPrompt[]>;
+  listResources?(ctx: ToolContext): McpResource[] | Promise<McpResource[]>;
+  readResource?(uri: string, ctx: ToolContext): McpResource | null | Promise<McpResource | null>;
 };
 
 /** Composed tool surface used by transports after `createRuntime`. */
@@ -44,4 +46,6 @@ export type ToolRegistry = {
   ) => Promise<McpToolCallResult>;
   instructions?: () => string | undefined | Promise<string | undefined>;
   prompts?: () => ToolsPrompt[] | Promise<ToolsPrompt[]>;
+  listResources?: () => McpResource[] | Promise<McpResource[]>;
+  readResource?: (uri: string) => McpResource | null | Promise<McpResource | null>;
 };

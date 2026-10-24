@@ -24,10 +24,11 @@ Built-in plugins also export from `@buildautomaton/plugins/plugins`. Cloudflare 
 | [Stores](./stores.md) | [File](./file-store.md), [SQLite](./sqlite-store.md), [Cloudflare SQL](./cloudflare-sql.md), [R2](./r2.md) |
 | [Sessions](./sessions.md) | [Disk](./disk-sessions.md), [SQL](./sql-sessions.md), [Stream](./stream-sessions.md), [Memory](./memory-sessions.md) |
 | Agents | [Harnesses](./harnesses.md), [Minion tools](./minion-tools.md) |
+| App runtime | [Security](./security.md), [Data store](./data-store.md), [Workflows](./workflows.md), [Widgets](./widgets.md), [External MCP](./external-mcp.md) |
 | [Transports](./transports.md) | [HTTP](./http.md), [Fetch](./fetch.md), [Stdio](./stdio.md), [Remote](./remote.md), [Live](./live.md) |
 | Host | [App](./app.md), [Worker host](./worker-host.md) |
 | Git | [Working tree](./git.md) |
-| Work | [Queue, tools, prompt, widget](../work/) |
+| Work | [Queue, tools, and prompt](../work/) |
 | Your own | [Custom plugins](./custom.md) |
 
-Each plugin declares `targetRuntime` (`node` or `react`). Plugins are not split into runtime folders. [Work](../work/) is the dual example: queue and tools on node, prompt and widget on react.
+Each plugin declares `targetRuntime` (`node` or `react`). Plugins are not split into runtime folders. [Work](../work/) is the queue and the prompt. The app runtime plugins are separate: security, the data store, workflows, widgets, and external MCP servers. [Local CLI](../local-cli/) app mode lists them beside `appPlugin`. `coreSet()` does not.

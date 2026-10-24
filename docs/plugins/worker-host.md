@@ -25,4 +25,17 @@ return handle.fetch(request);
 
 It reads `backend: 'd1' | 'do'` on each SQL schema. `doOpeners` opens one Durable Object per key. `handle.fetch` is a Web `Request` in, `Response` out.
 
+Pass any of `security`, `dataStore`, `workflows`, `widgets`, or `externalMcp` to include that app-runtime plugin. Omit the field and the plugin stays out, so a host that only needs sessions is unchanged. The SQL schema is still `work` when you use the shared store. Harnesses are not in this bundle. A cloud app that must spawn an agent still needs a host that can run them.
+
+```ts
+...workerHostPlugins({
+  d1: { work: env.APP_DB },
+  security: { workspaceId: 'app' },
+  dataStore: { workspaceId: 'app', mutations: [] },
+  workflows: { workflows: [] },
+  widgets: { widgets: [] },
+  externalMcp: { servers: [] },
+})
+```
+
 A host app wires these store plugins, then its own domain plugins. Export any Durable Object classes the openers call. Serve static UI with Workers Assets. Keep API paths (`/api/*`, `/mcp`) on the Worker.

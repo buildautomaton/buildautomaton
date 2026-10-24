@@ -1,5 +1,6 @@
-import type { PluginSlots } from '@buildautomaton/runtime';
+import type { PluginSlots, ServiceContribution } from '@buildautomaton/runtime';
 import type { ToolsPlugin } from './plugin.js';
+import type { ToolsImplementation } from './implementation.js';
 import { addHooksOnce, mergeOptional } from '../../apply/merge-hooks.js';
 import { asHost } from '../../host-slots.js';
 
@@ -14,9 +15,10 @@ function seenFor(slots: PluginSlots): WeakSet<object> {
   return set;
 }
 
-export function applyToolsPlugin(slots: PluginSlots, plugin: ToolsPlugin): void {
+export function applyToolsPlugin(slots: PluginSlots, plugin: ToolsPlugin, contrib?: ServiceContribution): void {
   const host = asHost(slots);
-  host.tools.push(plugin.implementation);
+  const impl = (contrib?.implementation as ToolsImplementation | undefined) ?? plugin.implementation;
+  if (impl) host.tools.push(impl);
   if (plugin.hooks) {
     host.toolsHooks = addHooksOnce(seenFor(slots), host.toolsHooks, plugin.hooks, (a, b) =>
       mergeOptional(a, b)!,

@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 describe('buildautomaton widget HTTP', () => {
-  it('serves the launcher script and the popout page', async () => {
+  it('does not serve the chat embed', async () => {
     const dir = await mkdtemp(path.join(tmpdir(), 'buildautomaton-'));
     await writeFile(path.join(dir, 'widget.html'), '<!doctype html><title>BuildAutomaton</title><p>Ready</p>');
     process.env.BUILDAUTOMATON_WIDGET_DIR = dir;
@@ -19,10 +19,9 @@ describe('buildautomaton widget HTTP', () => {
     const port = await listenLocalhost(server, 0, '127.0.0.1');
     try {
       const script = await fetch(`http://127.0.0.1:${port}/buildautomaton.js`);
-      expect(script.headers.get('content-type')).toContain('javascript');
-      expect(await script.text()).toContain('buildautomaton-root');
+      expect(script.status).toBe(404);
       const page = await fetch(`http://127.0.0.1:${port}/buildautomaton`);
-      expect(await page.text()).toContain('Ready');
+      expect(page.status).toBe(404);
       const setup = await fetch(`http://127.0.0.1:${port}/api/buildautomaton`);
       expect(await setup.json()).toMatchObject({ cwd: '/tmp', ready: false, agents: [] });
     } finally {
