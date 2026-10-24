@@ -62,8 +62,23 @@ export { createCoreToolRegistry } from './tools/minion/core-registry.js';
 export { launchSession } from './tools/minion/launch-session.js';
 export { getSessionStatus } from './tools/minion/session-status.js';
 
+export { gitPlugin } from './git/plugin.js';
+export { livePlugin } from './live/plugin.js';
+export { createLiveHub } from './live/hub.js';
+export type { LiveHub, LiveMessage, LiveSession } from './live/types.js';
 export { appPlugin } from './app/plugin.js';
 export type { AppPhase, AppState, AppPluginOptions } from './app/plugin.js';
 
 export { buildautomatonSet, buildautomatonHttpEndpoints } from './work/index.js';
 export type { BuildAutomatonOptions } from './work/index.js';
+
+export { securityPlugin } from './security/plugin.js';
+export type { SecurityOptions } from './security/plugin.js';
+export { dataStorePlugin } from './data-store/plugin.js';
+export type { DataStoreOptions } from './data-store/plugin.js';
+export { workflowsPlugin } from './workflows/plugin.js';
+export type { WorkflowOptions } from './workflows/plugin.js';
+export { widgetsPlugin } from './widgets/plugin.js';
+export type { WidgetOptions } from './widgets/plugin.js';
+export { externalMcpPlugin } from './external-mcp/plugin.js';
+export type { ExternalMcpOptions } from './external-mcp/plugin.js';

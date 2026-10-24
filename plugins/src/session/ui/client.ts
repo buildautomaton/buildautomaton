@@ -1,6 +1,7 @@
 export type DiskSession = {
   id: string;
   prompt: string;
+  harness?: string;
   status: 'running' | 'completed' | 'failed';
   createdAt: string;
   updatedAt: string;

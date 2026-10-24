@@ -30,6 +30,7 @@
     "src/work/ui-set.ts",
     "src/work/ui-set.test.ts",
     "src/work/vite-env.d.ts",
-    "src/session/ui"
+    "src/session/ui",
+    "src/live/ui"
   ]
 }

@@ -32,6 +32,11 @@
         },
         { "slug": "plugins/harnesses", "title": "Harnesses" },
         { "slug": "plugins/minion-tools", "title": "Minion tools" },
+        { "slug": "plugins/security", "title": "Security" },
+        { "slug": "plugins/data-store", "title": "Data store" },
+        { "slug": "plugins/workflows", "title": "Workflows" },
+        { "slug": "plugins/widgets", "title": "Widgets" },
+        { "slug": "plugins/external-mcp", "title": "External MCP" },
         {
           "slug": "plugins/transports",
           "title": "Transports",

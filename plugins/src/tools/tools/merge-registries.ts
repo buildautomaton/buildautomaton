@@ -27,6 +27,25 @@ export function mergeToolRegistries(registries: ToolRegistry[]): ToolRegistry {
     },
     instructions: async () => mergeInstructions(registries),
     prompts: async () => mergePrompts(registries),
+    listResources: async () => {
+      const out = [];
+      const seen = new Set<string>();
+      for (const reg of registries) {
+        for (const resource of (await reg.listResources?.()) ?? []) {
+          if (seen.has(resource.uri)) continue;
+          seen.add(resource.uri);
+          out.push(resource);
+        }
+      }
+      return out;
+    },
+    readResource: async (uri: string) => {
+      for (const reg of registries) {
+        const found = await reg.readResource?.(uri);
+        if (found) return found;
+      }
+      return null;
+    },
   };
 }
 

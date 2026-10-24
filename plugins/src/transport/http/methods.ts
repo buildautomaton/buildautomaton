@@ -5,6 +5,7 @@ import { mcpInitializeResult } from './initialize-result.js';
 import { jsonRpcError, jsonRpcResult, rpcParams, type JsonRpcMessage } from './jsonrpc.js';
 import { createProgressReporter, progressTokenFromParams } from './progress-reporter.js';
 import { getMcpPrompt, listMcpPrompts } from './prompts.js';
+import { readMcpResource, listMcpResources } from './resources.js';
 import type { McpSseHub } from './sse-hub.js';
 
 export { MCP_PROTOCOL_VERSION, MCP_SERVER_NAME } from './initialize-result.js';
@@ -35,7 +36,8 @@ export async function handleMcpMethod(
     sse?.setElicitation(clientSupportsElicitation(params));
     sse?.setSampling(clientSupportsSampling(params));
     log('[MCP] Initialize complete; server ready');
-    return mcpInitializeResult(id, await tools.instructions?.());
+    const resources = await tools.listResources?.();
+    return mcpInitializeResult(id, await tools.instructions?.(), Boolean(resources?.length));
   }
   if (!initialized.value && method !== 'initialize') {
     return jsonRpcError(id, -32002, 'Server not initialized');
@@ -43,6 +45,8 @@ export async function handleMcpMethod(
   if (method === 'ping' || method === 'logging/setLevel') return jsonRpcResult(id, {});
   if (method === 'prompts/list') return listMcpPrompts(id, (await tools.prompts?.()) ?? []);
   if (method === 'prompts/get') return getMcpPrompt(id, params, (await tools.prompts?.()) ?? []);
+  if (method === 'resources/list') return listMcpResources(id, tools);
+  if (method === 'resources/read') return readMcpResource(id, params, tools);
   if (method === 'tools/list') return jsonRpcResult(id, { tools: await tools.listTools() });
   if (method === 'tools/call') return callTool(id, params, tools, sse, onNotify);
   if (id !== undefined) return jsonRpcError(id, -32601, `Method not found: ${method}`);

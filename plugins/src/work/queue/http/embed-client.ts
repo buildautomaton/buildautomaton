@@ -25,6 +25,12 @@ tab.setAttribute("aria-label",open?"Close BuildAutomaton":"BuildAutomaton");
 if(open&&!frame.src)frame.src=origin+"/buildautomaton?page="+encodeURIComponent(location.href);
 }
 tab.addEventListener("click",function(){setOpen(!open)});
+document.addEventListener("pointerdown",function(event){
+if(!open)return;
+var path=event.composedPath?event.composedPath():[];
+if(path.indexOf(root)>=0||path.indexOf(tab)>=0||path.indexOf(frame)>=0)return;
+setOpen(false);
+});
 window.addEventListener("message",function(event){
 if(event.origin!==origin)return;
 var data=event.data;

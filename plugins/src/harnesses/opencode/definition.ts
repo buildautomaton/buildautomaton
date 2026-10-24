@@ -1,7 +1,6 @@
 import type { HarnessOptions } from '@plugins/harnesses/harness/options.js';
 import type { HarnessImplementation } from '@plugins/harnesses/harness/implementation.js';
 import { opencodeInstallDetectCommand, opencodeInstallTokenEnvVar, installOpencode } from './install.js';
-
 export const opencodeHarnessOptions: HarnessOptions = {
   type: 'opencode',
   displayName: 'OpenCode',

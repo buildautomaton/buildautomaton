@@ -75,6 +75,9 @@ describe('runtimeOptionsFromCli', () => {
     });
     expect(options.plugins?.some((plugin) => plugin.name === 'work-sqlite')).toBe(true);
     expect(options.plugins?.some((plugin) => plugin.name === 'buildautomaton-tools')).toBe(true);
+    expect(options.plugins?.map((plugin) => plugin.name)).toEqual(
+      expect.arrayContaining(['security', 'data-store', 'workflows', 'widgets', 'external-mcp']),
+    );
     expect(options.plugins?.some((plugin) => plugin.name === 'email-sql')).toBe(false);
     expect(options.plugins?.some((plugin) => plugin.name === 'marketplace-sql')).toBe(false);
   });

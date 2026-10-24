@@ -16,6 +16,8 @@ import { sqlStorePlugin } from './stores/sqlite/plugin.js';
 import { coreSetTransport } from './core-set-transport.js';
 import { acpPlugin } from './harnesses/acp/plugin.js';
 import { buildautomatonSet } from './work/set.js';
+import { gitPlugin } from './git/plugin.js';
+import { livePlugin } from './live/plugin.js';
 
 export type CoreSetOptions = {
   cwd: string;
@@ -51,6 +53,8 @@ export function coreSet(
   const plugins: RuntimePlugin[] = [
     fileStorePlugin({ options: { root: opts.cwd }, implementation: init.implementation?.fileStore, ...shared }),
     sqlStorePlugin({ options: { file: opts.sqlFile }, implementation: init.implementation?.sqlStore, ...shared }),
+    gitPlugin(shared),
+    livePlugin(shared),
     ...coreHarnessPlugins({
       hooks: init.hooks?.harness,
       implementation: init.implementation?.harness,

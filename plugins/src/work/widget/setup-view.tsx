@@ -1,22 +1,20 @@
-import { Bot } from 'lucide-react';
-import { ColumnHeader } from '@buildautomaton/ui-runtime';
 import type { BuildAutomatonSetup } from '../queue/http/setup-status.js';
 import { AgentRow } from './agent-row.js';
-import { CwdBlock } from './cwd-block.js';
-import { WidgetClose } from './widget-close.js';
 
-export function SetupView({ setup, onChanged }: { setup: BuildAutomatonSetup; onChanged: () => Promise<void> }) {
-  const detected = setup.agents.filter((agent) => agent.detected);
-  const installable = setup.agents.filter((agent) => !agent.detected && agent.canInstall);
+export function AgentSetup({
+  agents,
+  onChanged,
+}: {
+  agents: BuildAutomatonSetup['agents'];
+  onChanged: () => Promise<void>;
+}) {
+  const detected = agents.filter((agent) => agent.detected);
+  const installable = agents.filter((agent) => !agent.detected && agent.canInstall);
   return (
-    <section className="flex h-full min-h-0 flex-col bg-background text-foreground">
-      <ColumnHeader title="Set up an agent" icon={Bot} trailing={<WidgetClose />} />
-      <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-4 py-4">
-        <CwdBlock cwd={setup.cwd} appNote={setup.appNote} />
-        <AgentGroup title="Detected" agents={detected} empty="No agents detected yet." onChanged={onChanged} />
-        <AgentGroup title="Install" agents={installable} empty="Nothing else can be installed from here." onChanged={onChanged} />
-      </div>
-    </section>
+    <div className="space-y-6 px-4 py-4">
+      <AgentGroup title="Detected" agents={detected} empty="No agents detected yet." onChanged={onChanged} />
+      <AgentGroup title="Install" agents={installable} empty="Nothing else can be installed from here." onChanged={onChanged} />
+    </div>
   );
 }
 

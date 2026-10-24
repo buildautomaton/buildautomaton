@@ -12,7 +12,6 @@ import {
   claudeCodeInstallTokenEnvVar,
   installClaudeCode,
 } from './install.js';
-
 export const claudeCodeHarnessOptions: HarnessOptions = {
   type: 'claude-code',
   displayName: 'Claude Code',

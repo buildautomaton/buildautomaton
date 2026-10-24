@@ -1,4 +1,15 @@
-import { appPlugin, coreSet, HTTP_DEFAULT_HOST, runRuntime, type RuntimeOptions } from '@buildautomaton/plugins';
+import {
+  appPlugin,
+  coreSet,
+  dataStorePlugin,
+  externalMcpPlugin,
+  securityPlugin,
+  widgetsPlugin,
+  workflowsPlugin,
+  HTTP_DEFAULT_HOST,
+  runRuntime,
+  type RuntimeOptions,
+} from '@buildautomaton/plugins';
 import { uiDistDir } from '@buildautomaton/app-host/node';
 import type { ParsedCli } from './parse-cli.js';
 import { createLog, writeInfo } from './log.js';
@@ -41,7 +52,14 @@ export function runtimeOptionsFromCli(parsed: ParsedCli): RuntimeOptions {
         runtime,
       }),
       ...(parsed.mode === 'app'
-        ? [appPlugin({ runtime, options: parsed.env === 'prod' ? { staticRoot: uiDistDir() } : {} })]
+        ? [
+            appPlugin({ runtime, options: parsed.env === 'prod' ? { staticRoot: uiDistDir() } : {} }),
+            securityPlugin({ runtime, options: { workspaceId: parsed.cwd } }),
+            dataStorePlugin({ runtime, options: { workspaceId: parsed.cwd } }),
+            workflowsPlugin({ runtime }),
+            widgetsPlugin({ runtime }),
+            externalMcpPlugin({ runtime }),
+          ]
         : []),
     ],
   };

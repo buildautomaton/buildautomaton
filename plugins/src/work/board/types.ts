@@ -84,7 +84,13 @@ export type WorkPatch = {
 export type WorkClient = {
   listWork(): Promise<WorkItem[]>;
   addWork(input: { title: string; content?: string; held?: boolean; project?: string }): Promise<WorkItem>;
-  startSession(input: { prompt: string; project?: string }): Promise<WorkItem>;
+  startSession(input: {
+    prompt: string;
+    project?: string;
+    harness?: string;
+    model?: string;
+    sessionId?: string;
+  }): Promise<WorkItem & { sessionId?: string }>;
   updateWork(id: string, patch: WorkPatch): Promise<WorkItem | null>;
   renameProject(from: string, to: string): Promise<void>;
   deleteWork(id: string): Promise<void>;

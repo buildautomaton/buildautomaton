@@ -21,6 +21,7 @@ function ctx(work: ReturnType<typeof createSqliteWorkBackend>, prompt = vi.fn())
           created.push(record);
         },
         patch: async () => undefined,
+        append: async () => undefined,
       } as unknown as SessionImplementation,
       cwd: '/repo',
       log: () => {},
@@ -58,5 +59,38 @@ describe('buildautomaton session starter', () => {
     expect(bound.created[0]?.prompt).toContain('tell_buildautomaton_what_was_built');
     expect(prompt).toHaveBeenCalledOnce();
     expect((await work.getWork(status.work!.id))?.sessionIds).toContain(status.sessionId);
+  });
+
+  it('starts on the harness and model from the prompt', async () => {
+    const work = createSqliteWorkBackend();
+    const prompt = vi.fn();
+    const created: SessionRecord[] = [];
+    const coord = createCoordinator();
+    coord.bind({
+      engine: {
+        listHarnesses: () => [
+          { type: 'cursor-cli', displayName: 'Cursor', detectPresence: async () => true },
+          { type: 'codex-acp', displayName: 'Codex', detectPresence: async () => true },
+        ],
+        setPreferredHarnessType: () => {},
+        prompt,
+      } as unknown as AcpEngine,
+      backend: {
+        create: async (record: SessionRecord) => {
+          created.push(record);
+        },
+        append: async () => undefined,
+        patch: async () => undefined,
+      } as unknown as SessionImplementation,
+      cwd: '/repo',
+      log: () => {},
+      extras: { work },
+    });
+    const status = await coord.start({ prompt: 'Build', harness: 'codex-acp', model: 'gpt-5.4' });
+    expect(status.harness).toBe('codex-acp');
+    expect(created[0]?.model).toBe('gpt-5.4');
+    expect(prompt).toHaveBeenCalledWith(
+      expect.objectContaining({ agentType: 'codex-acp', agentConfig: { agent_model: 'gpt-5.4' } }),
+    );
   });
 });

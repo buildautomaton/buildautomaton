@@ -17,7 +17,7 @@ Each artifact plugin teaches agents (and the tell tool) about one kind of review
 
 ## Work plugin
 
-`sqliteWorkPlugin` (service id `work`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api` and serves the [chat widget](./ui.md). `memoryWorkPlugin` is for tests and light embeds.
+`sqliteWorkPlugin` (service id `work`) owns the queue: drafts, queued items, completed work, answers, and artifacts in SQLite. It mounts HTTP under `/api`. `memoryWorkPlugin` is for tests and light embeds. The [prompt](./ui.md) is a separate UI plugin. App widgets, the data store, and workflows are not part of this set.
 
 ## Director tools
 
@@ -33,10 +33,10 @@ The tell tool’s fields and instructions are built from the artifact plugins yo
 
 ## Prompt sessions
 
-The widget composer and the app’s first prompt start a **new ACP session** per prompt. `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. The dashboard shows an in-progress task, then the recorded artifacts — not the session transcript.
+The app’s first prompt starts a **new ACP session**. A later `POST /api/buildautomaton/session` with `sessionId` continues that session (`isNewSession: false`). `coordinatorPlugin` binds on HTTP listen (it does not auto-start). Each session is attached to this runtime’s MCP server (`/mcp`) so it can call `tell_buildautomaton_what_was_built` when the work is done. In app mode that same server also exposes the data store, workflow, and widget tools.
 
-`GET /api/buildautomaton` includes `coordinator`. `POST /api/buildautomaton/session` with `{ prompt, project? }` creates in-progress work and starts the session.
+`GET /api/buildautomaton` includes `coordinator`. `POST /api/buildautomaton/session` with `{ prompt, project?, sessionId? }` starts a session or continues `sessionId`.
 
 ## HTTP paths
 
-Default mounts: `/api/work`, `/api/artifacts`, `/api/assets`, `/api/work/events`, `/api/buildautomaton`, `/buildautomaton`, `/buildautomaton.js`.
+Default mounts: `/api/live`, `/api/work`, `/api/artifacts`, `/api/assets`, `/api/work/events`, `/api/buildautomaton`.

@@ -2,12 +2,13 @@
 
 The **Local CLI** is the local host for the [runtime](../runtime/). A cloud host would call the same `createRuntime` with a different mix of [plugins](../plugins/).
 
-You point it at a repo folder. It starts the node runtime with `coreSet()`, which includes [work](../work/) plugins. In `app` mode it also loads `appPlugin` and opens [app-host](../app-host/) on a blank prompt.
+You point it at a repo folder. It starts the node runtime with `coreSet()`, which includes [work](../work/) plugins. In `app` mode it also loads `appPlugin`, [security](../plugins/security.md), the [data store](../plugins/data-store.md), [workflows](../plugins/workflows.md), [widgets](../plugins/widgets.md), and [external MCP](../plugins/external-mcp.md), then opens [app-host](../app-host/) on a blank prompt. Harness mode does not load those five.
 
 ```text
 local-cli  (local host)
   ├── runtime
   ├── core + buildautomaton plugins
+  ├── app runtime          app mode: security, store, workflows, widgets, external MCP
   └── appPlugin            optional: serve the app
          ↓
       createRuntime → listen
@@ -33,7 +34,6 @@ By default it serves HTTP at `http://127.0.0.1:3333`:
 /api/artifacts       reviews
 /api/sessions        sessions
 /api/work/events     websocket
-/buildautomaton            chat widget
 ```
 
 ```bash

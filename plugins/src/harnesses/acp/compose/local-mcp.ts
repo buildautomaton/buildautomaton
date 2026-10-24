@@ -14,6 +14,7 @@ export function localMcpServers(port: number | null, path = MCP_DEFAULT_PATH): u
       type: 'http',
       name: MCP_SERVER_NAME,
       url: `http://${HTTP_DEFAULT_HOST}:${port}${path}`,
+      headers: [],
     },
   ];
 }

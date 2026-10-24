@@ -10,11 +10,21 @@ export type WsHub = {
 
 export type WorkWsHub = WsHub;
 
-export function createWsHub(onMessage?: (payload: unknown) => void | Promise<void>): WsHub {
+export function createWsHub(
+  onMessage?: (payload: unknown) => void | Promise<void>,
+  onConnect?: (send: (payload: unknown) => void) => void,
+): WsHub {
   const sockets = new Set<Socket>();
   return {
     add(socket) {
       sockets.add(socket);
+      onConnect?.((payload) => {
+        try {
+          socket.write(encodeTextFrame(JSON.stringify(payload)));
+        } catch {
+          sockets.delete(socket);
+        }
+      });
       attachWsReader(socket, (opcode, payload) => {
         if (opcode === 0x8) {
           sockets.delete(socket);

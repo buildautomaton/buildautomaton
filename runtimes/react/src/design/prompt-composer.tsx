@@ -1,4 +1,4 @@
-import { useId, useState, type KeyboardEvent } from 'react';
+import { useId, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { PromptField } from './prompt-field.js';
 import { PromptToolbar } from './prompt-toolbar.js';
 
@@ -6,10 +6,14 @@ export function PromptComposer({
   placeholder = 'Add a draft…',
   disabled,
   onSubmit,
+  leading,
+  placement = 'top',
 }: {
   placeholder?: string;
   disabled?: boolean;
   onSubmit: (value: string) => Promise<void> | void;
+  leading?: ReactNode;
+  placement?: 'top' | 'bottom';
 }) {
   const id = useId();
   const [value, setValue] = useState('');
@@ -36,8 +40,9 @@ export function PromptComposer({
     }
   }
 
+  const frame = placement === 'bottom' ? 'shrink-0 border-t border-border px-4 pb-2 pt-3' : 'border-b border-border px-4 pt-3';
   return (
-    <div className="border-b border-border px-4 pt-3">
+    <div className={frame}>
       <label htmlFor={id} className="sr-only">
         {placeholder}
       </label>
@@ -50,7 +55,7 @@ export function PromptComposer({
         onChange={(event) => setValue(event.target.value)}
         onKeyDown={onKeyDown}
       />
-      <PromptToolbar disabled={blocked || empty} onSubmit={() => void submit()} />
+      <PromptToolbar leading={leading} disabled={blocked || empty} onSubmit={() => void submit()} />
     </div>
   );
 }

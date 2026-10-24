@@ -6,6 +6,7 @@
 import { logDebug } from '@plugins/harnesses/acp/util/log.js';
 import type { AcpSessionTransport } from '@plugins/harnesses/acp/acp-session-transport.js';
 import type { AcpSessionContext } from '@plugins/harnesses/acp/session-context.js';
+import { newAcpSession } from './establish-new-session.js';
 
 export type AcpEstablishedWire = {
   sessionId: string;
@@ -20,11 +21,6 @@ function establishedFromResult(raw: unknown, sessionId: string): AcpEstablishedW
     configOptions: Array.isArray(r.configOptions) ? (r.configOptions as unknown[]) : null,
     modes: r.modes ?? null,
   };
-}
-
-function sessionIdFromNewSessionResult(raw: unknown): string {
-  const r = raw && typeof raw === 'object' ? (raw as Record<string, unknown>) : {};
-  return typeof r.sessionId === 'string' ? r.sessionId : '';
 }
 
 export async function establishAcpSessionWithTransport(
@@ -61,8 +57,5 @@ export async function establishAcpSessionWithTransport(
       }
     }
   }
-  const result = await transport.newSession({ cwd, mcpServers });
-  const sid = sessionIdFromNewSessionResult(result);
-  if (!sid) throw new Error(`${agentLabel} ACP session/new did not return sessionId`);
-  return establishedFromResult(result, sid);
+  return newAcpSession(transport, cwd, mcpServers, agentLabel, establishedFromResult);
 }

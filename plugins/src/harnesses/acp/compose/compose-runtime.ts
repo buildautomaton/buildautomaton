@@ -13,6 +13,7 @@ import { withLocalMcp } from './with-local-mcp.js';
 import { wrapBackend } from './wrap-backends.js';
 import { contributeHttp } from './contribute-http.js';
 import { toolsHttpPath } from './tools-http-path.js';
+import { mcpServersFromExtras } from '../../../external-mcp/servers.js';
 
 function toolsFrom(impls: ToolsImplementation[], ctx: ToolContext): ToolRegistry {
   return mergeToolRegistries(
@@ -21,6 +22,8 @@ function toolsFrom(impls: ToolsImplementation[], ctx: ToolContext): ToolRegistry
       callTool: (name, args, extras) => impl.callTool(name, args, ctx, extras),
       instructions: impl.instructions ? () => impl.instructions!(ctx) : undefined,
       prompts: impl.prompts ? () => impl.prompts!() : undefined,
+      listResources: impl.listResources ? () => impl.listResources!(ctx) : undefined,
+      readResource: impl.readResource ? (uri) => impl.readResource!(uri, ctx) : undefined,
     })),
   );
 }
@@ -41,6 +44,7 @@ export async function composeAcpRuntime(
     clientHostHooks: withLocalMcp(
       await buildClientHostHooks({ backend, harnessHooks: host.harnessHooks, harnessHost: host.harnessHost }),
       access,
+      mcpServersFromExtras(slots.extras),
     ),
     clientInfo: { name: 'meta-harness', version: RUNTIME_VERSION },
   });

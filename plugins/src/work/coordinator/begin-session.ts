@@ -17,7 +17,7 @@ export async function beginSession(
     onStatus(status);
     return status;
   }
-  const harness = await pickCoordinatorHarness(ctx.engine);
+  const harness = await pickCoordinatorHarness(ctx.engine, input.harness);
   if (!harness) {
     const status: CoordinatorStatus = { status: 'waiting' };
     onStatus(status);
@@ -46,6 +46,7 @@ async function launch(
   const record = {
     id,
     harness,
+    model: input.model,
     prompt: buildSessionPrompt(prompt, id, input.project),
     cwd: ctx.cwd,
     status: 'running' as const,

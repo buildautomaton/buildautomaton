@@ -19,6 +19,14 @@ export type CoordinatorContext = {
 export type StartSessionInput = {
   prompt: string;
   project?: string;
+  harness?: string;
+  model?: string;
+};
+
+export type ContinueSessionInput = {
+  sessionId: string;
+  prompt: string;
+  model?: string;
 };
 
 export type StartSessionResult = CoordinatorStatus & { work?: WorkItem };
@@ -26,5 +34,6 @@ export type StartSessionResult = CoordinatorStatus & { work?: WorkItem };
 export type CoordinatorImplementation = {
   bind(ctx: CoordinatorContext): void;
   start(input: StartSessionInput): Promise<StartSessionResult>;
+  continue(input: ContinueSessionInput): Promise<StartSessionResult>;
   status(): CoordinatorStatus;
 };

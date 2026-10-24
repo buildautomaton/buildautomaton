@@ -5,6 +5,7 @@ import { buildautomatonHttpEndpoints } from './work/set.js';
 
 export function coreHttpEndpoints(opts: CoreSetOptions): TransportEndpoint[] {
   const tools: TransportEndpoint = { kind: 'tools', path: opts.mcpPath ?? MCP_DEFAULT_PATH };
+  const live: TransportEndpoint = { plugin: 'live', path: '/api' };
   const automaton = opts.buildautomaton === false ? [] : buildautomatonHttpEndpoints();
-  return [tools, ...automaton, ...(opts.httpEndpoints ?? [])];
+  return [tools, live, ...automaton, ...(opts.httpEndpoints ?? [])];
 }

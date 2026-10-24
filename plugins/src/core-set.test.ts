@@ -7,6 +7,8 @@ describe('coreSet', () => {
     expect(names).toEqual([
       'store-file',
       'store-sql',
+      'git',
+      'live',
       'harness-cursor',
       'harness-codex',
       'harness-kiro',
@@ -38,6 +40,7 @@ describe('coreSet', () => {
     expect(http.services[0]?.id).toBe('http');
     expect('endpoints' in http.options ? http.options.endpoints : undefined).toEqual([
       { kind: 'tools', path: '/mcp' },
+      { plugin: 'live', path: '/api' },
       { plugin: 'work-sqlite', path: '/api' },
       { plugin: 'session-disk', path: '/api' },
     ]);

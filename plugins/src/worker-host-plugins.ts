@@ -5,6 +5,11 @@ import { sqlSessionPlugin } from './session/sql/plugin.js';
 import { memorySessionPlugin } from './session/memory/plugin.js';
 import { fetchTransportPlugin } from './transport/http/fetch-transport.js';
 import { acpPlugin } from './harnesses/acp/plugin.js';
+import { securityPlugin } from './security/plugin.js';
+import { dataStorePlugin } from './data-store/plugin.js';
+import { workflowsPlugin } from './workflows/plugin.js';
+import { widgetsPlugin } from './widgets/plugin.js';
+import { externalMcpPlugin } from './external-mcp/plugin.js';
 import type { WorkerHostOptions } from './worker-host.js';
 
 /** D1 and Durable Object SQL, optional R2 files, sessions, and Fetch HTTP. */
@@ -27,11 +32,19 @@ export function workerHostPlugins(init: WorkerHostOptions): RuntimePlugin[] {
   const session = init.storage?.work
     ? [sqlSessionPlugin({ runtime })]
     : [memorySessionPlugin({ runtime })];
+  const appRuntime = [
+    ...(init.security ? [securityPlugin({ runtime, options: init.security })] : []),
+    ...(init.dataStore ? [dataStorePlugin({ runtime, options: init.dataStore })] : []),
+    ...(init.workflows ? [workflowsPlugin({ runtime, options: init.workflows })] : []),
+    ...(init.widgets ? [widgetsPlugin({ runtime, options: init.widgets })] : []),
+    ...(init.externalMcp ? [externalMcpPlugin({ runtime, options: init.externalMcp })] : []),
+  ];
   return [
     ...sql,
     ...files,
     ...session,
     fetchTransportPlugin({ options: { endpoints: init.httpEndpoints }, runtime }),
     acpPlugin(),
+    ...appRuntime,
   ];
 }

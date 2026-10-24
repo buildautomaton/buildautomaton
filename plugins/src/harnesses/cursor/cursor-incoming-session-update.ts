@@ -30,12 +30,16 @@ export function handleCursorIncomingSessionUpdate(
     const kindLabel = formatSessionUpdateKindForLog(sessionUpdate ?? 'update');
     console.error(`[acp] Received session update (${kindLabel}) tool=${toolName || '(none)'}`);
   }
-  dispatchAcpSessionUpdate({
-    flatPayload: update as Record<string, unknown>,
-    onAcpConfigOptionsUpdated: deps.sessionCtx.onAcpConfigOptionsUpdated,
-    onAcpAvailableCommandsUpdated: deps.sessionCtx.onAcpAvailableCommandsUpdated,
-    onSessionUpdate: deps.onSessionUpdate,
-    suppressLoadReplay: () => deps.sessionCtx.suppressLoadReplay.value,
-  });
+  try {
+    dispatchAcpSessionUpdate({
+      flatPayload: update as Record<string, unknown>,
+      onAcpConfigOptionsUpdated: deps.sessionCtx.onAcpConfigOptionsUpdated,
+      onAcpAvailableCommandsUpdated: deps.sessionCtx.onAcpAvailableCommandsUpdated,
+      onSessionUpdate: deps.onSessionUpdate,
+      suppressLoadReplay: () => deps.sessionCtx.suppressLoadReplay.value,
+    });
+  } catch {
+    /* persist/UI errors must not become JSON-RPC [-32603] */
+  }
   return true;
 }

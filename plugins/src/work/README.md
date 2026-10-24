@@ -1,6 +1,6 @@
 # work
 
-Plugins that power the BuildAutomaton prompt, work queue, artifacts, and chat widget. This category is **work**, not the repo name.
+Plugins that power the BuildAutomaton prompt, work queue, and artifacts. This category is **work**, not the repo name. The chat popup is not part of the app UI.
 
 | Plugin | Runtime | Use when |
 | --- | --- | --- |
@@ -9,6 +9,5 @@ Plugins that power the BuildAutomaton prompt, work queue, artifacts, and chat wi
 | [coordinator](./coordinator/) | node | Start harness sessions for queued work |
 | [artifacts](./artifacts/) | node | Typed review artifacts (summary, UI, API, …) |
 | [prompt](./prompt/) | react | Blank prompt that morphs into the app |
-| [widget](./widget/) | react | Circle button, popup, and modals |
 
-`buildautomatonSet()` installs the node plugins. `buildautomatonUiSet()` installs the prompt and the chat widget.
+`buildautomatonSet()` installs the node plugins. `buildautomatonUiSet()` installs the prompt. Security, the data store, workflows, widgets, and external MCP are separate plugins.

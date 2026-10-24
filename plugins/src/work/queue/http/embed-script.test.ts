@@ -17,6 +17,14 @@ describe('buildautomatonScript', () => {
     expect(mounted.tab.textContent).toBe('+');
   });
 
+  it('closes when the page outside the widget is clicked', () => {
+    const mounted = boot('localhost', null);
+    mounted.click();
+    expect(mounted.frame.hidden).toBe(false);
+    mounted.outside();
+    expect(mounted.frame.hidden).toBe(true);
+  });
+
   it('does nothing on a public host', () => {
     expect(boot('example.com', null).root.id).toBe('');
   });
@@ -28,6 +36,7 @@ function boot(hostname: string, mode: string | null) {
   frame.hidden = true;
   const byId: Record<string, ReturnType<typeof element>> = { tab, frame };
   const root = { id: '', attachShadow: () => ({ innerHTML: '', getElementById: (id: string) => byId[id] }) };
+  const page: Record<string, (event: { composedPath: () => unknown[] }) => void> = {};
   vm.runInNewContext(buildautomatonScript(), {
     URL,
     location: { hostname, href: 'http://localhost:3000/app' },
@@ -36,6 +45,9 @@ function boot(hostname: string, mode: string | null) {
       currentScript: { src: 'http://127.0.0.1:3333/buildautomaton.js', getAttribute: () => mode },
       createElement: () => root,
       documentElement: { appendChild() {} },
+      addEventListener(type: string, fn: (event: { composedPath: () => unknown[] }) => void) {
+        page[type] = fn;
+      },
     },
   });
   return {
@@ -43,6 +55,7 @@ function boot(hostname: string, mode: string | null) {
     frame,
     tab,
     click: () => tab.listeners.click?.(),
+    outside: () => page.pointerdown?.({ composedPath: () => [] }),
   };
 }
 

@@ -3,14 +3,24 @@ export type TranscriptEvent = {
   payload: unknown;
 };
 
+export type TranscriptToolBlock = { kind: 'tool'; key: string; title: string; status: string; detail: string };
+export type TranscriptThoughtBlock = { kind: 'thought'; text: string };
+export type TranscriptPermissionBlock = { kind: 'permission'; key: string; title: string; status: string; detail: string };
+
+export type TranscriptActivityItem = TranscriptToolBlock | TranscriptThoughtBlock | TranscriptPermissionBlock;
+
 export type TranscriptViewBlock =
   | { kind: 'user'; text: string }
   | { kind: 'text'; text: string }
-  | { kind: 'thought'; text: string }
-  | { kind: 'tool'; key: string; title: string; status: string; detail: string }
+  | TranscriptThoughtBlock
+  | TranscriptToolBlock
+  | TranscriptPermissionBlock
+  | { kind: 'activity'; title: string; items: TranscriptActivityItem[] }
+  | { kind: 'files'; paths: string[] }
+  | { kind: 'detail'; title: string; detail: string }
   | { kind: 'error'; text: string };
 
-export type ToolBlock = Extract<TranscriptViewBlock, { kind: 'tool' }>;
+export type ToolBlock = TranscriptToolBlock;
 
 export type TranscriptDraft = {
   blocks: TranscriptViewBlock[];

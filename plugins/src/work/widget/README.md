@@ -2,6 +2,6 @@
 
 **Target runtime:** react
 
-BuildAutomaton chat widget: a circle button that opens a popup over the app. Sessions, setup, and follow-up prompts live in the popup. Transcripts and completed work open in modals.
+Work and live providers. `buildautomatonUiSet()` does not include this plugin, and the runtime does not serve the old popup at `/buildautomaton`.
 
-Use in any host that should keep the work loop available while the app is on screen.
+App widgets are the separate `widgetsPlugin`. See [docs/plugins/widgets.md](../../../../docs/plugins/widgets.md).

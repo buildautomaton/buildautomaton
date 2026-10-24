@@ -12,7 +12,7 @@ BuildAutomaton is how that app is built: two small runtimes plus plugins. You co
 | [Plugins](./plugins/) | `@buildautomaton/plugins` | Stores, sessions, harnesses, HTTP, and `coreSet`. |
 | [React runtime](./react-runtime/) | `@buildautomaton/ui-runtime` | Wires UI plugins into a React app shell. |
 
-The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, the buildautomaton widget) is a plugin.
+The runtimes stay tiny and fast. Almost everything you see (agents, stores, tools, the work queue, app widgets) is a plugin.
 
 ## Where the runtime runs
 
@@ -40,21 +40,18 @@ flowchart LR
 
 A package can ship **runtime** plugins, **UI** plugins, or **both**. The runtime only indexes them. The plugin owns the behavior.
 
-[Work plugins](./work/) power the BuildAutomaton prompt and chat popup: queue and tools on the node runtime, prompt and widget on the React runtime.
+[Work plugins](./work/) are the queue and the blank prompt. App mode also loads five separate plugins: [security](./plugins/security.md) (users and grants), the [data store](./plugins/data-store.md), [workflows](./plugins/workflows.md), [widgets](./plugins/widgets.md), and [external MCP](./plugins/external-mcp.md) servers. Harnesses and ACP sessions stay in `coreSet()`.
 
 ## What an app looks like
 
-The main screen starts as the buildautomaton prompt. After you submit it, the running app fills the main panel. A circle button opens the BuildAutomaton popup over the app.
+The main screen starts as the buildautomaton prompt. After you submit it, the running app fills the main panel. Agents call workflows, the data store, and widgets on the local MCP server. There is no chat popup over the page.
 
 ```text
 ┌────────────────────────────────────────────┐
 │  nav                                       │
 ├────────────────────────────────────────────┤
-│  main: the app                      (o)    │
+│  main: the app                             │
 │                                            │
-│                         ┌──────────────┐   │
-│                         │  popup       │   │
-│                         └──────────────┘   │
 └────────────────────────────────────────────┘
 ```
 
